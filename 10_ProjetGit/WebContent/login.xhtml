@@ -22,7 +22,7 @@
 		<label for="champPasswordAgent">Mot de Passe: </label>
 		<p:inputText id="champPasswordAgent" name="pPassword" value="#{aMB.agent.password}"/>
 		
-		<p:commandButton action=#{aMB.seConnecter} value="Connection agent"/>
+		<p:commandButton action="#{aMB.seConnecter}" value="Connection agent"/>
 	
 	</p:panelGrid>
 
@@ -38,7 +38,7 @@
 		<label for="champPasswordClient">Mot de Passe: </label>
 		<p:inputText id="champPasswordClient" name="pPassword" value="#{cMB.client.password}"/>
 		
-		<p:commandButton action=#{cMB.seConnecter} value="Connection client"/>
+		<p:commandButton action="#{cMB.seConnecter}" value="Connection client"/>
 		
 	</p:panelGrid>
 
