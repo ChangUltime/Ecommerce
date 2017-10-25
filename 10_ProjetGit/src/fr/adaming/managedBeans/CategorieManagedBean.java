@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
@@ -18,7 +19,7 @@ import fr.adaming.service.ICategorieService;
 
 @ManagedBean(name = "catMB")
 @Table(name = "categories")
-@ApplicationScoped
+@RequestScoped
 public class CategorieManagedBean implements Serializable {
 
 	@EJB
@@ -125,7 +126,7 @@ public class CategorieManagedBean implements Serializable {
 
 		if (verif) {
 			listeCategories = catService.getAllCategorie();
-			
+
 			session.setAttribute("categoriesListe", listeCategories);
 
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Catégorie supprimée"));
@@ -136,15 +137,17 @@ public class CategorieManagedBean implements Serializable {
 		}
 
 	}
-	
-	public String getCategorieByName() {
+
+	public String getCategorieById() {
 
 		Categorie cat_out = catService.getCategorie(categorie);
 
+		System.out.println("------------------------- "+cat_out);
+		
 		if (cat_out.getIdCategorie().equals(categorie.getIdCategorie())) {
 
 			categorie = cat_out;
-			
+
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Catégorie trouvée !"));
 			return "getCategorie";
 		} else {

@@ -46,18 +46,17 @@
 
 		<h4></h4>
 		<h:panelGrid columns="2">
-			<p:outputLabel for="nomCate" value="Nom de la catégorie: " />
-			<p:inputText id="nomCate" value="#{catMB.categorie.nomCategorie}"
-				required="true" />
-
-			<p:commandButton value="Rechercher" action="#{catMB.getCategorie}"
+			<p:outputLabel for="idCate" value="ID de la catégorie: " />
+			<p:inputText id="idCate" value="#{catMB.categorie.idCategorie}" />
+			
+			<p:commandButton value="Rechercher" action="#{catMB.getCategorieById}"
 				update="@all" />
 		</h:panelGrid>
 		<h:messages></h:messages>
 
 	</h:form>
 
-	<h1 style="color: red; text-align: center">Liste des categories</h1>
+	<h1 style="color: red; text-align: center">Résultat de la recherche</h1>
 	<p:dataTable var="categorie" value="#{catMB.categorie}">
 		<p:column headerText="ID">
 			<h:outputText value="#{categorie.idCategorie}" />
