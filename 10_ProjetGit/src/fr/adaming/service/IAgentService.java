@@ -14,7 +14,7 @@ public interface IAgentService {
 	public Agent getAgent(Agent agent);
 	
 	public Agent updateAgent(Agent agent);
-	
-	public boolean deleteClient(Agent agent);
+
+	public boolean deleteAgent(Agent agent);
 	
 }

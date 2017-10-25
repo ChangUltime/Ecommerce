@@ -14,7 +14,6 @@ public class AgentServiceImpl implements IAgentService{
 	
 	@Override
 	public Agent createAgent(Agent agent) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -25,7 +24,6 @@ public class AgentServiceImpl implements IAgentService{
 
 	@Override
 	public Agent getAgent(Agent agent) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -36,8 +34,7 @@ public class AgentServiceImpl implements IAgentService{
 	}
 
 	@Override
-	public boolean deleteClient(Agent agent) {
-		// TODO Auto-generated method stub
+	public boolean deleteAgent(Agent agent) {
 		return false;
 	}
 

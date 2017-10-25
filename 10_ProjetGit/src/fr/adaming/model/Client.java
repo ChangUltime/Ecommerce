@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,8 +28,8 @@ public class Client implements Serializable {
 	private String password;
 	private String telephone;
 	
-	@OneToMany(mappedBy="client")
-	private List<Commande> listeCommande;
+	@OneToMany(mappedBy="client", fetch=FetchType.EAGER)
+	private List<Commande> listeCommandes;
 
 	public Client() {
 		super();
@@ -112,12 +113,12 @@ public class Client implements Serializable {
 		this.telephone = telephone;
 	}
 
-	public List<Commande> getListeCommande() {
-		return listeCommande;
+	public List<Commande> getListeCommandes() {
+		return listeCommandes;
 	}
 
-	public void setListeCommande(List<Commande> listeCommande) {
-		this.listeCommande = listeCommande;
+	public void setListeCommandes(List<Commande> listeCommandes) {
+		this.listeCommandes = listeCommandes;
 	}
 
 	@Override

@@ -30,17 +30,16 @@ public class ClientDAOImpl implements IClientDAO{
 	@Override
 	public Client clientExists(Client client) {
 		//Cette fonction "récupère" l'client par son mail et password
-		String req = "SELECT c FROM Client c WHERE c.nom=:pNom AND c.prenom=:pPrenom AND c.email=:pEmail";
+		String req = "SELECT c FROM Client c WHERE c.password=:pPassword AND c.email=:pEmail";
 		
 		Query query = em.createQuery(req);
 		query.setParameter("pEmail", client.getEmail());
-		query.setParameter("pPrenom", client.getPrenom());
-		query.setParameter("pNom", client.getNom());
+		query.setParameter("pPassword", client.getPassword());
 		
 		Client outClient = (Client)query.getSingleResult();
 		
 		if (outClient!=null){
-			System.out.println("Client existant: "+client);
+			System.out.println("Client existant: "+outClient);
 			return outClient;
 		} else{
 			return null;
@@ -54,7 +53,7 @@ public class ClientDAOImpl implements IClientDAO{
 		Client foundClient = em.find(Client.class, client.getIdClient());
 		
 		if (foundClient!=null){
-			System.out.println("Client obtenu: "+client);
+			System.out.println("Client obtenu: "+foundClient);
 			return foundClient;
 		} else {
 			return null;
