@@ -26,6 +26,16 @@ public class CategorieDaoImpl implements ICategorieDao {
 	@Override
 	public Categorie updateCategorie(Categorie categorie) {
 		
+		Categorie cateUpdate = em.find(Categorie.class, categorie.getIdCategorie());
+		System.out.println("-----------------------" +cateUpdate);
+		try {
+			if (!cateUpdate.equals(categorie)) {
+				em.merge(categorie);
+				return categorie;
+			}
+		} catch (Exception e) {
+			return null;
+		}
 		return null;
 	}
 

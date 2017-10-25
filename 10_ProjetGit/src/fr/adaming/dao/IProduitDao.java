@@ -10,8 +10,8 @@ public interface IProduitDao {
 	public Produit updateProduit(Produit produit);
 	public boolean deleteProduit(Produit produit);
 	public Produit getProduit(Produit produit);
-	public Produit getProduitSelected(Produit produit);
-	public Produit getProduitByKW(Produit produit);
+	public List<Produit> getProduitSelected(Produit produit);
+	public List<Produit> getProduitByKW(Produit produit);
 	public List<Produit> getProductByCategorie(Categorie categorie);
 	public List<Produit> getAllProduit();
 }

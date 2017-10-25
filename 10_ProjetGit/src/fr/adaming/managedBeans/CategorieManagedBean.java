@@ -16,7 +16,7 @@ import fr.adaming.model.Agent;
 import fr.adaming.model.Categorie;
 import fr.adaming.service.ICategorieService;
 
-@ManagedBean
+@ManagedBean(name="catMB")
 @Table(name = "categories")
 @ApplicationScoped
 public class CategorieManagedBean implements Serializable {
@@ -27,10 +27,10 @@ public class CategorieManagedBean implements Serializable {
 	private Categorie categorie;
 
 	private Agent agent;
-	
-	private List<Categorie> listeCategories;
 
 	private HttpSession session;
+
+	private List<Categorie> listeCategories;
 
 	public CategorieManagedBean() {
 		this.categorie = new Categorie();
@@ -86,18 +86,36 @@ public class CategorieManagedBean implements Serializable {
 		Categorie cat_out = catService.addCategorie(this.categorie);
 
 		if (cat_out != null) {
+			listeCategories = catService.getAllCategorie();
+			
 			session.setAttribute("categoriesListe", listeCategories);
 
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Categorie ajoutée: " + categorie));
 			
-			return "homeAdmin";
+			return "homeAgent";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun categorie ajoutée"));
 			
-			return "categorie";
+			return "addCategorie";
 		}
-		
-		
-
 	}
+	
+	public String updateCategorie(){
+		Categorie cat_out = catService.updateCategorie(categorie);
+		
+		if (cat_out != null) {
+			listeCategories = catService.getAllCategorie();
+			
+			session.setAttribute("categoriesListe", listeCategories);
+
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Categorie modifiée : " + categorie));
+			
+			return "homeAgent";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la modification n'a pas été effectuée"));
+			
+			return "updateCategorie";
+		}
+	}
+	
 }

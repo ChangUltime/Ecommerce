@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Home Agent</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:growl id="messages" showDetail="true" />
+
+		<p:tieredMenu style="width:200px">
+			<p:submenu label="Categories" icon="ui-icon-refresh">
+				<p:menuitem value="Ajouter" url="addCategorie.xhtml" />
+				<p:menuitem value="Modifier" url="updateCategorie.xhtml" />
+				<p:menuitem value="Supprimer" url="" />
+				<p:menuitem value="Rechercher" url="" />
+			</p:submenu>
+			<p:submenu label="Produits" icon="ui-icon-refresh">
+				<p:menuitem value="Ajouter" url="#l" />
+				<p:menuitem value="Modifier" url="#" />
+				<p:menuitem value="Supprimer" url="#" />
+				<p:menuitem value="Rechercher" url="#" />
+				<p:menuitem value="Virement" url="#" />
+			</p:submenu>
+			<p:separator />
+			<p:submenu label="Client" icon="ui-icon-refresh">
+				<p:menuitem value="Ajouter" url="#" />
+				<p:menuitem value="Modifier" url="#" />
+				<p:menuitem value="Supprimer" url="#" />
+				<p:menuitem value="Rechercher" url="#" />
+			</p:submenu>
+		</p:tieredMenu>
+	</h:form>
+
+	<h:form>
+
+		<h4></h4>
+		<h:panelGrid columns="2">
+			<p:outputLabel for="idCate" value="ID de la catégorie: " />
+			<p:inputText id="idCate" value="#{catMB.categorie.idCategorie}"
+				required="true" />
+		
+			<p:outputLabel for="nameCate" value="Nom de la catégorie: " />
+			<p:inputText id="nameCate" value="#{catMB.categorie.nomCategorie}"
+				required="true" />
+
+			<p:outputLabel for="description" value="Description : " />
+			<p:inputText id="description" value="#{catMB.categorie.description}"
+				required="true" />
+
+			<p:commandButton value="Modifier" action="#{catMB.updateCategorie}"
+				update="@all" />
+		</h:panelGrid>
+		<h:messages></h:messages>
+
+	</h:form>
+
+</h:body>
+</html>

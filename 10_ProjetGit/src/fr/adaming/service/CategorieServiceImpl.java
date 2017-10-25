@@ -7,41 +7,41 @@ import javax.ejb.Stateful;
 
 import fr.adaming.dao.ICategorieDao;
 import fr.adaming.model.Categorie;
-import fr.adaming.model.Produit;
+
 @Stateful
 public class CategorieServiceImpl implements ICategorieService {
 
 	@EJB
-	private ICategorieDao catDao;
+	private ICategorieDao cateDao;
 	
 	@Override
 	public Categorie addCategorie(Categorie categorie) {
-		// TODO Auto-generated method stub
-		return catDao.addCategorie(categorie);
+		
+		return cateDao.addCategorie(categorie);
 	}
 
 	@Override
 	public Categorie updateCategorie(Categorie categorie) {
 		// TODO Auto-generated method stub
-		return null;
+		return cateDao.updateCategorie(categorie);
 	}
 
 	@Override
 	public boolean deleteCategorie(Categorie categorie) {
 		// TODO Auto-generated method stub
-		return false;
+		return cateDao.deleteCategorie(categorie);
 	}
 
 	@Override
 	public Categorie getCategorie(Categorie categorie) {
 		// TODO Auto-generated method stub
-		return null;
+		return cateDao.getCategorie(categorie);
 	}
 
 	@Override
 	public List<Categorie> getAllCategorie() {
 		// TODO Auto-generated method stub
-		return catDao.getAllCategorie();
+		return cateDao.getAllCategorie();
 	}
 
 }

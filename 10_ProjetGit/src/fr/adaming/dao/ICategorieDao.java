@@ -5,7 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import fr.adaming.model.Categorie;
-import fr.adaming.model.Produit;
+
 @Local
 public interface ICategorieDao {
 	public Categorie addCategorie(Categorie categorie);
