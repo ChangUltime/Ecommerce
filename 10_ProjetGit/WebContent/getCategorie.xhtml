@@ -18,7 +18,7 @@
 				<p:menuitem value="Ajouter" url="addCategorie.xhtml" />
 				<p:menuitem value="Modifier" url="updateCategorie.xhtml" />
 				<p:menuitem value="Supprimer" url="deleteCategorie.xhtml" />
-				<p:menuitem value="Rechercher" url="" />
+				<p:menuitem value="Rechercher" url="getCategorie.xhtml" />
 			</p:submenu>
 			<p:submenu label="Produits" icon="ui-icon-refresh">
 				<p:menuitem value="Ajouter" url="#l" />
@@ -37,28 +37,41 @@
 		</p:tieredMenu>
 	</h:form>
 
+	<!-- Trace une ligne horizontale -->
+	<p:separator />
+	<!-- Espace les élements -->
+	<p:spacer width="50" height="10" />
+
 	<h:form>
 
 		<h4></h4>
 		<h:panelGrid columns="2">
-			<p:outputLabel for="idCate" value="ID de la catégorie: " />
-			<p:inputText id="idCate" value="#{catMB.categorie.idCategorie}"
-				required="true" />
-		
-			<p:outputLabel for="nameCate" value="Nom de la catégorie: " />
-			<p:inputText id="nameCate" value="#{catMB.categorie.nomCategorie}"
+			<p:outputLabel for="nomCate" value="Nom de la catégorie: " />
+			<p:inputText id="nomCate" value="#{catMB.categorie.nomCategorie}"
 				required="true" />
 
-			<p:outputLabel for="description" value="Description : " />
-			<p:inputText id="description" value="#{catMB.categorie.description}"
-				required="true" />
-
-			<p:commandButton value="Modifier" action="#{catMB.updateCategorie}"
+			<p:commandButton value="Rechercher" action="#{catMB.getCategorie}"
 				update="@all" />
 		</h:panelGrid>
 		<h:messages></h:messages>
 
 	</h:form>
+
+	<h1 style="color: red; text-align: center">Liste des categories</h1>
+	<p:dataTable var="categorie" value="#{catMB.categorie}">
+		<p:column headerText="ID">
+			<h:outputText value="#{categorie.idCategorie}" />
+		</p:column>
+
+		<p:column headerText="Nom">
+			<h:outputText value="#{categorie.nomCategorie}" />
+		</p:column>
+
+		<p:column headerText="Description">
+			<h:outputText value="#{categorie.description}" />
+		</p:column>
+
+	</p:dataTable>
 
 </h:body>
 </html>

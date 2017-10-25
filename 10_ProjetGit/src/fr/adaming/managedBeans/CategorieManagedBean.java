@@ -16,7 +16,7 @@ import fr.adaming.model.Agent;
 import fr.adaming.model.Categorie;
 import fr.adaming.service.ICategorieService;
 
-@ManagedBean(name="catMB")
+@ManagedBean(name = "catMB")
 @Table(name = "categories")
 @ApplicationScoped
 public class CategorieManagedBean implements Serializable {
@@ -87,35 +87,71 @@ public class CategorieManagedBean implements Serializable {
 
 		if (cat_out != null) {
 			listeCategories = catService.getAllCategorie();
-			
+
 			session.setAttribute("categoriesListe", listeCategories);
 
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Categorie ajoutée: " + categorie));
-			
+
 			return "homeAgent";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun categorie ajoutée"));
-			
+
 			return "addCategorie";
 		}
 	}
-	
-	public String updateCategorie(){
+
+	public String updateCategorie() {
 		Categorie cat_out = catService.updateCategorie(categorie);
-		
+
 		if (cat_out != null) {
+			listeCategories = catService.getAllCategorie();
+
+			session.setAttribute("categoriesListe", listeCategories);
+
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Categorie modifiée : " + categorie));
+
+			return "homeAgent";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("la modification n'a pas été effectuée"));
+
+			return "updateCategorie";
+		}
+	}
+
+	public String deleteCategorie() {
+
+		boolean verif = catService.deleteCategorie(categorie);
+
+		if (verif) {
 			listeCategories = catService.getAllCategorie();
 			
 			session.setAttribute("categoriesListe", listeCategories);
 
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Categorie modifiée : " + categorie));
-			
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Catégorie supprimée"));
 			return "homeAgent";
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la modification n'a pas été effectuée"));
-			
-			return "updateCategorie";
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun client supprimÃ©"));
+			return "deleteCategorie";
 		}
+
 	}
 	
+	public String getCategorieByName() {
+
+		Categorie cat_out = catService.getCategorie(categorie);
+
+		if (cat_out.getIdCategorie().equals(categorie.getIdCategorie())) {
+
+			categorie = cat_out;
+			
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Catégorie trouvée !"));
+			return "getCategorie";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucune catégorie trouvée !"));
+			return "getCategorie";
+		}
+
+	}
+
 }

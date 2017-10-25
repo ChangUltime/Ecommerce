@@ -2,7 +2,6 @@ package fr.adaming.dao;
 
 import java.util.List;
 
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,7 +15,6 @@ public class CategorieDaoImpl implements ICategorieDao {
 	@PersistenceContext(unitName = "PU")
 	private EntityManager em;
 
-	
 	@Override
 	public Categorie addCategorie(Categorie categorie) {
 		em.persist(categorie);
@@ -25,9 +23,9 @@ public class CategorieDaoImpl implements ICategorieDao {
 
 	@Override
 	public Categorie updateCategorie(Categorie categorie) {
-		
+
 		Categorie cateUpdate = em.find(Categorie.class, categorie.getIdCategorie());
-		System.out.println("-----------------------" +cateUpdate);
+		System.out.println("-----------------------" + cateUpdate);
 		try {
 			if (!cateUpdate.equals(categorie)) {
 				em.merge(categorie);
@@ -41,14 +39,29 @@ public class CategorieDaoImpl implements ICategorieDao {
 
 	@Override
 	public boolean deleteCategorie(Categorie categorie) {
-		// TODO Auto-generated method stub
-		return false;
+		String req = "DELETE from Categorie cate WHERE cate.idCategorie=:pIdCat";
+
+		Query query = em.createQuery(req);
+		query.setParameter("pIdCat", categorie.getIdCategorie());
+
+		int verif = query.executeUpdate();
+
+		if (verif == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	@Override
 	public Categorie getCategorie(Categorie categorie) {
-		// TODO Auto-generated method stub
-		return null;
+		Categorie cate_out = em.find(Categorie.class, categorie.getNomCategorie());
+
+		if (cate_out.getIdCategorie().equals(categorie.getIdCategorie())) {
+			return cate_out;
+		} else {
+			return null;
+		}
 	}
 
 	@Override

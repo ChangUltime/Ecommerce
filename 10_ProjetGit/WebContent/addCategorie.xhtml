@@ -17,8 +17,8 @@
         <p:submenu label="Categories" icon="ui-icon-refresh">
             <p:menuitem value="Ajouter" url="addCategorie.xhtml"/>
             <p:menuitem value="Modifier" url="updateCategorie.xhtml"/>
-            <p:menuitem value="Supprimer" url=""/>
-            <p:menuitem value="Rechercher" url=""/>
+            <p:menuitem value="Supprimer" url="deleteCategorie.xhtml"/>
+            <p:menuitem value="Rechercher" url="getCategorie.xhtml"/>
         </p:submenu>
         <p:submenu label="Produits" icon="ui-icon-refresh">
             <p:menuitem value="Ajouter" url="#l"/>
@@ -45,6 +45,7 @@
 	
 	<p:outputLabel for="description" value="Description : "/>
 	<p:inputText id="description" value="#{catMB.categorie.description}" required="true"/>
+	
 <p:commandButton value="Ajouter" action="#{catMB.addCategorie}" update="@all"/>
 </h:panelGrid>
 <h:messages></h:messages>
