@@ -29,6 +29,7 @@ public class CommandeDAOImpl implements ICommandeDAO {
 
 	@Override
 	public Commande commandeExists(Commande commande) {
+		// a revoir eventuellement, peut etre pas tres utile en plus de getcommande
 		String req = "SELECT c FROM Commande c WHERE c.idCommande=:pIdCommande";
 		
 		Query query = em.createQuery(req);
@@ -46,26 +47,48 @@ public class CommandeDAOImpl implements ICommandeDAO {
 
 	@Override
 	public Commande getCommande(Commande commande) {
-		// TODO Auto-generated method stub
-		return null;
+		Commande foundCommande = em.find(Commande.class, commande.getIdCommande());
+		
+		if (foundCommande!=null){
+			return foundCommande;
+		} else {
+			return null;
+		}
 	}
 
 	@Override
 	public List<Commande> getCommandeByClient(Client client) {
-		// TODO Auto-generated method stub
-		return null;
+
+		String req = "SELECT c from Commande c WHERE c.client.idClient=:pIdClient";
+		
+		Query query = em.createQuery(req);
+		query.setParameter("pIdClient", client.getIdClient());
+		
+		List<Commande> results = (List<Commande>)query.getResultList();
+		
+		if(results.size()>0 && results.get(0)!=null){
+			return results;
+		} else return null;
 	}
 
 	@Override
 	public Commande updateCommande(Commande commande) {
-		// TODO Auto-generated method stub
-		return null;
+		if(getCommande(commande)!=null){
+			em.merge(commande);
+			return commande;
+		} else {
+			return null;
+		}
 	}
 
 	@Override
 	public boolean deleteCommande(Commande commande) {
-		// TODO Auto-generated method stub
-		return false;
+		if(getCommande(commande)!=null){
+			em.detach(commande);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

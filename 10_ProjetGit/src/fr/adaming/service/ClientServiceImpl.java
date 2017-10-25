@@ -17,4 +17,24 @@ public class ClientServiceImpl implements IClientService {
 		return clientDAO.clientExists(client);
 	}
 
+	@Override
+	public Client createClient(Client client) {
+		return clientDAO.createClient(client);
+	}
+
+	@Override
+	public Client getClient(Client client) {
+		return clientDAO.getClient(client);
+	}
+
+	@Override
+	public Client updateClient(Client client) {
+		return clientDAO.updateClient(client);
+	}
+
+	@Override
+	public boolean deleteClient(Client client) {
+		return clientDAO.deleteClient(client);
+	}
+
 }

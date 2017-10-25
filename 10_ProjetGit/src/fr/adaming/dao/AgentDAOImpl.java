@@ -1,7 +1,5 @@
 package fr.adaming.dao;
 
-import java.sql.ResultSet;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -39,7 +37,7 @@ public class AgentDAOImpl implements IAgentDAO{
 		Agent outAgent = (Agent)query.getSingleResult();
 		
 		if (outAgent!=null){
-			System.out.println("Agent existant: "+agent);
+			System.out.println("Agent existant: "+outAgent+"Envoyé depuis AgentDAOImpl.agentExists()");
 			return outAgent;
 		} else{
 			return null;

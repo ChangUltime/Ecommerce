@@ -1,7 +1,5 @@
 package fr.adaming.dao;
 
-import java.sql.ResultSet;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
