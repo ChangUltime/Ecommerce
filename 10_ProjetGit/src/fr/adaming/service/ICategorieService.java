@@ -1,11 +1,14 @@
-package fr.adaming.dao;
+package fr.adaming.service;
 
 import java.util.List;
+
+import javax.ejb.Local;
 
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 
-public interface ICategorieDao {
+@Local
+public interface ICategorieService {
 	public Categorie addCategorie(Categorie categorie);
 	public Categorie updateCategorie(Categorie categorie);
 	public boolean deleteCategorie(Categorie categorie);
