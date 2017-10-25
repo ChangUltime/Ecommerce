@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Page d'accueil</title>
+</h:head>
+<h:body>
+<h:form>
+	<p:commandButton action="#{aMB.seDeconnecter}" value="Logout"/>
+</h:form>
+<h1>#{aMB.agent.mail}</h1>
+
+<h:form id="mainTable">
+<p:dataTable var="client" value="#{sessionScope.clientsList}" editable="true" editMode="cell">
+
+	<p:ajax event="cellEdit" listener="#{cMB.updateClientsList}" update=":form" />
+	
+	<p:column headerText="ID">
+		<h:outputText value="#{client.id}"/>
+	</p:column>
+
+	<p:column headerText="Nom">
+		<h:outputText value="#{client.nom}"/>
+	</p:column>
+
+	<p:column headerText="Prenom">
+		<h:outputText value="#{client.prenom}"/>
+	</p:column>
+
+	<p:column headerText="Date de Naissance">
+		<h:outputText value="#{client.dateNaissance}"/>
+	</p:column>
+
+</p:dataTable>
+</h:form>
+<p:breadCrumb>
+    <p:menuitem value="Accueil" url="accueil.xhtml" />
+    <p:menuitem value="Ajouter" url="ajouter.xhtml" />
+    <p:menuitem value="Supprimer" url="supprimer.xhtml" />
+    <p:menuitem value="Rechercher" url="rechercher.xhtml" />
+    <p:menuitem value="Modifier" url="modifier.xhtml" />
+</p:breadCrumb>
+
+</h:body>
+</html>

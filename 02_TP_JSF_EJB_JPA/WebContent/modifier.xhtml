@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<title>The Page Title</title>
+</h:head>
+<h:body>
+<h:form>
+	<h:commandButton action="#{aMB.seDeconnecter}" value="Logout"/>
+</h:form>
+<h1>#{aMB.agent.mail}</h1>
+
+<h:form>
+<h:panelGrid columns="2">
+	<p:outputLabel for="id" value="Id: "/>
+	<p:inputText id="id" value="#{cMB.client.id}" required="true"/>
+	<p:outputLabel for="name" value="Nom: "/>
+	<p:inputText id="name" value="#{cMB.client.nom}" required="true"/>
+	<p:outputLabel for="firstname" value="Prenom: "/>
+	<p:inputText id="firstname" value="#{cMB.client.prenom}" required="true"/>
+	<p:outputLabel for="dateBirth" value="Date de naissance: "/>
+	<p:calendar id="dateBirth" value="#{cMB.client.dateNaissance}" required="true" navigator="true" yearRange="c-100:c"/>
+<p:commandButton value="Modifier" action="#{cMB.modifier}" update="@all"/>
+</h:panelGrid>
+
+<h:messages></h:messages>
+
+</h:form>
+
+<p:breadCrumb>
+    <p:menuitem value="Accueil" url="accueil.xhtml" />
+    <p:menuitem value="Ajouter" url="ajouter.xhtml" />
+    <p:menuitem value="Supprimer" url="supprimer.xhtml" />
+    <p:menuitem value="Rechercher" url="rechercher.xhtml" />
+    <p:menuitem value="Modifier" url="modifier.xhtml" />
+</p:breadCrumb>
+</h:body>
+</html>
