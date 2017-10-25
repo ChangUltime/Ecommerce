@@ -30,4 +30,55 @@ public class Commande implements Serializable {
 	
 	@OneToMany(mappedBy="commande")
 	private List<LigneDeCommande> listeLignes;
+
+	public Commande() {
+		super();
+	}
+
+	public Commande(Date dateCommande, Client client) {
+		super();
+		this.dateCommande = dateCommande;
+		this.client = client;
+	}
+
+	public Commande(int idCommande, Date dateCommande, Client client) {
+		super();
+		this.idCommande = idCommande;
+		this.dateCommande = dateCommande;
+		this.client = client;
+	}
+
+	public int getIdCommande() {
+		return idCommande;
+	}
+
+	public void setIdCommande(int idCommande) {
+		this.idCommande = idCommande;
+	}
+
+	public Date getDateCommande() {
+		return dateCommande;
+	}
+
+	public void setDateCommande(Date dateCommande) {
+		this.dateCommande = dateCommande;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public List<LigneDeCommande> getListeLignes() {
+		return listeLignes;
+	}
+
+	public void setListeLignes(List<LigneDeCommande> listeLignes) {
+		this.listeLignes = listeLignes;
+	}
+	
+	
 }

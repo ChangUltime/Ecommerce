@@ -29,5 +29,101 @@ public class Client implements Serializable {
 	
 	@OneToMany(mappedBy="client")
 	private List<Commande> listeCommande;
+
+	public Client() {
+		super();
+	}
+
+	public Client(String nom, String prenom, String adresse, String email, String password, String telephone) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresse = adresse;
+		this.email = email;
+		this.password = password;
+		this.telephone = telephone;
+	}
+
+	public Client(int idClient, String nom, String prenom, String adresse, String email, String password,
+			String telephone) {
+		super();
+		this.idClient = idClient;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresse = adresse;
+		this.email = email;
+		this.password = password;
+		this.telephone = telephone;
+	}
+
+	public int getIdClient() {
+		return idClient;
+	}
+
+	public void setIdClient(int idClient) {
+		this.idClient = idClient;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public List<Commande> getListeCommande() {
+		return listeCommande;
+	}
+
+	public void setListeCommande(List<Commande> listeCommande) {
+		this.listeCommande = listeCommande;
+	}
+
+	@Override
+	public String toString() {
+		return "Client [idClient=" + idClient + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse
+				+ ", email=" + email + ", password=" + password + ", telephone=" + telephone + "]";
+	}
 	
 }
