@@ -26,6 +26,7 @@ public class AgentManagedBean implements Serializable {
 	
 	@PostConstruct
 	private void init(){
+		agent=new Agent();
 	}
 	
 	public AgentManagedBean() {
@@ -46,11 +47,11 @@ public class AgentManagedBean implements Serializable {
 		session = (HttpSession) context.getExternalContext().getSession(false);
 		
 		//On verifie que l'agent existe, et on recupere sa description complete (avec id)
-		Agent loginAgent = agentServ.agentExists(agent);
+		Agent loginAgent = agentServ.agentExists(this.agent);
 		
 		if(loginAgent!=null){
-			agent = loginAgent;
-			session.setAttribute("sessionAgent", agent);
+			this.agent = loginAgent;
+			session.setAttribute("sessionAgent", this.agent);
 			context.addMessage(null, new FacesMessage("Session de "+agent.getMail()));
 			return "homeAgent";
 		}else {
