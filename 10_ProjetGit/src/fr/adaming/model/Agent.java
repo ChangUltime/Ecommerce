@@ -15,7 +15,7 @@ public class Agent implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_agent")
-	private int id;
+	private Long id;
 	private String mail;
 	private String password;
 	public Agent() {
@@ -28,18 +28,18 @@ public class Agent implements Serializable {
 		this.password = password;
 	}
 	
-	public Agent(int id, String mail, String password) {
+	public Agent(Long id, String mail, String password) {
 		super();
 		this.id = id;
 		this.mail = mail;
 		this.password = password;
 	}
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

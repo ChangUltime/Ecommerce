@@ -19,7 +19,7 @@ public class LigneDeCommande implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_ligne")
-	private int id;
+	private Long id;
 	private int quantite;
 	private int prix;
 	
@@ -41,18 +41,18 @@ public class LigneDeCommande implements Serializable {
 		this.prix = prix;
 	}
 
-	public LigneDeCommande(int id, int quantite, int prix, Produit produit, Commande commande) {
+	public LigneDeCommande(Long id, int quantite, int prix, Produit produit, Commande commande) {
 		super();
 		this.id = id;
 		this.quantite = quantite;
 		this.prix = prix;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

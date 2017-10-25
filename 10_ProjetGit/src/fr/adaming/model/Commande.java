@@ -21,7 +21,7 @@ public class Commande implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_commande")
-	private int idCommande;
+	private Long idCommande;
 	private Date dateCommande;
 	
 	@ManyToOne
@@ -41,18 +41,18 @@ public class Commande implements Serializable {
 		this.client = client;
 	}
 
-	public Commande(int idCommande, Date dateCommande, Client client) {
+	public Commande(Long idCommande, Date dateCommande, Client client) {
 		super();
 		this.idCommande = idCommande;
 		this.dateCommande = dateCommande;
 		this.client = client;
 	}
 
-	public int getIdCommande() {
+	public Long getIdCommande() {
 		return idCommande;
 	}
 
-	public void setIdCommande(int idCommande) {
+	public void setIdCommande(Long idCommande) {
 		this.idCommande = idCommande;
 	}
 

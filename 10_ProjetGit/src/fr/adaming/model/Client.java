@@ -19,7 +19,7 @@ public class Client implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_client")
-	private int idClient;
+	private Long idClient;
 	private String nom;
 	private String prenom;
 	private String adresse;
@@ -44,7 +44,7 @@ public class Client implements Serializable {
 		this.telephone = telephone;
 	}
 
-	public Client(int idClient, String nom, String prenom, String adresse, String email, String password,
+	public Client(Long idClient, String nom, String prenom, String adresse, String email, String password,
 			String telephone) {
 		super();
 		this.idClient = idClient;
@@ -56,11 +56,11 @@ public class Client implements Serializable {
 		this.telephone = telephone;
 	}
 
-	public int getIdClient() {
+	public Long getIdClient() {
 		return idClient;
 	}
 
-	public void setIdClient(int idClient) {
+	public void setIdClient(Long idClient) {
 		this.idClient = idClient;
 	}
 
