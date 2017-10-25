@@ -59,4 +59,11 @@ public class AgentManagedBean implements Serializable {
 			return "login";
 		}
 	}
+	
+	public String seDeconnecter(){
+		session.invalidate();
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage("Vous avez été déconnecté avec succès"));
+		return "accueil";
+	}
 }
