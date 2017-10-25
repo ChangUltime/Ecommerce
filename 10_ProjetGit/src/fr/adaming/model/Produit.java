@@ -1,5 +1,6 @@
 package fr.adaming.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="produits")
-public class Produit {
+public class Produit implements Serializable{
 	// Déclaration des attributs
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -108,6 +109,22 @@ public class Produit {
 
 	public void setSelectionne(boolean selectionne) {
 		this.selectionne = selectionne;
+	}
+
+	public List<LigneDeCommande> getLdc() {
+		return ldc;
+	}
+
+	public void setLdc(List<LigneDeCommande> ldc) {
+		this.ldc = ldc;
+	}
+
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
 	}
 
 	// Redefinition de la méthode toString
