@@ -96,7 +96,7 @@ public class ProduitManagedBean {
 		if(prod_out!=null){
 			listeProduits = prodService.getAllProduit();
 			
-			session.setAttribute("produitsListe", categorie.getListeProduits());
+			session.setAttribute("produitsListe", listeProduits);
 			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit ajouté : " + produit));
 
@@ -107,5 +107,7 @@ public class ProduitManagedBean {
 			return "addProduit";
 		}
 	}
+	
+	
 	
 }

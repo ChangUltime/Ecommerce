@@ -23,8 +23,14 @@ public class ProduitDaoImpl implements IProduitDao {
 
 	@Override
 	public Produit updateProduit(Produit produit) {
-		// TODO Auto-generated method stub
-		return null;
+		Produit prodUpdate = em.find(Produit.class, produit.getIdProduit());
+		
+		if(!prodUpdate.equals(produit)){
+			em.merge(produit);
+			return produit;
+		}else{
+			return null;
+		}
 	}
 
 	@Override

@@ -24,7 +24,7 @@ public class ProduitServiceImpl implements IProduitService {
 	@Override
 	public Produit updateProduit(Produit produit, Categorie categorie) {
 		// TODO Auto-generated method stub
-		return null;
+		return prodDao.updateProduit(produit);
 	}
 
 	@Override
