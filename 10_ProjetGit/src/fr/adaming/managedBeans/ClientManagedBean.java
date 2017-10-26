@@ -23,8 +23,8 @@ public class ClientManagedBean implements Serializable {
 	@EJB
 	IClientService clientServ;
 	
-	//@EJB
-	//ICommandeService commandeServ;
+	@EJB
+	ICommandeService commandeServ;
 	
 	Client client;
 	
