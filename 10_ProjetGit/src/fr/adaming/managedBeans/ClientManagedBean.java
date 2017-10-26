@@ -12,8 +12,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Client;
-import fr.adaming.model.LigneDeCommande;
 import fr.adaming.service.IClientService;
+import fr.adaming.service.ICommandeService;
 
 @ManagedBean(name = "cMB")
 @SessionScoped
@@ -21,14 +21,11 @@ public class ClientManagedBean implements Serializable {
 
 	@EJB
 	IClientService clientServ;
-<<<<<<< HEAD
-
-=======
 	
 	@EJB
 	ICommandeService commandeServ;
 	
->>>>>>> branch 'master' of https://github.com/DenisKevin/Ecommerce.git
+
 	Client client;
 
 	HttpSession session;
@@ -50,23 +47,15 @@ public class ClientManagedBean implements Serializable {
 		this.client = client;
 	}
 
-<<<<<<< HEAD
 	public String seConnecter() {
 		// fonction de login du client, qui donne acces a la gestion du compte
 		// personnel et des commandes
-=======
-	public String seConnecter(){
-		// fonction de login du client, qui donne acces a la gestion du compte personnel et des commandes
->>>>>>> branch 'master' of https://github.com/DenisKevin/Ecommerce.git
+
 		FacesContext context = FacesContext.getCurrentInstance();
 		session = (HttpSession) context.getExternalContext().getSession(false);
-<<<<<<< HEAD
 
 		// On verifie que le client existe, et on recupere sa description
 		// complete (avec id)
-=======
-		//On verifie que le client existe, et on recupere sa description complete (avec id)
->>>>>>> branch 'master' of https://github.com/DenisKevin/Ecommerce.git
 		Client loginClient = clientServ.clientExists(client);
 
 		if (loginClient != null) {
