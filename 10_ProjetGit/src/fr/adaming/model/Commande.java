@@ -102,4 +102,10 @@ public class Commande implements Serializable {
 		}
 		return null;
 	}
+	
+	public void viderPanier(){
+		for(LigneDeCommande ldc : this.listeLignes){
+			this.listeLignes.remove(ldc);
+		}
+	}
 }

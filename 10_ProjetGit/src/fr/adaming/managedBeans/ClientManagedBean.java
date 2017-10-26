@@ -52,7 +52,7 @@ public class ClientManagedBean implements Serializable {
 		// personnel et des commandes
 
 		FacesContext context = FacesContext.getCurrentInstance();
-		session = (HttpSession) context.getExternalContext().getSession(false);
+		session = (HttpSession) context.getExternalContext().getSession(true);
 
 		// On verifie que le client existe, et on recupere sa description
 		// complete (avec id)
@@ -62,11 +62,10 @@ public class ClientManagedBean implements Serializable {
 			this.client = loginClient;
 			session.setAttribute("sessionClient", this.client);
 			context.addMessage(null, new FacesMessage("Session de " + client.getNom() + " " + client.getPrenom()));
-			return "commandes";
 		} else {
 			context.addMessage(null, new FacesMessage("Ce client n'existe pas, verifiez les identifiants"));
-			return "login";
 		}
+		return "accueil";
 	}
 
 	public String seDeconnecter() {
