@@ -13,10 +13,10 @@ public class CategorieServiceImpl implements ICategorieService {
 
 	@EJB
 	private ICategorieDao cateDao;
-	
+
 	@Override
 	public Categorie addCategorie(Categorie categorie) {
-		
+
 		return cateDao.addCategorie(categorie);
 	}
 
