@@ -20,7 +20,7 @@ public interface IProduitDao {
 
 	public Produit getProduit(Produit produit);
 
-	public List<Produit> getProduitSelected(Produit produit);
+	public List<Produit> getProduitSelected();
 
 	public List<Produit> getProduitByKW(String[] keywords, boolean allKWs);
 

@@ -82,7 +82,7 @@ public class ProduitDaoImpl implements IProduitDao {
 	}
 
 	@Override
-	public List<Produit> getProduitSelected(Produit produit) {
+	public List<Produit> getProduitSelected() {
 		String request = "SELECT p FROM Produit p WHERE p.selectionne=:pSelect";
 		
 		Query query = em.createQuery(request);

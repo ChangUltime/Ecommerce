@@ -23,32 +23,27 @@ public class ProduitServiceImpl implements IProduitService {
 
 	@Override
 	public Produit updateProduit(Produit produit, Categorie categorie) {
-		// TODO Auto-generated method stub
 		return prodDao.updateProduit(produit);
 	}
 
 	@Override
 	public boolean deleteProduit(Produit produit, Categorie categorie) {
-		// TODO Auto-generated method stub
-		return false;
+		return prodDao.deleteProduit(produit);
 	}
 
 	@Override
 	public Produit getProduit(Produit produit) {
-		// TODO Auto-generated method stub
-		return null;
+		return prodDao.getProduit(produit);
 	}
 
 	@Override
-	public List<Produit> getProduitSelected(Produit produit) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Produit> getProduitSelected() {
+		return prodDao.getProduitSelected();
 	}
 
 	@Override
-	public List<Produit> getProduitByKW(Produit produit) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Produit> getProduitByKW(String[] keywords, boolean allKWs) {
+		return prodDao.getProduitByKW(keywords, allKWs);
 	}
 
 	@Override
