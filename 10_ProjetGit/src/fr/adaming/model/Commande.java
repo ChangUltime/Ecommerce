@@ -1,6 +1,7 @@
 package fr.adaming.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -80,5 +81,25 @@ public class Commande implements Serializable {
 		this.listeLignes = listeLignes;
 	}
 	
+	//methodes utiles
 	
+	public List<Produit> getListProduits(){
+		
+		List<Produit>  listeProduits = new ArrayList<Produit>();
+		
+		for(LigneDeCommande ldc : listeLignes){
+			listeProduits.add(ldc.getProduit());
+		}
+		
+		return listeProduits;
+	}
+	
+	public LigneDeCommande getLigneByProduit(Produit produit){
+		for(LigneDeCommande ldc : listeLignes){
+			if(produit.equals(ldc.getProduit())){
+				return ldc;
+			}
+		}
+		return null;
+	}
 }

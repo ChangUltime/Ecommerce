@@ -16,6 +16,11 @@ public class ProduitServiceImpl implements IProduitService {
 	private IProduitDao prodDao;
 
 	@Override
+	public Produit produitExists(Produit produit) {
+		return prodDao.produitExists(produit);
+	}
+
+	@Override
 	public Produit addProduit(Produit produit, Categorie categorie) {
 		produit.setCategorie(categorie);
 		return prodDao.addProduit(produit);

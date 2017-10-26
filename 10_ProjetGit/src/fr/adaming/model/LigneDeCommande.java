@@ -21,7 +21,7 @@ public class LigneDeCommande implements Serializable {
 	@Column(name="id_ligne")
 	private Long id;
 	private int quantite;
-	private int prix;
+	private double prix;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="produit_id", referencedColumnName="id_produit")
@@ -35,13 +35,13 @@ public class LigneDeCommande implements Serializable {
 		super();
 	}
 
-	public LigneDeCommande(int quantite, int prix, Produit produit, Commande commande) {
+	public LigneDeCommande(int quantite, double prix, Produit produit, Commande commande) {
 		super();
 		this.quantite = quantite;
 		this.prix = prix;
 	}
 
-	public LigneDeCommande(Long id, int quantite, int prix, Produit produit, Commande commande) {
+	public LigneDeCommande(Long id, int quantite, double prix, Produit produit, Commande commande) {
 		super();
 		this.id = id;
 		this.quantite = quantite;
@@ -64,11 +64,11 @@ public class LigneDeCommande implements Serializable {
 		this.quantite = quantite;
 	}
 
-	public int getPrix() {
+	public double getPrix() {
 		return prix;
 	}
 
-	public void setPrix(int prix) {
+	public void setPrix(double prix) {
 		this.prix = prix;
 	}
 
@@ -93,6 +93,15 @@ public class LigneDeCommande implements Serializable {
 		return "LigneDeCommande [id=" + id + ", quantite=" + quantite + ", prix=" + prix + ", produit=" + produit.getDesignation() + "]";
 	}
 	
+	public void incrementerQuantite(){
+		this.quantite++;
+	}
 	
+	public void decrementerQuantite(){
+		this.quantite--;
+	}
 	
+	public void calculerTotal(){
+		this.prix=this.produit.getPrix()*this.quantite;
+	}
 }

@@ -1,6 +1,7 @@
 package fr.adaming.managedBeans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Client;
+import fr.adaming.model.LigneDeCommande;
 import fr.adaming.service.IClientService;
 
 @ManagedBean(name="cMB")
@@ -20,6 +22,9 @@ public class ClientManagedBean implements Serializable {
 
 	@EJB
 	IClientService clientServ;
+	
+	//@EJB
+	//ICommandeService commandeServ;
 	
 	Client client;
 	
@@ -41,12 +46,11 @@ public class ClientManagedBean implements Serializable {
 	public void setClient(Client client) {
 		this.client = client;
 	}
-	
+
 	public String seConnecter(){
 		// fonction de login du client, qui donne acces a la gestion du compte personnel et des commandes
 		FacesContext context = FacesContext.getCurrentInstance();
 		session = (HttpSession) context.getExternalContext().getSession(false);
-		
 		//On verifie que le client existe, et on recupere sa description complete (avec id)
 		Client loginClient = clientServ.clientExists(client);
 		
