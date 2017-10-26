@@ -131,14 +131,32 @@ public class ProduitDaoImpl implements IProduitDao {
 
 	@Override
 	public List<Produit> getProductByCategorie(Categorie categorie) {
-		// TODO Auto-generated method stub
-		return null;
+		String request = "SELECT p FROM Produit p WHERE p.categorie.idCategorie=:pCategorie";
+		
+		Query query = em.createQuery(request);
+		query.setParameter("pCategorie", categorie.getIdCategorie());
+		
+		List<Produit> result = (List<Produit>)query.getResultList();
+		if (result.isEmpty()||result.get(0).equals(null)){
+			return null;
+		} else {
+			return result;
+		}
 	}
 
 	@Override
 	public List<Produit> getAllProduit() {
-		// TODO Auto-generated method stub
-		return null;
+		String request = "SELECT p from Produit p";
+		
+		Query query = em.createQuery(request);
+		
+		List<Produit> result = (List<Produit>)query.getResultList();
+		
+		if (result.isEmpty()||result.get(0).equals(null)){
+			return null;
+		} else {
+			return result;
+		}
 	}
 	
 }
