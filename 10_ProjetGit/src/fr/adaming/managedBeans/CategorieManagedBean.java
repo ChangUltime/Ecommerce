@@ -82,6 +82,14 @@ public class CategorieManagedBean implements Serializable {
 		this.session = session;
 	}
 
+	public List<Categorie> getListeCategories() {
+		return listeCategories;
+	}
+
+	public void setListeCategories(List<Categorie> listeCategories) {
+		this.listeCategories = listeCategories;
+	}
+
 	// Méthode metiers
 	public String addCategorie() {
 		Categorie cat_out = catService.addCategorie(this.categorie);
@@ -142,8 +150,8 @@ public class CategorieManagedBean implements Serializable {
 
 		Categorie cat_out = catService.getCategorie(categorie);
 
-		System.out.println("------------------------- "+cat_out);
-		
+		System.out.println("------------------------- " + cat_out);
+
 		if (cat_out.getIdCategorie().equals(categorie.getIdCategorie())) {
 
 			categorie = cat_out;

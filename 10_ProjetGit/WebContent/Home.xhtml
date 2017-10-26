@@ -11,38 +11,69 @@
 </h:head>
 <h:body>
 
-	<p:link href="home.xhtml" style="text-align:center">
+	<p:link href="home.xhtml">
 		<h:graphicImage value="/images/Baniere_logo.PNG" height="50%"
 			width="50%" />
 	</p:link>
-	
-	<h:form>
 
-		<p:growl id="messages" showDetail="true" />
+	<p:layout style="min-width:400px;min-height:200px;">
+		<p:layoutUnit position="west" resizable="true">
+			<h:form>
+				<p:growl id="messages" showDetail="true" />
+				<p:growl autoUpdate="true" />
 
-		<p:tieredMenu style="width:200px">
-			<p:submenu label="Categories" icon="ui-icon-refresh">
-				<p:menuitem value="Ajouter" url="addCategorie.xhtml" />
-				<p:menuitem value="Modifier" url="updateCategorie.xhtml" />
-				<p:menuitem value="Supprimer" url="deleteCategorie.xhtml" />
-				<p:menuitem value="Rechercher" url="getCategorie.xhtml" />
-			</p:submenu>
-			<p:submenu label="Produits" icon="ui-icon-refresh">
-				<p:menuitem value="Ajouter" url="addProduit.xhtml" />
-				<p:menuitem value="Modifier" url="#" />
-				<p:menuitem value="Supprimer" url="#" />
-				<p:menuitem value="Rechercher" url="#" />
-				<p:menuitem value="Rechercher des produits par catégorie" url="#" />
-			</p:submenu>
-			<p:separator />
-			<p:submenu label="Client" icon="ui-icon-refresh">
-				<p:menuitem value="Ajouter" url="#" />
-				<p:menuitem value="Modifier" url="#" />
-				<p:menuitem value="Supprimer" url="#" />
-				<p:menuitem value="Rechercher" url="#" />
-			</p:submenu>
-		</p:tieredMenu>
-	</h:form>
+				<p:panelMenu style="width:300px">
+					<p:submenu label="Catégories">
+						<p:dataTable var="categorie"
+							value="#{sessionScope.categoriesListe}">
+							<p:column headerText="ID">
+								<p:menuitem value="#{catMB.categorie.nomCategorie}" onclick="#{catMB.getCategorieById()}" />
+							</p:column>
+						</p:dataTable>
+					</p:submenu>
+
+				</p:panelMenu>
+				<p:tieredMenu style="width:200px">
+					<p:submenu label="Categories" icon="ui-icon-refresh">
+						<p:menuitem value="Ajouter" url="addCategorie.xhtml" />
+						<p:menuitem value="Modifier" url="updateCategorie.xhtml" />
+						<p:menuitem value="Supprimer" url="deleteCategorie.xhtml" />
+						<p:menuitem value="Rechercher" url="getCategorie.xhtml" />
+					</p:submenu>
+					<p:submenu label="Produits" icon="ui-icon-refresh">
+						<p:menuitem value="Ajouter" url="addProduit.xhtml" />
+						<p:menuitem value="Modifier" url="#" />
+						<p:menuitem value="Supprimer" url="#" />
+						<p:menuitem value="Rechercher" url="#" />
+						<p:menuitem value="Rechercher des produits par catégorie" url="#" />
+					</p:submenu>
+					<p:separator />
+					<p:submenu label="Client" icon="ui-icon-refresh">
+						<p:menuitem value="Ajouter" url="#" />
+						<p:menuitem value="Modifier" url="#" />
+						<p:menuitem value="Supprimer" url="#" />
+						<p:menuitem value="Rechercher" url="#" />
+					</p:submenu>
+				</p:tieredMenu>
+			</h:form>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center">
+			<h:form>
+				<p:breadCrumb>
+					<p:menuitem value="Accueil | " url="accueil.xhtml" />
+					<p:menuitem value="Ajouter un client | " url="addClient.xhtml" />
+					<p:menuitem value="Modifier un client | " url="updateClient.xhtml" />
+					<p:menuitem value="Supprimer un client | " url="deleteClient.xhtml" />
+					<p:menuitem value="Rechercher un client | " url="getClient.xhtml" />
+					<p:menuitem value="Se deconnecter" />
+				</p:breadCrumb>
+			</h:form>
+		</p:layoutUnit>
+	</p:layout>
+
+
+
 
 	<!-- Trace une ligne horizontale -->
 	<p:separator />
