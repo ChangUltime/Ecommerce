@@ -55,13 +55,15 @@ public class CategorieDaoImpl implements ICategorieDao {
 
 	@Override
 	public Categorie getCategorie(Categorie categorie) {
-		Categorie cate_out = em.find(Categorie.class, categorie.getNomCategorie());
-
-		if (cate_out.getIdCategorie().equals(categorie.getIdCategorie())) {
-			return cate_out;
-		} else {
-			return null;
-		}
+		String req = "select cat from Categorie cat where cat.idCategorie=:pIdCat";
+		
+		Query query = em.createQuery(req);
+		query.setParameter("pIdCat", categorie.getIdCategorie());
+		
+		categorie = (Categorie) query.getSingleResult();
+		System.out.println("------------------------- "+categorie);
+		return categorie;
+		
 	}
 
 	@Override
