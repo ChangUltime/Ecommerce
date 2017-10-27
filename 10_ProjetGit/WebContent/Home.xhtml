@@ -15,24 +15,28 @@
 		<h:graphicImage value="/images/Baniere_logo.PNG" height="50%"
 			width="50%" />
 	</p:link>
+	<h:form>
+		<p:growl id="growl" life="2000" />
+		<p:layout>
+			<p:layoutUnit position="west" style="width:400px;height:1000px;">
 
-	<p:layout style="min-width:400px;min-height:200px;">
-		<p:layoutUnit position="west" resizable="true">
-			<h:form>
-				<p:growl id="messages" showDetail="true" />
-				<p:growl autoUpdate="true" />
+				<p:dataTable id="basicDT" var="categorie"
+					value="#{sessionScope.categoriesListe}"
+					style="width:400px;height:1000px;">
+					<f:facet name="header">
+            			Catégorie
+        			</f:facet>
 
-				<p:panelMenu style="width:300px">
-					<p:submenu label="Catégories">
-						<p:dataTable var="categorie"
-							value="#{sessionScope.categoriesListe}">
-							<p:column headerText="ID">
-								<p:menuitem value="#{catMB.categorie.nomCategorie}" onclick="#{catMB.getCategorieById()}" />
-							</p:column>
-						</p:dataTable>
-					</p:submenu>
+					<p:column style="width:320px;">
+						<p:commandLink id="ajax" update="@all" oncomplete="PF('catWidget').show()"
+							icon="ui-icon-search" title="View"
+							value="#{categorie.nomCategorie}">
+							<f:setPropertyActionListener value="#{categorie}"
+								target="#{catMB.categorie}" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
 
-				</p:panelMenu>
 				<p:tieredMenu style="width:200px">
 					<p:submenu label="Categories" icon="ui-icon-refresh">
 						<p:menuitem value="Ajouter" url="addCategorie.xhtml" />
@@ -49,17 +53,16 @@
 					</p:submenu>
 					<p:separator />
 					<p:submenu label="Client" icon="ui-icon-refresh">
-						<p:menuitem value="Ajouter" url="#" />
+						<p:menuitem value="Ajouter" url="Home.xhtml" />
 						<p:menuitem value="Modifier" url="#" />
 						<p:menuitem value="Supprimer" url="#" />
 						<p:menuitem value="Rechercher" url="#" />
 					</p:submenu>
 				</p:tieredMenu>
-			</h:form>
-		</p:layoutUnit>
+			</p:layoutUnit>
 
-		<p:layoutUnit position="center">
-			<h:form>
+			<p:layoutUnit id="data" position="center" style="width:1000px;height:50px;">
+
 				<p:breadCrumb>
 					<p:menuitem value="Accueil | " url="accueil.xhtml" />
 					<p:menuitem value="Ajouter un client | " url="addClient.xhtml" />
@@ -68,33 +71,53 @@
 					<p:menuitem value="Rechercher un client | " url="getClient.xhtml" />
 					<p:menuitem value="Se deconnecter" />
 				</p:breadCrumb>
-			</h:form>
-		</p:layoutUnit>
-	</p:layout>
+
+				<h1 style="color: red; text-align: center">Résultat de la
+					recherche</h1>
+				<p:dataTable id="cateDetail" var="categorie"
+					value="#{catMB.categorie}" widgetVar="catWidget" modal="true"
+					showEffect="fade" hideEffect="fade" rendered="false">
+					<p:column headerText="ID">
+						<h:outputText value="#{categorie.idCategorie}" />
+					</p:column>
+
+					<p:column headerText="Nom">
+						<h:outputText value="#{categorie.nomCategorie}" />
+					</p:column>
+
+					<p:column headerText="Description">
+						<h:outputText value="#{categorie.description}" />
+					</p:column>
+
+				</p:dataTable>
+
+				<!-- Trace une ligne horizontale -->
+				<p:separator />
+				<!-- Espace les élements -->
+				<p:spacer width="50" height="10" />
+
+				<h1 style="color: red; text-align: center">Liste des categories</h1>
+				<p:dataTable var="categorie" value="#{sessionScope.categoriesListe}" >
+					<p:column headerText="ID">
+						<h:outputText value="#{categorie.idCategorie}" />
+					</p:column>
+
+					<p:column headerText="Nom">
+						<h:outputText value="#{categorie.nomCategorie}" />
+					</p:column>
+
+					<p:column headerText="Description">
+						<h:outputText value="#{categorie.description}" />
+					</p:column>
+
+				</p:dataTable>
+			</p:layoutUnit>
+		</p:layout>
+	</h:form>
 
 
 
 
-	<!-- Trace une ligne horizontale -->
-	<p:separator />
-	<!-- Espace les élements -->
-	<p:spacer width="50" height="10" />
-
-	<h1 style="color: red; text-align: center">Liste des categories</h1>
-	<p:dataTable var="categorie" value="#{sessionScope.categoriesListe}">
-		<p:column headerText="ID">
-			<h:outputText value="#{categorie.idCategorie}" />
-		</p:column>
-
-		<p:column headerText="Nom">
-			<h:outputText value="#{categorie.nomCategorie}" />
-		</p:column>
-
-		<p:column headerText="Description">
-			<h:outputText value="#{categorie.description}" />
-		</p:column>
-
-	</p:dataTable>
 
 </h:body>
 </html>
