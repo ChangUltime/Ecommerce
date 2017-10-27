@@ -25,14 +25,15 @@ public class ClientManagedBean implements Serializable {
 	@EJB
 	ICommandeService commandeServ;
 	
+	private Client client;
+	private boolean isConnected;
 
-	Client client;
-
-	HttpSession session;
+	private HttpSession session;
 
 	@PostConstruct
 	public void init() {
 		client = new Client();
+		isConnected=false;
 	}
 
 	public ClientManagedBean() {
@@ -47,6 +48,14 @@ public class ClientManagedBean implements Serializable {
 		this.client = client;
 	}
 
+	public boolean isConnected() {
+		return isConnected;
+	}
+
+	public void setConnected(boolean isConnected) {
+		this.isConnected = isConnected;
+	}
+
 	public String seConnecter() {
 		// fonction de login du client, qui donne acces a la gestion du compte
 		// personnel et des commandes
@@ -56,11 +65,14 @@ public class ClientManagedBean implements Serializable {
 
 		// On verifie que le client existe, et on recupere sa description
 		// complete (avec id)
+		System.out.println("-----avant l'appel de clientserv-----");
 		Client loginClient = clientServ.clientExists(client);
+		System.out.println("-----après l'appel de clientserv-----");
 
 		if (loginClient != null) {
 			this.client = loginClient;
 			session.setAttribute("sessionClient", this.client);
+			isConnected = true;
 			context.addMessage(null, new FacesMessage("Session de " + client.getNom() + " " + client.getPrenom()));
 		} else {
 			context.addMessage(null, new FacesMessage("Ce client n'existe pas, verifiez les identifiants"));
@@ -69,10 +81,11 @@ public class ClientManagedBean implements Serializable {
 	}
 
 	public String seDeconnecter() {
+		isConnected=false;
 		session.invalidate();
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage("Vous avez été déconnecté avec succès"));
-		return "accueil";
+		return "accueil?faces-redirect=true";
 	}
 
 	public String creerCompte() {
