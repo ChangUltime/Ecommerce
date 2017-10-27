@@ -20,6 +20,7 @@
 			<h:commandButton value="Créer un compte" action="#{cMB.creerCompte}"/><h:commandButton value="Login" action="#{cMB.seConnecter}"/>
 		</p:panelGrid>
 		<p:panelGrid columns="1" rendered="#{cMB.connected}">
+		<h:commandButton value="Gestion du Compte" action="homeClient"/>
 		<h:commandButton value="Déconnecter" action="#{cMB.seDeconnecter}"/>
 		</p:panelGrid>
     </p:overlayPanel>
