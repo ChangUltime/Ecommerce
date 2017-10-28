@@ -2,6 +2,7 @@ package fr.adaming.dao;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -31,20 +32,16 @@ public class ClientDAOImpl implements IClientDAO{
 		String req = "SELECT c FROM Client c WHERE c.password=:pPassword AND c.email=:pEmail";
 		
 		//
-		System.out.println(client+" le client obtenu ");
+		System.out.println(client+" le client obtenu");
 		
 		Query query = em.createQuery(req);
 		query.setParameter("pEmail", client.getEmail());
 		query.setParameter("pPassword", client.getPassword());
-		
-		Client outClient = (Client)query.getSingleResult();
-		
-		System.out.println(outClient+" le client retourné ");
-		
-		if (outClient!=null){
-			System.out.println("Client existant: "+outClient);
+		try {
+			Client outClient = (Client)query.getSingleResult();
+			System.out.println(outClient+" le client retourné");
 			return outClient;
-		} else{
+		} catch (NoResultException nrex) {
 			return null;
 		}
 	}

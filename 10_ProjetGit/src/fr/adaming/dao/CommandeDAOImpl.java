@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -34,12 +35,9 @@ public class CommandeDAOImpl implements ICommandeDAO {
 		
 		Query query = em.createQuery(req);
 		query.setParameter("pIdCommande", commande.getIdCommande());
-		
-		Commande outCommande = (Commande)query.getSingleResult();
-		
-		if(outCommande!=null){
-			return outCommande;
-		} else {
+		try{
+			return (Commande)query.getSingleResult();
+		} catch (NoResultException nrex) {
 			return null;
 		}
 		

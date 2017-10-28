@@ -81,7 +81,7 @@ public class PanierManagedBean implements Serializable {
 	}
 
 	public void ajouterProduit(){
-
+		// ajoute le produit donné dans un form, et vérifie si le produit est déjà dans le panier
 		Produit reqProduit = produitServ.getProduit(produit);
 		if (reqProduit!=null){
 			boolean produitPresent = false;

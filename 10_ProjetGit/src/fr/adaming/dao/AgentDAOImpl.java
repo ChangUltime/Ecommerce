@@ -2,6 +2,7 @@ package fr.adaming.dao;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -34,12 +35,12 @@ public class AgentDAOImpl implements IAgentDAO{
 		query.setParameter("pMail", agent.getMail());
 		query.setParameter("pPassword", agent.getPassword());
 		
-		Agent outAgent = (Agent)query.getSingleResult();
-		
-		if (outAgent!=null){
+		try{
+			Agent outAgent = (Agent)query.getSingleResult();
 			System.out.println("Agent existant: "+outAgent+"Envoyé depuis AgentDAOImpl.agentExists()");
 			return outAgent;
-		} else{
+		} catch (NoResultException nrex) {
+			System.out.println(nrex);
 			return null;
 		}
 	}
