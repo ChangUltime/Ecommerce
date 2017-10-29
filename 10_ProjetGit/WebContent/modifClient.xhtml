@@ -8,30 +8,41 @@
 <ui:define name="title">Historique des Commandes</ui:define>
 
 <ui:define name="contenu">
-<h:form id="form">
-
+<h:form>
 <p:accordionPanel>
         <p:tab title="Adresse mail: #{cMB.client.email}">
-            <h:panelGrid columns="2" cellpadding="10">
+            <h:panelGrid id="mailPanel" columns="2" cellpadding="10">
                 <p:outputLabel value="Actuelle: "/><h:outputText value="#{cMB.client.email}"/>
-                <p:outputLabel value="Nouvelle: "/><p:inputMask value="#{cMB.client.email}" mask="*@*"/>
+                <p:outputLabel id="newmail" value="Nouvelle: "/><p:inputText value="#{cMB.client.email}" required="true"/>
+            	<p:commandButton value="Changer" process="@parent" update="@parent" actionListener="#{cMB.updateClient}"/>
             </h:panelGrid>
         </p:tab>
         <p:tab title="Mot de Passe">
             <h:panelGrid columns="2" cellpadding="10">
-                <p:graphicImage name="demo/images/godfather/godfather2.jpg" />
-                <h:outputText value="Francis Ford Coppola's legendary..." />
+                <h:outputLabel for="pwd1" value="Nouveau mot de passe: *" />
+        		<p:password id="pwd1" value="#{cMB.client.password}" match="pwd2" label="Password 1" required="true" />
+ 
+        		<h:outputLabel for="pwd2" value="Vérification: *" />
+        		<p:password id="pwd2" value="#{cMB.client.password}" label="Password 2" required="true" />
+        		<p:commandButton value="Changer" process="@parent" update="@parent" actionListener="#{cMB.updateClient}"/>
             </h:panelGrid>
         </p:tab>
         <p:tab title="Adresse postale">
             <h:panelGrid columns="2" cellpadding="10">
-                <p:graphicImage name="demo/images/godfather/godfather3.jpg" />
-                <h:outputText value="After a break of more than 15 years..." />
+            	<p:outputLabel value="Adresse: "/><h:outputText value="#{cMB.client.adresse}"/>
+                <p:outputLabel id="newmail" value="Nouvelle: "/><p:inputText value="#{cMB.client.email}" required="true"/>
+                
+                <p:outputLabel value="Ville: "/><h:outputText value="#{cMB.client.ville}"/>
+                <p:outputLabel id="newmail" value="Nouvelle: "/><p:inputText value="#{cMB.client.email}" required="true"/>
+                
+                <p:outputLabel value="Code Postal: "/><h:outputText value="#{cMB.client.codePostal}"/>
+                <p:outputLabel id="newmail" value="Nouvelle: "/><p:inputText value="#{cMB.client.email}" required="true"/>
+                
+            	<p:commandButton value="Changer" process="@parent" update="@parent" actionListener="#{cMB.updateClient}"/>
             </h:panelGrid>
         </p:tab>
 </p:accordionPanel>
-
-
 </h:form>
+<p:messages></p:messages>
 </ui:define>
 </ui:composition>

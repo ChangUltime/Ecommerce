@@ -1,14 +1,13 @@
 package fr.adaming.managedBeans;
 
 import java.io.Serializable;
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Client;
@@ -95,7 +94,7 @@ public class ClientManagedBean implements Serializable {
 
 		if (clientServ.clientExists(client) == null) {
 			clientServ.createClient(client);
-			return "accountInfo"; // renvoie vers l'ajout du reste des
+			return "modifClient"; // renvoie vers l'ajout du reste des
 									// informations. De là, l'annulation doit
 									// etre possible, soit par simple
 									// suppression, soit en ne créant pas le
@@ -103,6 +102,21 @@ public class ClientManagedBean implements Serializable {
 									// l'aide d'une seconde option. ça demanderait de get la session meme sans connection d'un client. probablement nécessaire pour le panier de toute façon
 		}
 		return "accueil";
+	}
+	
+	public void updateClient(ActionEvent actionEvent){
+		//on recupere la session mais ça sert peut-être à rien vu qu'on est en session scoped
+		Client currentClient = (Client)session.getAttribute("sessionClient");
+		// au cas ou la session ne comporterait pas d'agent?
+		if (currentClient!=null){
+			//on update par clientServ
+			currentClient = clientServ.updateClient(currentClient);
+			// si ça réussit, on renvoie vers sessionClient
+			if (currentClient!=null){
+				session.setAttribute("sessionClient", currentClient);
+				client=currentClient;
+			}
+		}
 	}
 
 }

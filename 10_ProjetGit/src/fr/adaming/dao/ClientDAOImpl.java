@@ -28,7 +28,7 @@ public class ClientDAOImpl implements IClientDAO{
 
 	@Override
 	public Client clientExists(Client client) {
-		//Cette fonction "récupère" l'client par son mail et password
+		//Cette fonction "récupère" le client par son mail et password
 		String req = "SELECT c FROM Client c WHERE c.password=:pPassword AND c.email=:pEmail";
 		
 		//
@@ -48,7 +48,7 @@ public class ClientDAOImpl implements IClientDAO{
 
 	@Override
 	public Client getClient(Client client) {
-		//Cette fonction ne récupère l'client que par son ID
+		//Cette fonction ne récupère le client que par son ID
 		
 		Client foundClient = em.find(Client.class, client.getIdClient());
 		
@@ -63,7 +63,7 @@ public class ClientDAOImpl implements IClientDAO{
 
 	@Override
 	public Client updateClient(Client client) {
-		// Cette fonction ne recupere l'client que par son ID
+		// Cette fonction ne recupere le client que par son ID
 		if(getClient(client)!=null){
 			em.merge(client);
 			System.out.println("Client modifié: "+client);
@@ -75,7 +75,7 @@ public class ClientDAOImpl implements IClientDAO{
 
 	@Override
 	public boolean deleteClient(Client client) {
-		//Cette méthode récupère encore l'client par son ID
+		//Cette méthode récupère encore le client par son ID
 		if(getClient(client)!=null){
 			em.remove(client);
 			System.out.println("Client supprimé: "+client);
