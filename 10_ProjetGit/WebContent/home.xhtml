@@ -15,7 +15,7 @@
 		<h:graphicImage value="/images/Baniere_logo.PNG" height="50%"
 			width="50%" />
 	</p:link>
-	<h:form>
+	<h:form id="form">
 		<p:growl id="growl" life="2000" />
 		<p:layout>
 			<p:layoutUnit position="west" style="width:400px;height:1000px;">
@@ -28,10 +28,13 @@
         			</f:facet>
 
 					<p:column style="width:320px;">
-						<p:commandLink id="ajax" update="@all" oncomplete="PF('catWidget').show()"
-							icon="ui-icon-search" title="View"
-							value="#{categorie.nomCategorie}">
-							<f:setPropertyActionListener value="#{categorie}"
+						<p:commandLink id="ajax" update="@all"
+							oncomplete="PF('catWidget').show()" icon="ui-icon-search"
+							title="View" value="#{categorie.nomCategorie}">
+							<f:actionListener />
+							<f:setPropertyActionListener value="true" 
+								target="#{catMB.afficheProduitByCat}" />
+							<f:setPropertyActionListener value="#{categorie}" 
 								target="#{catMB.categorie}" />
 						</p:commandLink>
 					</p:column>
@@ -61,7 +64,8 @@
 				</p:tieredMenu>
 			</p:layoutUnit>
 
-			<p:layoutUnit id="data" position="center" style="width:1000px;height:50px;">
+			<p:layoutUnit id="data" position="center"
+				style="width:1000px;height:50px;">
 
 				<p:breadCrumb>
 					<p:menuitem value="Accueil | " url="accueil.xhtml" />
@@ -72,11 +76,10 @@
 					<p:menuitem value="Se deconnecter" />
 				</p:breadCrumb>
 
-				<h1 style="color: red; text-align: center">Résultat de la
-					recherche</h1>
-				<p:dataTable id="cateDetail" var="categorie"
-					value="#{catMB.categorie}" widgetVar="catWidget" modal="true"
-					showEffect="fade" hideEffect="fade" rendered="false">
+				<h1 style="color: red; text-align: center">Catégorie : </h1> <h:outputText value="#{catMB.categorie.nomCategorie}"/>
+				<p:dataTable id="cateDetail" var="produit"
+					value="#{sessionScope.produitsListe}" widgetVar="catWidget" modal="true"
+					showEffect="fade" hideEffect="fade" rendered="#{catMB.afficheProduitByCat}">
 					<p:column headerText="ID">
 						<h:outputText value="#{categorie.idCategorie}" />
 					</p:column>
@@ -97,7 +100,7 @@
 				<p:spacer width="50" height="10" />
 
 				<h1 style="color: red; text-align: center">Liste des categories</h1>
-				<p:dataTable var="categorie" value="#{sessionScope.categoriesListe}" >
+				<p:dataTable var="categorie" value="#{sessionScope.categoriesListe}">
 					<p:column headerText="ID">
 						<h:outputText value="#{categorie.idCategorie}" />
 					</p:column>

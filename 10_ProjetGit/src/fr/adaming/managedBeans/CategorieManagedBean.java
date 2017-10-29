@@ -29,6 +29,8 @@ public class CategorieManagedBean implements Serializable {
 
 	private Agent agent;
 
+	private boolean afficheProduitByCat;
+	
 	private HttpSession session;
 
 	private List<Categorie> listeCategories;
@@ -40,6 +42,8 @@ public class CategorieManagedBean implements Serializable {
 	@PostConstruct // Cette annotation sert a excecute la méthode juste après
 	// l'instanciation du managedBean
 	public void init() {
+		afficheProduitByCat = false;
+		
 		// Récuparation du context
 		FacesContext context = FacesContext.getCurrentInstance();
 
@@ -80,6 +84,7 @@ public class CategorieManagedBean implements Serializable {
 
 	public void setSession(HttpSession session) {
 		this.session = session;
+		
 	}
 
 	public List<Categorie> getListeCategories() {
@@ -88,6 +93,14 @@ public class CategorieManagedBean implements Serializable {
 
 	public void setListeCategories(List<Categorie> listeCategories) {
 		this.listeCategories = listeCategories;
+	}
+
+	public boolean isAfficheProduitByCat() {
+		return afficheProduitByCat;
+	}
+
+	public void setAfficheProduitByCat(boolean afficheProduitByCat) {
+		this.afficheProduitByCat = afficheProduitByCat;
 	}
 
 	// Méthode metiers
@@ -165,4 +178,9 @@ public class CategorieManagedBean implements Serializable {
 
 	}
 
+	public void afficheProdByCat(){
+		System.out.println("---------------------------------- Hello");
+		
+		this.afficheProduitByCat = true;
+	}
 }

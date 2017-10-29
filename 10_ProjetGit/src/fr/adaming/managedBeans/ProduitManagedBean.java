@@ -16,26 +16,26 @@ import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 import fr.adaming.service.IProduitService;
 
-@ManagedBean(name="prodMB")
-@Table(name="produits")
+@ManagedBean(name = "prodMB")
+@Table(name = "produits")
 @RequestScoped
 public class ProduitManagedBean {
-	
+
 	@EJB
 	IProduitService prodService;
-	
+
 	private Produit produit;
 	private Categorie categorie;
 	private Agent agent;
-	
+
 	HttpSession session;
-	
+
 	private List<Produit> listeProduits;
 
 	public ProduitManagedBean() {
 		this.produit = new Produit();
 	}
-	
+
 	@PostConstruct // Cette annotation sert a excecute la méthode juste après
 	// l'instanciation du managedBean
 	public void init() {
@@ -88,16 +88,16 @@ public class ProduitManagedBean {
 	public void setSession(HttpSession session) {
 		this.session = session;
 	}
-	
+
 	// Méthode metiers
-	public String addProduit(){
+	public String addProduit() {
 		Produit prod_out = prodService.addProduit(produit, categorie);
-		
-		if(prod_out!=null){
+
+		if (prod_out != null) {
 			listeProduits = prodService.getAllProduit();
-			
+
 			session.setAttribute("produitsListe", listeProduits);
-			
+
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit ajouté : " + produit));
 
 			return "homeAgent";
@@ -107,7 +107,25 @@ public class ProduitManagedBean {
 			return "addProduit";
 		}
 	}
+
+	public String updateProduit() {
+		Produit prod_out = prodService.updateProduit(produit, categorie);
+
+		if (prod_out != null) {
+			listeProduits = prodService.getAllProduit();
+
+			session.setAttribute("produitsListe", listeProduits);
+
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit ajouté : " + produit));
+
+			return "homeAgent";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit ajouté"));
+
+			return "updateProduit";
+		}
+	}
 	
 	
-	
+
 }
