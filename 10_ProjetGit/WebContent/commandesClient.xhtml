@@ -5,18 +5,15 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/templates/clientAccountTemplate.xhtml" >
 
-
-<ui:define name="title">Accueil Compte Client</ui:define>
+<ui:define name="title">Historique des Commandes</ui:define>
 
 <ui:define name="contenu">
 <h:form id="form">
-<p:dataTable var="commande" value="#{cMB.client.derniereCommande}">
-	<f:facet name="header">Dernière commande:</f:facet>
-
-	<p:column headerText="Numero">
+<p:dataTable id="tableauCommandes" var="commande" value="#{cMB.client.listeCommandes}">
+	<p:column headerText="No.">
 		<h:outputText value="#{commande.idCommande}"/>
 	</p:column>
-	
+
 	<p:column headerText="Date">
 		<h:outputText value="#{commande.dateCommande}"/>
 	</p:column>
@@ -25,7 +22,11 @@
 		<p:commandButton update=":form:contenuCommande" oncomplete="PF('commandeDialog').show()" icon="ui-icon-search" title="Détails">
 			<f:setPropertyActionListener value="#{commande}" target="#{panierMB.commande}" />
 		</p:commandButton>
+		<p:commandButton update=":form:contenuCommande" oncomplete="PF('commandeSupprDialog').show()" icon="ui-icon-cancel" title="Annuler la commande">
+			<f:setPropertyActionListener value="#{commande}" target="#{panierMB.commande}" />
+		</p:commandButton>
 	</p:column>
+
 </p:dataTable>
 
 <p:dialog header="Détails de la commande" widgetVar="commandeDialog" showEffect="fade" hideEffect="fade" resizable="false">
@@ -41,7 +42,11 @@
        	</p:column>
    	</p:dataTable>
 </p:dialog>
+
+<p:dialog header="Supression de la commande" widgetVar="commandeSupprDialog" showEffect="fade" hideEffect="fade" resizable="false">
+   Confirmation : <p:commandButton update=":form:tableauCommandes" oncomplete="PF('commandeSupprDialog').hide()" value="Supprimer" action="#{panierMB.annulerCommande}"/>
+</p:dialog>
+
 </h:form>
 </ui:define>
-
 </ui:composition>

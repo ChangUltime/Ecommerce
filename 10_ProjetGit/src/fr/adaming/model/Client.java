@@ -123,6 +123,7 @@ public class Client implements Serializable {
 	}
 	
 	public Commande getDerniereCommande(){
+		//trycatch nullpointer
 		if(this.listeCommandes.size()>0){
 			Commande derniereCommande = this.listeCommandes.get(0);
 			for(Commande c : this.listeCommandes){

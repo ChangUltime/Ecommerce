@@ -26,14 +26,14 @@ public class ClientManagedBean implements Serializable {
 	ICommandeService commandeServ;
 	
 	private Client client;
-	private boolean isConnected;
+	private boolean connected;
 
 	private HttpSession session;
 
 	@PostConstruct
 	public void init() {
 		client = new Client();
-		isConnected=false;
+		connected=false;
 	}
 
 	public ClientManagedBean() {
@@ -49,11 +49,11 @@ public class ClientManagedBean implements Serializable {
 	}
 
 	public boolean isConnected() {
-		return isConnected;
+		return connected;
 	}
 
-	public void setConnected(boolean isConnected) {
-		this.isConnected = isConnected;
+	public void setConnected(boolean connected) {
+		this.connected = connected;
 	}
 
 	public String seConnecter() {
@@ -72,7 +72,7 @@ public class ClientManagedBean implements Serializable {
 		if (loginClient != null) {
 			this.client = loginClient;
 			session.setAttribute("sessionClient", this.client);
-			isConnected = true;
+			connected = true;
 			context.addMessage(null, new FacesMessage("Session de " + client.getNom() + " " + client.getPrenom()));
 		} else {
 			context.addMessage(null, new FacesMessage("Ce client n'existe pas, verifiez les identifiants"));
@@ -81,7 +81,7 @@ public class ClientManagedBean implements Serializable {
 	}
 
 	public String seDeconnecter() {
-		isConnected=false;
+		connected=false;
 		session.invalidate();
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage("Vous avez été déconnecté avec succès"));
