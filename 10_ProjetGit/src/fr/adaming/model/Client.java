@@ -1,6 +1,7 @@
 package fr.adaming.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -119,6 +120,20 @@ public class Client implements Serializable {
 
 	public void setListeCommandes(List<Commande> listeCommandes) {
 		this.listeCommandes = listeCommandes;
+	}
+	
+	public Commande getDerniereCommande(){
+		if(this.listeCommandes.size()>0){
+			Commande derniereCommande = this.listeCommandes.get(0);
+			for(Commande c : this.listeCommandes){
+				if(c.getDateCommande().compareTo(derniereCommande.getDateCommande())>0){
+					derniereCommande = c;
+				}
+			}
+			return derniereCommande;
+		} else {
+			return null;
+		}
 	}
 
 	@Override

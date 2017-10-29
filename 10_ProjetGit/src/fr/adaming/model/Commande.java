@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +30,7 @@ public class Commande implements Serializable {
 	@JoinColumn(name="client_id", referencedColumnName="id_client")
 	private Client client;
 	
-	@OneToMany(mappedBy="commande")
+	@OneToMany(mappedBy="commande", fetch=FetchType.EAGER)
 	private List<LigneDeCommande> listeLignes;
 
 	public Commande() {

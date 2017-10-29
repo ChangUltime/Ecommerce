@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+  <title><ui:insert name="title">Default title</ui:insert></title>
+</h:head>
+
+<h:body>
+<ui:debug hotkey="x" rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}"/>
+
+	<p:link href="home.xhtml">
+		<h:graphicImage value="/images/Baniere_logo.PNG" height="50%"
+			width="50%" />
+	</p:link>
+
+	<p:layout>
+		<p:layoutUnit position="west">
+			<h:form>
+			<p:menu>
+				<p:menuitem value="Informations"/>
+				<p:menuitem value="Commandes"/>
+				<p:menuitem value="Modifier les informations du compte"/>
+				<p:menuitem value="Clôturer le compte"/>
+				<p:menuitem value="Retour Accueil" action="accueil"/>
+		    </p:menu>
+		    </h:form>
+		</p:layoutUnit>
+		
+		<p:layoutUnit position="center">
+			<ui:insert name="contenu">Il devrait y avoir quelque chose ici...</ui:insert>
+		</p:layoutUnit>
+	
+	</p:layout>
+
+
+</h:body>
+
+</html>

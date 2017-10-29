@@ -101,7 +101,8 @@ public class LigneDeCommande implements Serializable {
 		this.quantite--;
 	}
 	
-	public void calculerTotal(){
+	public double getTotal(){
 		this.prix=this.produit.getPrix()*this.quantite;
+		return this.prix;
 	}
 }
