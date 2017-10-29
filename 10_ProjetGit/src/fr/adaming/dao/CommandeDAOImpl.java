@@ -45,6 +45,7 @@ public class CommandeDAOImpl implements ICommandeDAO {
 
 	@Override
 	public Commande getCommande(Commande commande) {
+		//System.out.println("Commande recherchée: "+commande);
 		Commande foundCommande = em.find(Commande.class, commande.getIdCommande());
 		
 		if (foundCommande!=null){
@@ -82,7 +83,8 @@ public class CommandeDAOImpl implements ICommandeDAO {
 	@Override
 	public boolean deleteCommande(Commande commande) {
 		if(getCommande(commande)!=null){
-			em.detach(commande);
+			//System.out.println("Commande à supprimer:"+commande);
+			em.remove(getCommande(commande));
 			return true;
 		} else {
 			return false;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,7 +31,7 @@ public class Commande implements Serializable {
 	@JoinColumn(name="client_id", referencedColumnName="id_client")
 	private Client client;
 	
-	@OneToMany(mappedBy="commande", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="commande", fetch=FetchType.EAGER , cascade=CascadeType.ALL)
 	private List<LigneDeCommande> listeLignes;
 
 	public Commande() {
@@ -84,6 +85,11 @@ public class Commande implements Serializable {
 	
 	//methodes utiles
 	
+	@Override
+	public String toString() {
+		return "Commande [idCommande=" + idCommande + ", dateCommande=" + dateCommande + ", client=" + client.getEmail() + "]";
+	}
+
 	public List<Produit> getListProduits(){
 		
 		List<Produit>  listeProduits = new ArrayList<Produit>();

@@ -158,33 +158,12 @@ public class PanierManagedBean implements Serializable {
 			if (outPanier!=null){
 				panier = new Commande(new Date(), client);
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Commande validée"));
-				return "commandes";
+				return "commandesClient";
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Commande échouée, veuillez rééssayer"));
 				return "orderPage";
 			}
 		} else {
-			return "accueil";
-		}
-	}
-	
-	public String annulerCommande(){
-		client = (Client)session.getAttribute("sessionClient");
-		if(client!=null){
-			commande = commandeServ.getCommande(commande);
-			if(commande!=null){
-				boolean verif = commandeServ.deleteCommande(commande);// TODO rajouter éventuellement une limite de date côté service
-				if(verif){
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Commande annulée"));
-				} else {
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Annulation impossible: la commande n'a pas pu être supprimée"));
-				}
-			} else {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Annulation impossible: la commande n'a pas pu être retrouvée"));
-			}
-			return "commandes";
-		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Annulation impossible: la commande n'a pas pu être retrouvée"));
 			return "accueil";
 		}
 	}

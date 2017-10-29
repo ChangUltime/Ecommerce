@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/clientAccountTemplate.xhtml" >
+
+<ui:define name="title">Historique des Commandes</ui:define>
+
+<ui:define name="contenu">
+<h:form id="form">
+
+<p:accordionPanel>
+        <p:tab title="Adresse mail: #{cMB.client.email}">
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:outputLabel value="Actuelle: "/><h:outputText value="#{cMB.client.email}"/>
+                <p:outputLabel value="Nouvelle: "/><p:inputMask value="#{cMB.client.email}" mask="*@*"/>
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Mot de Passe">
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:graphicImage name="demo/images/godfather/godfather2.jpg" />
+                <h:outputText value="Francis Ford Coppola's legendary..." />
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Adresse postale">
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:graphicImage name="demo/images/godfather/godfather3.jpg" />
+                <h:outputText value="After a break of more than 15 years..." />
+            </h:panelGrid>
+        </p:tab>
+</p:accordionPanel>
+
+
+</h:form>
+</ui:define>
+</ui:composition>

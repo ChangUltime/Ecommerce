@@ -9,7 +9,7 @@
 
 <ui:define name="contenu">
 <h:form id="form">
-<p:dataTable id="tableauCommandes" var="commande" value="#{cMB.client.listeCommandes}">
+<p:dataTable id="tableauCommandes" var="commande" value="#{commMB.listeCommandes}">
 	<p:column headerText="No.">
 		<h:outputText value="#{commande.idCommande}"/>
 	</p:column>
@@ -20,17 +20,14 @@
 	
 	<p:column style="width:32px;text-align: center">
 		<p:commandButton update=":form:contenuCommande" oncomplete="PF('commandeDialog').show()" icon="ui-icon-search" title="Détails">
-			<f:setPropertyActionListener value="#{commande}" target="#{panierMB.commande}" />
-		</p:commandButton>
-		<p:commandButton update=":form:contenuCommande" oncomplete="PF('commandeSupprDialog').show()" icon="ui-icon-cancel" title="Annuler la commande">
-			<f:setPropertyActionListener value="#{commande}" target="#{panierMB.commande}" />
+			<f:setPropertyActionListener value="#{commande}" target="#{commMB.commande}" />
 		</p:commandButton>
 	</p:column>
 
 </p:dataTable>
 
 <p:dialog header="Détails de la commande" widgetVar="commandeDialog" showEffect="fade" hideEffect="fade" resizable="false">
-    <p:dataTable id="contenuCommande" var="ligne" value="#{panierMB.commande.listeLignes}">
+    <p:dataTable id="contenuCommande" var="ligne" value="#{commMB.commande.listeLignes}">
        	<p:column headerText="Produit">
        		<h:outputText value="#{ligne.produit.designation}"/>
        	</p:column>
@@ -43,9 +40,6 @@
    	</p:dataTable>
 </p:dialog>
 
-<p:dialog header="Supression de la commande" widgetVar="commandeSupprDialog" showEffect="fade" hideEffect="fade" resizable="false">
-   Confirmation : <p:commandButton update=":form:tableauCommandes" oncomplete="PF('commandeSupprDialog').hide()" value="Supprimer" action="#{panierMB.annulerCommande}"/>
-</p:dialog>
 
 </h:form>
 </ui:define>
