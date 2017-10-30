@@ -34,15 +34,18 @@ public class ProduitDaoImpl implements IProduitDao {
 
 	@Override
 	public Produit addProduit(Produit produit) {
-		// Cette méthode renvoie soit le produit créé, soit un produit déjà existant avec la même désignation
-		Produit checkProduit = produitExists(produit);
+		em.persist(produit);
+		return produit;
 		
-		if (checkProduit!=null) {
-			return checkProduit;
-		} else {
-			em.persist(produit);
-			return produit;
-		}
+		// Cette méthode renvoie soit le produit créé, soit un produit déjà existant avec la même désignation
+//		Produit checkProduit = produitExists(produit);
+//		System.out.println("----------------------" +checkProduit);
+//		if (checkProduit!=null) {
+//			return checkProduit;
+//		} else {
+//			em.persist(produit);
+//			return produit;
+//		}
 	}
 
 	@Override
@@ -61,12 +64,17 @@ public class ProduitDaoImpl implements IProduitDao {
 
 	@Override
 	public boolean deleteProduit(Produit produit) {
-		//on vérifie l'existence, puis supression
-		if (!em.find(Produit.class, produit.getIdProduit()).equals(null)){
-			em.detach(produit);
-			return true;
-		}else {
+		String req = "DELETE from Produit prod WHERE prod.idProduit=:pIdProd";
+
+		Query query = em.createQuery(req);
+		query.setParameter("pIdProd", produit.getIdProduit());
+
+		int verif = query.executeUpdate();
+
+		if (verif == 0) {
 			return false;
+		} else {
+			return true;
 		}
 	}
 

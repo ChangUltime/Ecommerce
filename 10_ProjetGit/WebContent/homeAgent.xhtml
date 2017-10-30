@@ -7,37 +7,37 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-<title>Home Agent</title>
+	<title>Home Agent</title>
 </h:head>
 <h:body>
-<h:form>          
-    <p:growl id="messages" showDetail="true" />
- 
-    <p:tieredMenu style="width:200px">
-        <p:submenu label="Categories" icon="ui-icon-refresh">
-            <p:menuitem value="Ajouter" url="addCategorie.xhtml"/>
-            <p:menuitem value="Modifier" url="updateCategorie.xhtml"/>
-            <p:menuitem value="Supprimer" url="deleteCategorie.xhtml"/>
-            <p:menuitem value="Rechercher" url="getCategorie.xhtml"/>
-        </p:submenu>
-        <p:submenu label="Produits" icon="ui-icon-refresh">
-            <p:menuitem value="Ajouter" url="addProduit.xhtml"/>
-            <p:menuitem value="Modifier" url="#"/>
-            <p:menuitem value="Supprimer" url="#"/>
-            <p:menuitem value="Rechercher" url="#"/>
-            <p:menuitem value="Rechercher des produits par catégorie" url="#"/>
-        </p:submenu>
-        <p:separator />
-        <p:submenu label="Client" icon="ui-icon-refresh">
-            <p:menuitem value="Ajouter" url="#"/>
-            <p:menuitem value="Modifier" url="#"/>
-            <p:menuitem value="Supprimer" url="#"/>
-            <p:menuitem value="Rechercher" url="#"/>
-        </p:submenu>
-    </p:tieredMenu>
-</h:form>
+	<h:form>
+		<p:growl id="messages" showDetail="true" />
 
-<!-- Trace une ligne horizontale -->
+		<p:tieredMenu style="width:200px">
+			<p:submenu label="Categories" icon="ui-icon-refresh">
+				<p:menuitem value="Ajouter" url="addCategorie.xhtml" />
+				<p:menuitem value="Modifier" url="updateCategorie.xhtml" />
+				<p:menuitem value="Supprimer" url="deleteCategorie.xhtml" />
+				<p:menuitem value="Rechercher" url="getCategorie.xhtml" />
+			</p:submenu>
+			<p:submenu label="Produits" icon="ui-icon-refresh">
+				<p:menuitem value="Ajouter" url="addProduit.xhtml" />
+				<p:menuitem value="Modifier" url="updateProduit.xhtml" />
+				<p:menuitem value="Supprimer" url="deleteProduit.xhtml" />
+				<p:menuitem value="Rechercher" url="#" />
+				<p:menuitem value="Rechercher des produits par catégorie" url="#" />
+			</p:submenu>
+			<p:separator />
+			<p:submenu label="Client" icon="ui-icon-refresh">
+				<p:menuitem value="Ajouter" url="#" />
+				<p:menuitem value="Modifier" url="#" />
+				<p:menuitem value="Supprimer" url="#" />
+				<p:menuitem value="Rechercher" url="#" />
+			</p:submenu>
+		</p:tieredMenu>
+	</h:form>
+
+	<!-- Trace une ligne horizontale -->
 	<p:separator />
 	<!-- Espace les élements -->
 	<p:spacer width="50" height="10" />
@@ -54,6 +54,30 @@
 
 		<p:column headerText="Description">
 			<h:outputText value="#{categorie.description}" />
+		</p:column>
+
+	</p:dataTable>
+
+	<h1 style="color: red; text-align: center">Liste des produits</h1>
+	<p:dataTable var="produit" value="#{sessionScope.produitsListe}">
+		<p:column headerText="ID">
+			<h:outputText value="#{produit.idProduit}" />
+		</p:column>
+
+		<p:column headerText="Designation">
+			<h:outputText value="#{produit.designation}" />
+		</p:column>
+
+		<p:column headerText="Description">
+			<h:outputText value="#{produit.description}" />
+		</p:column>
+
+		<p:column headerText="Prix">
+			<h:outputText value="#{produit.prix}" />
+		</p:column>
+
+		<p:column headerText="Quantité du lot">
+			<h:outputText value="#{produit.quantite}" />
 		</p:column>
 
 	</p:dataTable>

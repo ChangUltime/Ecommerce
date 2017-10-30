@@ -30,7 +30,12 @@
 					<p:column style="width:320px;">
 						<p:commandLink id="ajax" update="@all"
 							oncomplete="PF('catWidget').show()" icon="ui-icon-search"
-							title="View" value="#{categorie.nomCategorie}">
+							title="View" value="#{categorie.nomCategorie}" action="prodMB.outcome"
+							actionListener="#{prodMB.getProductByCategorie}">
+							<f:setPropertyActionListener value="#{categorie.idCategorie}"
+								target="#{catMB.categorie.idCategorie}" />
+							<
+							<f:attribute name="idCat" value="#{catMB.categorie.idCategorie}" />
 							<f:setPropertyActionListener value="true"
 								target="#{catMB.afficheProduitByCat}" />
 							<f:setPropertyActionListener value="#{categorie}"
@@ -51,6 +56,8 @@
 						<p:commandLink update="@all"
 							oncomplete="PF('catWidget').show()" icon="ui-icon-search"
 							title="View" value="#{categorie.nomCategorie}">
+							<f:param name=""/>
+							<f:attribute name="idCat" value="#{catMB.categorie.idCategorie}" />
 							<f:setPropertyActionListener value="true"
 								target="#{catMB.afficheProduitByCat}" />
 							<f:setPropertyActionListener value="#{categorie}"
@@ -124,26 +131,6 @@
 
 				</p:dataTable>
 
-				<!-- Trace une ligne horizontale -->
-				<p:separator />
-				<!-- Espace les élements -->
-				<p:spacer width="50" height="10" />
-
-				<h1 style="color: red; text-align: center">Liste des categories</h1>
-				<p:dataTable var="categorie" value="#{sessionScope.categoriesListe}">
-					<p:column headerText="ID">
-						<h:outputText value="#{categorie.idCategorie}" />
-					</p:column>
-
-					<p:column headerText="Nom">
-						<h:outputText value="#{categorie.nomCategorie}" />
-					</p:column>
-
-					<p:column headerText="Description">
-						<h:outputText value="#{categorie.description}" />
-					</p:column>
-
-				</p:dataTable>
 			</p:layoutUnit>
 		</p:layout>
 	</h:form>

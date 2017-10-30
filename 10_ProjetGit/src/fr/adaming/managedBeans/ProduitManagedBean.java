@@ -8,6 +8,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
 
@@ -89,14 +90,26 @@ public class ProduitManagedBean {
 		this.session = session;
 	}
 
+	public List<Produit> getListeProduits() {
+		return listeProduits;
+	}
+
+	public void setListeProduits(List<Produit> listeProduits) {
+		this.listeProduits = listeProduits;
+	}
+
 	// Méthode metiers
 	public String addProduit() {
 		Produit prod_out = prodService.addProduit(produit, categorie);
+
+		System.out.println("----------------------hh" + prod_out);
 
 		if (prod_out != null) {
 			listeProduits = prodService.getAllProduit();
 
 			session.setAttribute("produitsListe", listeProduits);
+
+			System.out.println("----------------------------------------" + listeProduits);
 
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit ajouté : " + produit));
 
@@ -116,16 +129,47 @@ public class ProduitManagedBean {
 
 			session.setAttribute("produitsListe", listeProduits);
 
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit ajouté : " + produit));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit modifié : " + produit));
 
 			return "homeAgent";
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit ajouté"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit modifié"));
 
 			return "updateProduit";
 		}
 	}
-	
-	
 
+	public String deleteProduit() {
+		boolean verif = prodService.deleteProduit(produit, categorie);
+
+		if (verif) {
+			listeProduits = prodService.getAllProduit();
+
+			session.setAttribute("produitsListe", listeProduits);
+
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit supprimé : " + produit));
+
+			return "homeAgent";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit supprimé"));
+
+			return "deleteProduit";
+		}
+	}
+
+	public void getProductByCategorie(ActionEvent event) {
+		categorie.setIdCategorie((Long)event.getComponent().getAttributes().get("idCat"));
+		List<Produit> listeProdByCat = prodService.getProductByCategorie(categorie);
+
+		if (listeProdByCat != null) {
+			listeProduits = listeProdByCat;
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit trouvé"));
+
+		}
+	}
+
+	public String outcome(){
+		return "home";
+	}
 }

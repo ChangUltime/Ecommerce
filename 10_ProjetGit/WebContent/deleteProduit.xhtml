@@ -22,7 +22,7 @@
 			</p:submenu>
 			<p:submenu label="Produits" icon="ui-icon-refresh">
 				<p:menuitem value="Ajouter" url="addProduit.xhtml" />
-				<p:menuitem value="Modifier" url="updateProduit.xhtml" />
+				<p:menuitem value="Modifier" url="deleteProduit.xhtml" />
 				<p:menuitem value="Supprimer" url="#" />
 				<p:menuitem value="Rechercher" url="#" />
 				<p:menuitem value="Virement" url="#" />
@@ -44,23 +44,7 @@
 			<p:inputText id="idProd" value="#{prodMB.produit.idProduit}"
 				required="true" />
 
-			<p:outputLabel for="designProd" value="Designation : " />
-			<p:inputText id="designProd" value="#{prodMB.produit.designation}"
-				required="true" />
-
-			<p:outputLabel for="descriProd" value="Description : " />
-			<p:inputText id="descriProd" value="#{prodMB.produit.description}"
-				required="true" />
-
-			<p:outputLabel for="prixProd" value="Prix : " />
-			<p:inputText id="prixProd" value="#{prodMB.produit.prix}"
-				required="true" />
-
-			<p:outputLabel for="qteProd" value="Quantité du lot : " />
-			<p:inputText id="qteProd" value="#{prodMB.produit.quantite}"
-				required="true" />
-
-			<p:commandButton value="Modifier" action="#{prodMB.updateProduit}"
+			<p:commandButton value="Supprimer" action="#{prodMB.deleteProduit}"
 				update="@all" />
 		</h:panelGrid>
 		<h:messages></h:messages>

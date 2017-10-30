@@ -7,56 +7,61 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-<title>Home Agent</title>
+	<title>Home Agent</title>
 </h:head>
 <h:body>
-<h:form>          
-    <p:growl id="messages" showDetail="true" />
- 
-    <p:tieredMenu style="width:200px">
-        <p:submenu label="Categories" icon="ui-icon-refresh">
-            <p:menuitem value="Ajouter" url="addCategorie.xhtml"/>
-            <p:menuitem value="Modifier" url="updateCategorie.xhtml"/>
-            <p:menuitem value="Supprimer" url="deleteCategorie.xhtml"/>
-            <p:menuitem value="Rechercher" url="getCategorie.xhtml"/>
-        </p:submenu>
-        <p:submenu label="Produits" icon="ui-icon-refresh">
-            <p:menuitem value="Ajouter" url="addProduit.xhtml"/>
-            <p:menuitem value="Modifier" url="#"/>
-            <p:menuitem value="Supprimer" url="#"/>
-            <p:menuitem value="Rechercher" url="#"/>
-            <p:menuitem value="Virement" url="#"/>
-        </p:submenu>
-        <p:separator />
-        <p:submenu label="Client" icon="ui-icon-refresh">
-            <p:menuitem value="Ajouter" url="#"/>
-            <p:menuitem value="Modifier" url="#"/>
-            <p:menuitem value="Supprimer" url="#"/>
-            <p:menuitem value="Rechercher" url="#"/>
-        </p:submenu>
-    </p:tieredMenu>
-</h:form>
+	<h:form>
+		<p:growl id="messages" showDetail="true" />
 
-<h:form>
+		<p:tieredMenu style="width:200px">
+			<p:submenu label="Categories" icon="ui-icon-refresh">
+				<p:menuitem value="Ajouter" url="addCategorie.xhtml" />
+				<p:menuitem value="Modifier" url="updateCategorie.xhtml" />
+				<p:menuitem value="Supprimer" url="deleteCategorie.xhtml" />
+				<p:menuitem value="Rechercher" url="getCategorie.xhtml" />
+			</p:submenu>
+			<p:submenu label="Produits" icon="ui-icon-refresh">
+				<p:menuitem value="Ajouter" url="addProduit.xhtml" />
+				<p:menuitem value="Modifier" url="#" />
+				<p:menuitem value="Supprimer" url="#" />
+				<p:menuitem value="Rechercher" url="#" />
+				<p:menuitem value="Virement" url="#" />
+			</p:submenu>
+			<p:separator />
+			<p:submenu label="Client" icon="ui-icon-refresh">
+				<p:menuitem value="Ajouter" url="#" />
+				<p:menuitem value="Modifier" url="#" />
+				<p:menuitem value="Supprimer" url="#" />
+				<p:menuitem value="Rechercher" url="#" />
+			</p:submenu>
+		</p:tieredMenu>
+	</h:form>
 
-<h:panelGrid columns="2">
-	<p:outputLabel for="designProd" value="Designation : "/>
-	<p:inputText id="designProd" value="#{prodMB.produit.designation}" required="true"/>
-	
-	<p:outputLabel for="descriProd" value="Description : "/>
-	<p:inputText id="descriProd" value="#{prodMB.produit.description}" required="true"/>
-	
-	<p:outputLabel for="prixProd" value="Prix : "/>
-	<p:inputText id="prixProd" value="#{prodMB.produit.prix}" required="true"/>
-	
-	<p:outputLabel for="qteProd" value="Quantité du lot : "/>
-	<p:inputText id="qteProd" value="#{prodMB.produit.quantite}" required="true"/>
-	
-<p:commandButton value="Ajouter" action="#{prodMB.addProduit}" update="@all"/>
-</h:panelGrid>
-<h:messages></h:messages>
+	<h:form>
 
-</h:form>
+		<h:panelGrid columns="2">
+			<p:outputLabel for="designProd" value="Designation : " />
+			<p:inputText id="designProd" value="#{prodMB.produit.designation}"
+				required="true" />
+
+			<p:outputLabel for="descriProd" value="Description : " />
+			<p:inputText id="descriProd" value="#{prodMB.produit.description}"
+				required="true" />
+
+			<p:outputLabel for="prixProd" value="Prix : " />
+			<p:inputText id="prixProd" value="#{prodMB.produit.prix}"
+				required="true" />
+
+			<p:outputLabel for="qteProd" value="Quantité du lot : " />
+			<p:inputText id="qteProd" value="#{prodMB.produit.quantite}"
+				required="true" />
+
+			<p:commandButton value="Ajouter" action="#{prodMB.addProduit}"
+				update="@all" />
+		</h:panelGrid>
+		<h:messages></h:messages>
+
+	</h:form>
 
 </h:body>
 </html>
