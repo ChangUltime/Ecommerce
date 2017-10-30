@@ -4,39 +4,39 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:define name="title">Home</ui:define>
+	<ui:define name="title">Home</ui:define>
 
-<ui:define name="contenuHome">
-<h:form id="form">
-	<h1 style="color: red; text-align: center">Catégorie :</h1>
-	<h:outputText value="#{catMB.categorie.nomCategorie}" />
-	<p:dataTable id="cateDetail" var="produit"
-		value="#{prodMB.listeProduits}" widgetVar="catWidget" modal="true"
-		showEffect="fade" hideEffect="fade"
-		rendered="#{catMB.afficheProduitByCat}">
-		<p:column headerText="ID">
-			<h:outputText value="#{produit.idProduit}" />
-		</p:column>
+	<ui:define name="contenuHome">
+		<h:form id="form">
+			<h1 style="color: red; text-align: center">Catégorie :</h1>
+			<h:outputText value="#{catMB.categorie.nomCategorie}" />
+			<p:dataTable id="cateDetail" var="produit"
+				value="#{prodMB.listeProduits}" widgetVar="catWidget" modal="true"
+				showEffect="fade" hideEffect="fade"
+				rendered="#{catMB.afficheProduitByCat}">
+				<p:column headerText="ID">
+					<h:outputText value="#{produit.idProduit}" />
+				</p:column>
 
-		<p:column headerText="Designation">
-			<h:outputText value="#{produit.designation}" />
-		</p:column>
+				<p:column headerText="Designation">
+					<h:outputText value="#{produit.designation}" />
+				</p:column>
 
-		<p:column headerText="Description">
-			<h:outputText value="#{produit.description}" />
-		</p:column>
+				<p:column headerText="Description">
+					<h:outputText value="#{produit.description}" />
+				</p:column>
 
-		<p:column headerText="Prix">
-			<h:outputText value="#{produit.prix}" />
-		</p:column>
+				<p:column headerText="Prix">
+					<h:outputText value="#{produit.prix}" />
+				</p:column>
 
-		<p:column headerText="Quantité du lot">
-			<h:outputText value="#{produit.quantite}" />
-		</p:column>
+				<p:column headerText="Quantité du lot">
+					<h:outputText value="#{produit.quantite}" />
+				</p:column>
 
-	</p:dataTable>
+			</p:dataTable>
 
-</h:form>
-</ui:define>
+		</h:form>
+	</ui:define>
 
 </ui:composition>

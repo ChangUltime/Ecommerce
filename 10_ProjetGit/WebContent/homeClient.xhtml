@@ -3,51 +3,64 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	template="/templates/clientAccountTemplate.xhtml" >
+	template="/templates/clientAccountTemplate.xhtml">
 
 
-<ui:define name="title">Accueil Compte Client</ui:define>
+	<ui:define name="title">Accueil Compte Client</ui:define>
 
-<ui:define name="contenuClient">
-<h:form id="form">
-<p:dataTable id="tableauCommandes" var="commande" value="#{commMB.client.derniereCommande}">
-	<f:facet name="header"> Dernière Commande </f:facet>
-	<p:column headerText="No.">
-		<h:outputText value="#{commande.idCommande}"/>
-	</p:column>
+	<ui:define name="contenuClient">
+		<h:form id="form">
+			<p:dataTable id="tableauCommandes" var="commande"
+				value="#{commMB.client.derniereCommande}">
+				<f:facet name="header"> Dernière Commande </f:facet>
+				<p:column headerText="No.">
+					<h:outputText value="#{commande.idCommande}" />
+				</p:column>
 
-	<p:column headerText="Date">
-		<h:outputText value="#{commande.dateCommande}"/>
-	</p:column>
-	
-	<p:column style="width:32px;text-align: center">
-		<p:commandButton update=":form:contenuCommande" oncomplete="PF('commandeDialog').show()" icon="ui-icon-search" title="Détails">
-			<f:setPropertyActionListener value="#{commande}" target="#{commMB.commande}" />
-		</p:commandButton>
-		<p:commandButton update=":form:contenuCommande" oncomplete="PF('commandeSupprDialog').show()" icon="ui-icon-cancel" title="Annuler la commande">
- 			<f:setPropertyActionListener value="#{commande}" target="#{commMB.commande}" />
-		</p:commandButton>
-	</p:column>
+				<p:column headerText="Date">
+					<h:outputText value="#{commande.dateCommande}" />
+				</p:column>
 
-</p:dataTable>
+				<p:column style="width:32px;text-align: center">
+					<p:commandButton update=":form:contenuCommande"
+						oncomplete="PF('commandeDialog').show()" icon="ui-icon-search"
+						title="Détails">
+						<f:setPropertyActionListener value="#{commande}"
+							target="#{commMB.commande}" />
+					</p:commandButton>
+					<p:commandButton update=":form:contenuCommande"
+						oncomplete="PF('commandeSupprDialog').show()"
+						icon="ui-icon-cancel" title="Annuler la commande">
+						<f:setPropertyActionListener value="#{commande}"
+							target="#{commMB.commande}" />
+					</p:commandButton>
+				</p:column>
 
-<p:dialog header="Détails de la commande" widgetVar="commandeDialog" showEffect="fade" hideEffect="fade" resizable="false">
-    <p:dataTable id="contenuCommande" var="ligne" value="#{commMB.commande.listeLignes}">
-       	<p:column headerText="Produit">
-       		<h:outputText value="#{ligne.produit.designation}"/>
-       	</p:column>
-       	<p:column headerText="Quantité">
-       		<h:outputText value="#{ligne.quantite}"/>
-       	</p:column>
-       	<p:column headerText="Prix">
-       		<h:outputText value="#{ligne.prix}"/>
-       	</p:column>
-   	</p:dataTable>
-</p:dialog>
-<p:dialog header="Supression de la commande" widgetVar="commandeSupprDialog" showEffect="fade" hideEffect="fade" resizable="false">
-    Confirmation : <p:commandButton update="tableauCommandes" oncomplete="PF('commandeSupprDialog').hide()" value="Supprimer" action="#{commMB.annulerCommande}"/>
-</p:dialog>
-</h:form>
-</ui:define>
+			</p:dataTable>
+
+			<p:dialog header="Détails de la commande" widgetVar="commandeDialog"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:dataTable id="contenuCommande" var="ligne"
+					value="#{commMB.commande.listeLignes}">
+					<p:column headerText="Produit">
+						<h:outputText value="#{ligne.produit.designation}" />
+					</p:column>
+					<p:column headerText="Quantité">
+						<h:outputText value="#{ligne.quantite}" />
+					</p:column>
+					<p:column headerText="Prix">
+						<h:outputText value="#{ligne.prix}" />
+					</p:column>
+				</p:dataTable>
+			</p:dialog>
+			<p:dialog header="Supression de la commande"
+				widgetVar="commandeSupprDialog" showEffect="fade" hideEffect="fade"
+				resizable="false">
+    Confirmation : <p:commandButton update="tableauCommandes"
+					oncomplete="PF('commandeSupprDialog').hide()" value="Supprimer"
+					action="#{commMB.annulerCommande}" />
+			</p:dialog>
+		</h:form>
+	</ui:define>
 
 </ui:composition>
