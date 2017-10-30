@@ -8,9 +8,9 @@
 	<ui:define name="title">Home</ui:define>
 
 	<ui:define name="contenuHome">
-		<h:form id="form">
+		<h:form id="formProduit">
 			<h1 style="color: red; text-align: center">Catégorie :</h1>
-			<h:outputText value="#{catMB.categorie.nomCategorie}" />
+			<h:outputText value="#{catMB.categorie.nomCategorie}" rendered="#{catMB.afficheProduitByCat}"/>
 			<p:dataTable id="cateDetail" var="produit"
 				value="#{prodMB.listeProduits}" widgetVar="catWidget" modal="true"
 				showEffect="fade" hideEffect="fade"
