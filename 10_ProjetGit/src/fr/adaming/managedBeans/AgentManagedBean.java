@@ -64,6 +64,6 @@ public class AgentManagedBean implements Serializable {
 		session.invalidate();
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage("Vous avez été déconnecté avec succès"));
-		return "accueil";
+		return "accueil?faces-redirect=true";
 	}
 }
