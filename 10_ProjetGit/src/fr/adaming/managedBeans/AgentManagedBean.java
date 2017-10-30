@@ -56,7 +56,7 @@ public class AgentManagedBean implements Serializable {
 			return "homeAgent";
 		}else {
 			context.addMessage(null, new FacesMessage("Cet agent n'existe pas, verifiez les identifiants"));
-			return "login";
+			return "home";
 		}
 	}
 	
@@ -64,6 +64,6 @@ public class AgentManagedBean implements Serializable {
 		session.invalidate();
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage("Vous avez été déconnecté avec succès"));
-		return "accueil?faces-redirect=true";
+		return "home?faces-redirect=true";
 	}
 }

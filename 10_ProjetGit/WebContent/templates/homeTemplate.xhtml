@@ -13,8 +13,7 @@
 		rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />
 
 	<p:link href="home.xhtml">
-		<h:graphicImage value="/images/Baniere_logo.PNG" height="50%"
-			width="50%" />
+		<h:graphicImage value="/images/Logo.jpg" height="200px" width="200px" />
 	</p:link>
 
 	<p:layout>
@@ -45,12 +44,8 @@
 			<h:form>
 				<h:panelGrid columns="2" width="100%">
 					<p:breadCrumb>
-						<p:menuitem value="Accueil | " url="accueil.xhtml" />
-						<p:menuitem value="Ajouter un client | " url="" />
-						<p:menuitem value="Modifier un client | " url="" />
-						<p:menuitem value="Supprimer un client | " url="" />
-						<p:menuitem value="Rechercher un client | " url="" />
-						<p:menuitem value="Se deconnecter" />
+						<p:menuitem value="Accueil" url="accueil.xhtml" />
+						<p:menuitem value="login agent" url="login.xhtml" />
 					</p:breadCrumb>
 
 					<p:commandButton id="loginButton" value="Compte" type="button" />
@@ -74,8 +69,11 @@
 					<p:growl id="growl" showDetail="true" sticky="true" />
 
 				</h:panelGrid>
+
+				<ui:insert name="contenuHome">Il devrait y avoir quelque chose ici...</ui:insert>
+
+
 			</h:form>
-			<ui:insert name="contenuHome">Il devrait y avoir quelque chose ici...</ui:insert>
 
 		</p:layoutUnit>
 
