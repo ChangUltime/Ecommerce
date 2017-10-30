@@ -16,13 +16,13 @@ public class ClientDAOImpl implements IClientDAO{
 
 	@Override
 	public Client createClient(Client client) {
-		
-		if(clientExists(client)!= null){
+		Client outClient = clientExists(client);
+		if(outClient== null){
 			em.persist(client);
 			System.out.println("Client créé: "+client);
 			return client;
 		} else {
-			return null;
+			return outClient;
 		}
 	}
 
@@ -78,7 +78,7 @@ public class ClientDAOImpl implements IClientDAO{
 	public boolean deleteClient(Client client) {
 		//Cette méthode récupère encore le client par son ID
 		if(getClient(client)!=null){
-			em.remove(client);
+			em.remove(getClient(client));
 			System.out.println("Client supprimé: "+client);
 			return true;
 		}else{

@@ -9,7 +9,6 @@
 </h:head>
 
 <h:body>
-<ui:debug hotkey="x" rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}"/>
 
 	<p:link href="home.xhtml">
 		<h:graphicImage value="/images/Baniere_logo.PNG" height="50%"
@@ -23,8 +22,8 @@
 				<p:menuitem value="Informations" action="homeClient"/>
 				<p:menuitem value="Commandes" action="commandesClient"/>
 				<p:menuitem value="Modifier les informations du compte" action="modifClient"/>
-				<p:menuitem value="Clôturer le compte"/>
-				<p:menuitem value="Retour Accueil" action="accueil"/>
+				<p:menuitem value="Clôturer le compte" action="delClient"/>
+				<p:menuitem value="Retour Accueil" action="home"/>
 		    </p:menu>
 		    </h:form>
 		</p:layoutUnit>

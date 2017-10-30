@@ -21,7 +21,7 @@
             <h:panelGrid columns="2" cellpadding="10">
             	<p:outputLabel value="Nom: "/><h:outputText value="#{cMB.client.nom}"/>
                 <p:outputLabel value="Nouveau: "/><p:inputText id="newNom" value="#{cMB.client.nom}" required="true"/>
-                <p:outputLabel value="Téléphone: "/><h:outputText value="#{cMB.client.prenom}"/>
+                <p:outputLabel value="Prénom: "/><h:outputText value="#{cMB.client.prenom}"/>
                 <p:outputLabel value="Nouveau: "/><p:inputText id="newPrenom" value="#{cMB.client.prenom}" required="true"/>
                 
             	<p:commandButton value="Changer" process="@parent" update="@parent" actionListener="#{cMB.updateClient}"/>

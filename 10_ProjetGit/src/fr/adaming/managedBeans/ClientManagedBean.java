@@ -112,15 +112,19 @@ public class ClientManagedBean implements Serializable {
 		// demandés pour commencer (option sign in/sign up)
 
 		if (clientServ.clientExists(client) == null) {
+			System.out.println("le client avant vérif "+client);
 			this.client = clientServ.createClient(client);
-			
+			System.out.println("le client après vérif et création "+client);
 			seConnecter();
+			System.out.println("le client après connection "+client);
 			return "modifClient"; // renvoie vers l'ajout du reste des
 									// informations. De là, l'annulation doit
 									// etre possible, soit par simple
 									// suppression, soit en ne créant pas le
 									// compte à la ligne précédente mais à
 									// l'aide d'une seconde option. ça demanderait de get la session meme sans connection d'un client. probablement nécessaire pour le panier de toute façon
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Ce client existe déjà"));
 		}
 		return "home";
 	}
@@ -139,5 +143,18 @@ public class ClientManagedBean implements Serializable {
 			}
 		}
 	}
-
+	
+	public String deleteClient(){
+		Client currentClient = (Client)session.getAttribute("sessionClient");
+		if(currentClient!=null){
+			clientServ.deleteClient(currentClient);
+			session.invalidate();
+			return "home?faces-redirect=true";
+		} else {
+			return "home";
+		}
+		
+		
+	}
+	
 }

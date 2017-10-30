@@ -142,7 +142,7 @@ public class Client implements Serializable {
 	
 	public Commande getDerniereCommande(){
 		//trycatch nullpointer
-		if(this.listeCommandes.size()>0){
+		try{
 			Commande derniereCommande = this.listeCommandes.get(0);
 			for(Commande c : this.listeCommandes){
 				if(c.getDateCommande().compareTo(derniereCommande.getDateCommande())>0){
@@ -150,7 +150,7 @@ public class Client implements Serializable {
 				}
 			}
 			return derniereCommande;
-		} else {
+		} catch (NullPointerException npex) {
 			return null;
 		}
 	}
