@@ -1,6 +1,8 @@
 package fr.adaming.managedBeans;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -11,6 +13,7 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Client;
+import fr.adaming.model.Commande;
 import fr.adaming.service.IClientService;
 import fr.adaming.service.ICommandeService;
 
@@ -28,6 +31,8 @@ public class ClientManagedBean implements Serializable {
 	private boolean connected;
 
 	private HttpSession session;
+
+	private List<Commande> listeCommandes;
 
 	@PostConstruct
 	public void init() {
@@ -55,6 +60,14 @@ public class ClientManagedBean implements Serializable {
 		this.connected = connected;
 	}
 
+	public List<Commande> getListeCommandes() {
+		return listeCommandes;
+	}
+
+	public void setListeCommandes(List<Commande> listeCommandes) {
+		this.listeCommandes = listeCommandes;
+	}
+
 	public String seConnecter() {
 		// fonction de login du client, qui donne acces a la gestion du compte
 		// personnel et des commandes
@@ -72,12 +85,17 @@ public class ClientManagedBean implements Serializable {
 			this.client = loginClient;
 			session.setAttribute("sessionClient", this.client);
 			connected = true;
+			
+			listeCommandes = commandeServ.getCommandeByClient(client);
+			client.setListeCommandes(listeCommandes);
+			session.setAttribute("sessionClient", client);
+			
 			context.addMessage(null, new FacesMessage("Session de " + client.getNom() + " " + client.getPrenom()));
 		} else {
 			this.client = new Client();
 			context.addMessage(null, new FacesMessage("Ce client n'existe pas, verifiez les identifiants"));
 		}
-		return "accueil";
+		return "home";
 	}
 
 	public String seDeconnecter() {
@@ -85,7 +103,7 @@ public class ClientManagedBean implements Serializable {
 		session.invalidate();
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage("Vous avez été déconnecté avec succès"));
-		return "accueil?faces-redirect=true";
+		return "home?faces-redirect=true";
 	}
 
 	public String creerCompte() {
@@ -104,7 +122,7 @@ public class ClientManagedBean implements Serializable {
 									// compte à la ligne précédente mais à
 									// l'aide d'une seconde option. ça demanderait de get la session meme sans connection d'un client. probablement nécessaire pour le panier de toute façon
 		}
-		return "accueil";
+		return "home";
 	}
 	
 	public void updateClient(ActionEvent actionEvent){

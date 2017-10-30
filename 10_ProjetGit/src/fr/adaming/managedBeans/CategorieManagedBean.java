@@ -52,6 +52,9 @@ public class CategorieManagedBean implements Serializable {
 
 		// Recuperation de l'agent à partir de la session
 		this.agent = (Agent) session.getAttribute("agentSession");
+		
+		listeCategories = catService.getAllCategorie();
+		session.setAttribute("categoriesListe", listeCategories);
 	}
 
 	public ICategorieService getCatService() {

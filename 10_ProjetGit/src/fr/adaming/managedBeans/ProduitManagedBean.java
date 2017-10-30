@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
 
@@ -48,6 +49,9 @@ public class ProduitManagedBean {
 
 		// Recuperation de l'agent à partir de la session
 		this.agent = (Agent) session.getAttribute("agentSession");
+
+		listeProduits = prodService.getAllProduit();
+		session.setAttribute("produitsListe", listeProduits);
 	}
 
 	public IProduitService getProdService() {
@@ -157,8 +161,7 @@ public class ProduitManagedBean {
 		}
 	}
 
-	public void getProductByCategorie(ActionEvent event) {
-		categorie.setIdCategorie((Long)event.getComponent().getAttributes().get("idCat"));
+	public void getProductByCategorie() {
 		List<Produit> listeProdByCat = prodService.getProductByCategorie(categorie);
 
 		if (listeProdByCat != null) {
@@ -169,7 +172,4 @@ public class ProduitManagedBean {
 		}
 	}
 
-	public String outcome(){
-		return "home";
-	}
 }
