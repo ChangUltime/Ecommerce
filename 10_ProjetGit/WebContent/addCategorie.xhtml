@@ -1,41 +1,13 @@
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/agentAccountTemplate.xhtml" >
 
-<h:head>
-<title>Home Agent</title>
-</h:head>
-<h:body>
-<h:form>          
-    <p:growl id="messages" showDetail="true" />
- 
-    <p:tieredMenu style="width:200px">
-        <p:submenu label="Categories" icon="ui-icon-refresh">
-            <p:menuitem value="Ajouter" url="addCategorie.xhtml"/>
-            <p:menuitem value="Modifier" url="updateCategorie.xhtml"/>
-            <p:menuitem value="Supprimer" url="deleteCategorie.xhtml"/>
-            <p:menuitem value="Rechercher" url="getCategorie.xhtml"/>
-        </p:submenu>
-        <p:submenu label="Produits" icon="ui-icon-refresh">
-            <p:menuitem value="Ajouter" url="#l"/>
-            <p:menuitem value="Modifier" url="#"/>
-            <p:menuitem value="Supprimer" url="#"/>
-            <p:menuitem value="Rechercher" url="#"/>
-            <p:menuitem value="Virement" url="#"/>
-        </p:submenu>
-        <p:separator />
-        <p:submenu label="Client" icon="ui-icon-refresh">
-            <p:menuitem value="Ajouter" url="#"/>
-            <p:menuitem value="Modifier" url="#"/>
-            <p:menuitem value="Supprimer" url="#"/>
-            <p:menuitem value="Rechercher" url="#"/>
-        </p:submenu>
-    </p:tieredMenu>
-</h:form>
+<ui:define name="title">Accueil agent</ui:define>
+
+<ui:define name="contenuAgent">
 
 <h:form>
 
@@ -51,6 +23,6 @@
 <h:messages></h:messages>
 
 </h:form>
-
-</h:body>
-</html>
+<p:messages></p:messages>
+</ui:define>
+</ui:composition>

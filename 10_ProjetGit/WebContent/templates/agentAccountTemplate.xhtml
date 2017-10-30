@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="title">Default title</ui:insert></title>
+</h:head>
+
+<h:body>
+	<ui:debug hotkey="x"
+		rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />
+
+	<p:link href="home.xhtml">
+		<h:graphicImage value="/images/Logo.jpg" height="200px" width="200px" />
+	</p:link>
+
+	<p:layout>
+		<p:layoutUnit position="west">
+			<h:form>
+				<p:menu>
+					<p:submenu label="Categories" icon="ui-icon-refresh">
+						<p:menuitem value="Ajouter" url="addCategorie.xhtml" />
+						<p:menuitem value="Modifier" url="updateCategorie.xhtml" />
+						<p:menuitem value="Supprimer" url="deleteCategorie.xhtml" />
+						<p:menuitem value="Rechercher" url="getCategorie.xhtml" />
+					</p:submenu>
+					<p:submenu label="Produits" icon="ui-icon-refresh">
+						<p:menuitem value="Ajouter" url="addProduit.xhtml" />
+						<p:menuitem value="Modifier" url="updateProduit.xhtml" />
+						<p:menuitem value="Supprimer" url="deleteProduit.xhtml" />
+						<p:menuitem value="Rechercher" url="#" />
+					</p:submenu>
+					<p:submenu label="Produits" icon="ui-icon-refresh">
+						<p:menuitem value="Informations" action="homeClient" />
+						<p:menuitem value="Commandes" action="commandesClient" />
+						<p:menuitem value="Modifier les informations du compte"
+							action="modifClient" />
+						<p:menuitem value="Clôturer le compte" />
+					</p:submenu>
+					<p:menuitem value="Retour Accueil" action="accueil" />
+				</p:menu>
+			</h:form>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center">
+			<ui:insert name="contenuAgent">Il devrait y avoir quelque chose ici...</ui:insert>
+		</p:layoutUnit>
+
+	</p:layout>
+
+
+</h:body>
+
+</html>
