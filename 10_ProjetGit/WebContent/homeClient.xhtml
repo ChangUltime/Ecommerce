@@ -11,6 +11,7 @@
 <ui:define name="contenu">
 <h:form id="form">
 <p:dataTable id="tableauCommandes" var="commande" value="#{commMB.client.derniereCommande}">
+	<f:facet name="header"> Dernière Commande </f:facet>
 	<p:column headerText="No.">
 		<h:outputText value="#{commande.idCommande}"/>
 	</p:column>
