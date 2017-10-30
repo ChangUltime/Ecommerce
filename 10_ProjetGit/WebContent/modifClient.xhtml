@@ -13,7 +13,17 @@
         <p:tab title="Adresse mail: #{cMB.client.email}">
             <h:panelGrid id="mailPanel" columns="2" cellpadding="10">
                 <p:outputLabel value="Actuelle: "/><h:outputText value="#{cMB.client.email}"/>
-                <p:outputLabel id="newmail" value="Nouvelle: "/><p:inputText value="#{cMB.client.email}" required="true"/>
+                <p:outputLabel value="Nouvelle: "/><p:inputText id="newmail" value="#{cMB.client.email}" required="true"/>
+            	<p:commandButton value="Changer" process="@parent" update="@parent" actionListener="#{cMB.updateClient}"/>
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Nom">
+            <h:panelGrid columns="2" cellpadding="10">
+            	<p:outputLabel value="Nom: "/><h:outputText value="#{cMB.client.nom}"/>
+                <p:outputLabel value="Nouveau: "/><p:inputText id="newNom" value="#{cMB.client.nom}" required="true"/>
+                <p:outputLabel value="Téléphone: "/><h:outputText value="#{cMB.client.prenom}"/>
+                <p:outputLabel value="Nouveau: "/><p:inputText id="newPrenom" value="#{cMB.client.prenom}" required="true"/>
+                
             	<p:commandButton value="Changer" process="@parent" update="@parent" actionListener="#{cMB.updateClient}"/>
             </h:panelGrid>
         </p:tab>
@@ -30,13 +40,21 @@
         <p:tab title="Adresse postale">
             <h:panelGrid columns="2" cellpadding="10">
             	<p:outputLabel value="Adresse: "/><h:outputText value="#{cMB.client.adresse}"/>
-                <p:outputLabel id="newmail" value="Nouvelle: "/><p:inputText value="#{cMB.client.email}" required="true"/>
+                <p:outputLabel value="Nouvelle: "/><p:inputText id="newAdresse" value="#{cMB.client.adresse}" required="true"/>
                 
                 <p:outputLabel value="Ville: "/><h:outputText value="#{cMB.client.ville}"/>
-                <p:outputLabel id="newmail" value="Nouvelle: "/><p:inputText value="#{cMB.client.email}" required="true"/>
+                <p:outputLabel value="Nouvelle: "/><p:inputText id="newVille" value="#{cMB.client.ville}" required="true"/>
                 
                 <p:outputLabel value="Code Postal: "/><h:outputText value="#{cMB.client.codePostal}"/>
-                <p:outputLabel id="newmail" value="Nouvelle: "/><p:inputText value="#{cMB.client.email}" required="true"/>
+                <p:outputLabel value="Nouveau: "/><p:inputText id="newZip" value="#{cMB.client.codePostal}" required="true"/>
+                
+            	<p:commandButton value="Changer" process="@parent" update="@parent" actionListener="#{cMB.updateClient}"/>
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Téléphone">
+            <h:panelGrid columns="2" cellpadding="10">
+            	<p:outputLabel value="Téléphone: "/><h:outputText value="#{cMB.client.telephone}"/>
+                <p:outputLabel value="Nouveau: "/><p:inputText id="newTelephone" value="#{cMB.client.telephone}" required="true"/>
                 
             	<p:commandButton value="Changer" process="@parent" update="@parent" actionListener="#{cMB.updateClient}"/>
             </h:panelGrid>

@@ -74,6 +74,7 @@ public class ClientManagedBean implements Serializable {
 			connected = true;
 			context.addMessage(null, new FacesMessage("Session de " + client.getNom() + " " + client.getPrenom()));
 		} else {
+			this.client = new Client();
 			context.addMessage(null, new FacesMessage("Ce client n'existe pas, verifiez les identifiants"));
 		}
 		return "accueil";
@@ -93,7 +94,9 @@ public class ClientManagedBean implements Serializable {
 		// demandés pour commencer (option sign in/sign up)
 
 		if (clientServ.clientExists(client) == null) {
-			clientServ.createClient(client);
+			this.client = clientServ.createClient(client);
+			
+			seConnecter();
 			return "modifClient"; // renvoie vers l'ajout du reste des
 									// informations. De là, l'annulation doit
 									// etre possible, soit par simple

@@ -37,11 +37,12 @@ public class ClientDAOImpl implements IClientDAO{
 		Query query = em.createQuery(req);
 		query.setParameter("pEmail", client.getEmail());
 		query.setParameter("pPassword", client.getPassword());
+		System.out.println("managed to set the parameters, trying to get the result");
 		try {
 			Client outClient = (Client)query.getSingleResult();
 			System.out.println(outClient+" le client retourné");
 			return outClient;
-		} catch (NoResultException nrex) {
+		} catch (NoResultException ex) {
 			return null;
 		}
 	}
