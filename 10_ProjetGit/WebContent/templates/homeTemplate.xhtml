@@ -42,17 +42,17 @@
 		</p:layoutUnit>
 
 		<p:layoutUnit position="center">
-			<h:panelGrid columns="2" width="100%">
-				<p:breadCrumb>
-					<p:menuitem value="Accueil | " url="accueil.xhtml" />
-					<p:menuitem value="Ajouter un client | " url="" />
-					<p:menuitem value="Modifier un client | " url="" />
-					<p:menuitem value="Supprimer un client | " url="" />
-					<p:menuitem value="Rechercher un client | " url="" />
-					<p:menuitem value="Se deconnecter" />
-				</p:breadCrumb>
+			<h:form>
+				<h:panelGrid columns="2" width="100%">
+					<p:breadCrumb>
+						<p:menuitem value="Accueil | " url="accueil.xhtml" />
+						<p:menuitem value="Ajouter un client | " url="" />
+						<p:menuitem value="Modifier un client | " url="" />
+						<p:menuitem value="Supprimer un client | " url="" />
+						<p:menuitem value="Rechercher un client | " url="" />
+						<p:menuitem value="Se deconnecter" />
+					</p:breadCrumb>
 
-				<h:form>
 					<p:commandButton id="loginButton" value="Compte" type="button" />
 					<p:overlayPanel id="loginPanel" for="loginButton" hideEffect="fade">
 						<p:panelGrid columns="2" rendered="#{!cMB.connected}">
@@ -72,11 +72,11 @@
 					</p:overlayPanel>
 
 					<p:growl id="growl" showDetail="true" sticky="true" />
-				</h:form>
-			</h:panelGrid>
-			
+
+				</h:panelGrid>
+			</h:form>
 			<ui:insert name="contenuHome">Il devrait y avoir quelque chose ici...</ui:insert>
-			
+
 		</p:layoutUnit>
 
 	</p:layout>
