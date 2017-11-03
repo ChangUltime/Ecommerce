@@ -25,7 +25,7 @@ public class Produit implements Serializable{
 	private String designation;
 	private String description;
 	private double prix;
-	private int quantite;
+	private int stock;
 	private boolean selectionne;
 	
 	// Association UML en JAVA
@@ -41,23 +41,23 @@ public class Produit implements Serializable{
 		super();
 	}
 
-	public Produit(String designation, String description, double prix, int quantite, boolean selectionne) {
+	public Produit(String designation, String description, double prix, int stock, boolean selectionne) {
 		super();
 		this.designation = designation;
 		this.description = description;
 		this.prix = prix;
-		this.quantite = quantite;
+		this.stock = stock;
 		this.selectionne = selectionne;
 	}
 
-	public Produit(Long idProduit, String designation, String description, double prix, int quantite,
+	public Produit(Long idProduit, String designation, String description, double prix, int stock,
 			boolean selectionne) {
 		super();
 		this.idProduit = idProduit;
 		this.designation = designation;
 		this.description = description;
 		this.prix = prix;
-		this.quantite = quantite;
+		this.stock = stock;
 		this.selectionne = selectionne;
 	}
 
@@ -95,12 +95,12 @@ public class Produit implements Serializable{
 		this.prix = prix;
 	}
 
-	public int getQuantite() {
-		return quantite;
+	public int getStock() {
+		return stock;
 	}
 
-	public void setQuantite(int quantite) {
-		this.quantite = quantite;
+	public void setStock(int stock) {
+		this.stock = stock;
 	}
 
 	public boolean isSelectionne() {
@@ -131,7 +131,7 @@ public class Produit implements Serializable{
 	@Override
 	public String toString() {
 		return "Produit [idProduit=" + idProduit + ", designation=" + designation + ", description=" + description
-				+ ", prix=" + prix + ", quantite=" + quantite + ", selectionne=" + selectionne + "]";
+				+ ", prix=" + prix + ", stock=" + stock + ", selectionne=" + selectionne + "]";
 	}
 	
 	

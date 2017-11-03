@@ -9,8 +9,7 @@
 </h:head>
 
 <h:body>
-	<ui:debug hotkey="x"
-		rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />
+
 
 	<p:link href="home.xhtml">
 		<h:graphicImage value="/images/Logo.jpg" height="200px" width="200px" />
@@ -79,7 +78,29 @@
 
 	</p:layout>
 
+	<p:dialog header="#{catMB.produit.designation}" widgetVar="dlg1"
+		height="400px" width="600px" closeOnEscape="true" position="center"
+		resizable="false">
+		<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
+			columnClasses="label,value" layout="grid"
+			styleClass="ui-panelgrid-blank">
+			<f:facet name="header">
+				<p:graphicImage name="#" />
+			</f:facet>
 
+			<h:outputText value="Id:" />
+			<h:outputText value="#{prodMB.produit.idProduit}" />
+
+			<h:outputText value="Designation" />
+			<h:outputText value="#{catMB.produit.designation}" />
+
+			<h:outputText value="Quantité" />
+			<h:outputText value="#{catMB.produit.stock}" />
+
+			<h:outputText value="Prix" />
+			<h:outputText value="#{catMB.produit.prix}" />
+		</p:panelGrid>
+	</p:dialog>
 </h:body>
 
 </html>

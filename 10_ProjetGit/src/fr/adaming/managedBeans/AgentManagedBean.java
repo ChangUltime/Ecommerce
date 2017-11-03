@@ -52,7 +52,7 @@ public class AgentManagedBean implements Serializable {
 		if(loginAgent!=null){
 			this.agent = loginAgent;
 			session.setAttribute("sessionAgent", this.agent);
-			context.addMessage(null, new FacesMessage("Session de "+agent.getMail()));
+			context.addMessage(null, new FacesMessage("Session de "+agent.getMail()));			
 			return "homeAgent";
 		}else {
 			context.addMessage(null, new FacesMessage("Cet agent n'existe pas, verifiez les identifiants"));

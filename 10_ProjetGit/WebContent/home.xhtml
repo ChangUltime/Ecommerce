@@ -8,35 +8,74 @@
 	<ui:define name="title">Home</ui:define>
 
 	<ui:define name="contenuHome">
-		<h:form id="formProduit">
-			<h1 style="color: red; text-align: center">Catégorie :</h1>
-			<h:outputText value="#{catMB.categorie.nomCategorie}" rendered="#{catMB.afficheProduitByCat}"/>
-			<p:dataTable id="cateDetail" var="produit"
-				value="#{prodMB.listeProduits}" widgetVar="catWidget" modal="true"
-				showEffect="fade" hideEffect="fade"
-				rendered="#{catMB.afficheProduitByCat}">
-				<p:column headerText="ID">
-					<h:outputText value="#{produit.idProduit}" />
-				</p:column>
+		<h:form id="formProduit" rendered="#{catMB.afficheProduitByCat}">
+			<h1 style="color: red; text-align: center">
+				Catégorie :
+				<h:outputText value="#{catMB.categorie.nomCategorie}" />
+			</h1>
+			<p:carousel value="#{catMB.categorie.listeProduits}"
+				headerText="#{produit.designation}" var="prod"
+				itemStyle="text-align:center" responsive="true">
+				<p:commandLink type="button" onclick="PF('dlg1').show();">
+					<f:setPropertyActionListener value="#{prod}"
+						target="#{catMB.produit}" />
 
-				<p:column headerText="Designation">
-					<h:outputText value="#{produit.designation}" />
-				</p:column>
+					<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
+						columnClasses="label,value" layout="grid"
+						styleClass="ui-panelgrid-blank">
+						<f:facet name="header">
+							<p:graphicImage name="#" />
+						</f:facet>
 
-				<p:column headerText="Description">
-					<h:outputText value="#{produit.description}" />
-				</p:column>
+						<h:outputText value="ID" />
+						<h:outputText value="#{prod.idProduit}" />
 
-				<p:column headerText="Prix">
-					<h:outputText value="#{produit.prix}" />
-				</p:column>
+						<h:outputText value="Designation" />
+						<h:outputText value="#{prod.designation}" />
 
-				<p:column headerText="Quantité du lot">
-					<h:outputText value="#{produit.quantite}" />
-				</p:column>
+						<h:outputText value="Stock" />
+						<h:outputText value="#{prod.stock}" />
 
-			</p:dataTable>
+						<h:outputText value="Prix" />
+						<h:outputText value="#{prod.prix}" />
+					</p:panelGrid>
+				</p:commandLink>
 
+				<h:outputLabel for="basic" value="Basic Spinner: " />
+				<p:spinner id="basic" value="#{commMB.ldc.quantite}" />
+
+				<p:commandButton value="Basic" type="button"
+					onclick="PF('dlg1').show();"
+					actionListener="#{prodMB.getProductById}" />
+			</p:carousel>
+		</h:form>
+
+		<h:form rendered="#{!catMB.afficheProduitByCat}">
+			<h1 style="color: black; text-align: center">Promotion</h1>
+
+			<p:carousel value="#{prodMB.listeProduits}"
+				headerText="#{produit.designation}" var="prod"
+				itemStyle="text-align:center" responsive="true">
+				<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
+					columnClasses="label,value" layout="grid"
+					styleClass="ui-panelgrid-blank">
+					<f:facet name="header">
+						<p:graphicImage name="#" />
+					</f:facet>
+
+					<h:outputText value="Id:" />
+					<h:outputText value="#{prod.idProduit}" />
+
+					<h:outputText value="Designation" />
+					<h:outputText value="#{prod.designation}" />
+
+					<h:outputText value="Stock" />
+					<h:outputText value="#{prod.stock}" />
+
+					<h:outputText value="Prix" />
+					<h:outputText value="#{prod.prix}" />
+				</p:panelGrid>
+			</p:carousel>
 		</h:form>
 	</ui:define>
 

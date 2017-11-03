@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
+import fr.adaming.model.LigneDeCommande;
 import fr.adaming.service.ICommandeService;
 
 @ManagedBean(name="commMB")

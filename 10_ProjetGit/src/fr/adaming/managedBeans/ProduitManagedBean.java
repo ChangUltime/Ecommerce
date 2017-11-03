@@ -10,6 +10,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
 
@@ -171,5 +174,17 @@ public class ProduitManagedBean {
 
 		}
 	}
+	
+	public void getProductById(ActionEvent event) {
+		Produit prod_out = prodService.getProduit(produit);
+
+		if (prod_out != null) {
+			produit = prod_out;
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit trouvé"));
+
+		}
+	}
+
 
 }

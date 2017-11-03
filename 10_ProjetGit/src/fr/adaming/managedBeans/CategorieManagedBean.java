@@ -9,13 +9,17 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Agent;
 import fr.adaming.model.Categorie;
+import fr.adaming.model.Produit;
 import fr.adaming.service.ICategorieService;
+import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "catMB")
 @Table(name = "categories")
@@ -24,8 +28,13 @@ public class CategorieManagedBean implements Serializable {
 
 	@EJB
 	ICategorieService catService;
+	
+	@EJB
+	IProduitService prodService;
 
 	private Categorie categorie;
+	
+	private Produit produit;
 
 	private Agent agent;
 
@@ -55,6 +64,9 @@ public class CategorieManagedBean implements Serializable {
 		
 		listeCategories = catService.getAllCategorie();
 		session.setAttribute("categoriesListe", listeCategories);
+		
+		categorie.setListeProduits(prodService.getProductByCategorie(categorie));
+		
 	}
 
 	public ICategorieService getCatService() {
@@ -71,6 +83,14 @@ public class CategorieManagedBean implements Serializable {
 
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
+	}
+
+	public Produit getProduit() {
+		return produit;
+	}
+
+	public void setProduit(Produit produit) {
+		this.produit = produit;
 	}
 
 	public Agent getAgent() {
@@ -179,11 +199,5 @@ public class CategorieManagedBean implements Serializable {
 			return "getCategorie";
 		}
 
-	}
-
-	public void afficheProdByCat(){
-		System.out.println("---------------------------------- Hello");
-		
-		this.afficheProduitByCat = true;
 	}
 }
