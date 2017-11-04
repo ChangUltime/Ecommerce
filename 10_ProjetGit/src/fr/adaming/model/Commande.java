@@ -31,6 +31,7 @@ public class Commande implements Serializable {
 	@JoinColumn(name="client_id", referencedColumnName="id_client")
 	private Client client;
 	
+	
 	@OneToMany(mappedBy="commande", fetch=FetchType.EAGER , cascade=CascadeType.ALL)
 	private List<LigneDeCommande> listeLignes;
 

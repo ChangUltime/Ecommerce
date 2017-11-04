@@ -36,6 +36,8 @@ public class PanierManagedBean implements Serializable {
 	
 	private Commande commande;
 	
+	private LigneDeCommande ligneCommande;
+	
 	private Client client;
 	
 	private HttpSession session ;
@@ -73,6 +75,22 @@ public class PanierManagedBean implements Serializable {
 		this.panier = panier;
 	}
 
+	public LigneDeCommande getLigneCommande() {
+		return ligneCommande;
+	}
+
+	public void setLigneCommande(LigneDeCommande ligneCommande) {
+		this.ligneCommande = ligneCommande;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
 	public Commande getCommande() {
 		return commande;
 	}
@@ -96,13 +114,14 @@ public class PanierManagedBean implements Serializable {
 			boolean produitPresent = false;
 			List<Produit> listeP = panier.getListProduits();
 			
-			LigneDeCommande lignePanier = panier.getLigneByProduit(reqProduit);
+			ligneCommande = panier.getLigneByProduit(reqProduit);
 			
-			if(lignePanier!=null){
-				lignePanier.incrementerQuantite();
-				lignePanier.getTotal();
+			if(ligneCommande!=null){
+				//lignePanier.incrementerQuantite();
+				ligneCommande.getTotal();
 			}else{
 				panier.getListeLignes().add(new LigneDeCommande(1, reqProduit.getPrix(), reqProduit, panier));
+				System.out.println("-------------------------------------" +ligneCommande);
 			}
 		session.setAttribute("panier", panier);
 		} else {

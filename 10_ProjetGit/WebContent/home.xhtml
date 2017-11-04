@@ -23,9 +23,6 @@
 					<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
 						columnClasses="label,value" layout="grid"
 						styleClass="ui-panelgrid-blank">
-						<f:facet name="header">
-							<p:graphicImage name="#" />
-						</f:facet>
 
 						<h:outputText value="ID" />
 						<h:outputText value="#{prod.idProduit}" />
@@ -41,12 +38,12 @@
 					</p:panelGrid>
 				</p:commandLink>
 
-				<h:outputLabel for="basic" value="Basic Spinner: " />
-				<p:spinner id="basic" value="#{commMB.ldc.quantite}" />
-
-				<p:commandButton value="Basic" type="button"
-					onclick="PF('dlg1').show();"
-					actionListener="#{prodMB.getProductById}" />
+				<h:inputText value="#{panierMB.ligneCommande.quantite}" />
+				<p:commandButton type="button" value="Ajouter au panier" actionListener="#{panierMB.ajouterProduit}" update="@all">
+					<f:setPropertyActionListener value="#{prod}"
+						target="#{panierMB.produit}" />
+				</p:commandButton>
+				
 			</p:carousel>
 		</h:form>
 
@@ -59,9 +56,6 @@
 				<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
 					columnClasses="label,value" layout="grid"
 					styleClass="ui-panelgrid-blank">
-					<f:facet name="header">
-						<p:graphicImage name="#" />
-					</f:facet>
 
 					<h:outputText value="Id:" />
 					<h:outputText value="#{prod.idProduit}" />

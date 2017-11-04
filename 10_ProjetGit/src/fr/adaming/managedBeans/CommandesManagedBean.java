@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.persistence.OneToMany;
 import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Client;
@@ -28,6 +29,8 @@ public class CommandesManagedBean implements Serializable {
 	private Client client;
 	
 	private Commande commande;
+	
+	private LigneDeCommande ligneCommande;
 	
 	private List<Commande> listeCommandes;
 	

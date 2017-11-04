@@ -28,6 +28,8 @@ public class Produit implements Serializable{
 	private int stock;
 	private boolean selectionne;
 	
+	private LigneDeCommande ligne;
+	
 	// Association UML en JAVA
 	@OneToMany(mappedBy="produit", fetch=FetchType.LAZY)
 	private List<LigneDeCommande> ldc;
@@ -109,6 +111,14 @@ public class Produit implements Serializable{
 
 	public void setSelectionne(boolean selectionne) {
 		this.selectionne = selectionne;
+	}
+
+	public LigneDeCommande getLigne() {
+		return ligne;
+	}
+
+	public void setLigne(LigneDeCommande ligne) {
+		this.ligne = ligne;
 	}
 
 	public List<LigneDeCommande> getLdc() {
