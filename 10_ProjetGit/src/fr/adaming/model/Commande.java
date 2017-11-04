@@ -104,7 +104,7 @@ public class Commande implements Serializable {
 	
 	public LigneDeCommande getLigneByProduit(Produit produit){
 		for(LigneDeCommande ldc : listeLignes){
-			if(produit.equals(ldc.getProduit())){
+			if(produit.getDesignation().equals(ldc.getProduit().getDesignation()) && produit.getIdProduit().equals(ldc.getProduit().getIdProduit())){
 				return ldc;
 			}
 		}
@@ -115,5 +115,13 @@ public class Commande implements Serializable {
 		for(LigneDeCommande ldc : this.listeLignes){
 			this.listeLignes.remove(ldc);
 		}
+	}
+	
+	public double getTotal(){
+		double total = 0.;
+		for(LigneDeCommande ldc : this.listeLignes){
+			total += ldc.getTotal();
+		}
+		return total;
 	}
 }
