@@ -7,12 +7,9 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
 
@@ -30,6 +27,8 @@ public class ProduitManagedBean {
 	IProduitService prodService;
 
 	private Produit produit;
+	private double reduc;
+	
 	private Categorie categorie;
 	private Agent agent;
 
@@ -71,6 +70,14 @@ public class ProduitManagedBean {
 
 	public void setProduit(Produit produit) {
 		this.produit = produit;
+	}
+
+	public double getReduc() {
+		return reduc;
+	}
+
+	public void setReduc(double reduc) {
+		this.reduc = reduc;
 	}
 
 	public Categorie getCategorie() {
@@ -186,5 +193,24 @@ public class ProduitManagedBean {
 		}
 	}
 
+	public void promoProduit(){
+		Produit prod_out = prodService.getProduit(produit);
+		double prixPromo = (produit.getPrix()*produit.getReduc())/100;
+		System.out.println(produit.getPrix());
+		produit.setPrix(prixPromo);
+		System.out.println(produit.getPrix());
+		
+		prod_out = prodService.updateProduit(produit, categorie);
+
+		if (prod_out != null) {
+			listeProduits = prodService.getAllProduit();
+
+			session.setAttribute("produitsListe", listeProduits);
+
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit modifié : " + produit));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit modifié"));
+		}
+	}
 
 }

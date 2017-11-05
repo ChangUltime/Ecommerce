@@ -37,13 +37,15 @@
 						<h:outputText value="#{prod.prix}" />
 					</p:panelGrid>
 				</p:commandLink>
-
+				<h:outputText value="#{prod}" />
+				<h:outputText value="aa#{panierMB.panier.listeLignes}" />
 				<h:inputText value="#{panierMB.ligneCommande.quantite}" />
-				<p:commandButton type="button" value="Ajouter au panier" actionListener="#{panierMB.ajouterProduit}" update="@all">
+				<p:commandButton title="Ajouter au panier"
+					action="#{panierMB.ajouterProduit}" update="@all">
 					<f:setPropertyActionListener value="#{prod}"
-						target="#{panierMB.produit}" />
+						target="#{panierMB.panier.listProduits}" />
 				</p:commandButton>
-				
+
 			</p:carousel>
 		</h:form>
 

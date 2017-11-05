@@ -27,11 +27,12 @@ public class Produit implements Serializable{
 	private double prix;
 	private int stock;
 	private boolean selectionne;
+	private double reduc;
 	
 	private LigneDeCommande ligne;
 	
 	// Association UML en JAVA
-	@OneToMany(mappedBy="produit", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="produit", fetch=FetchType.EAGER)
 	private List<LigneDeCommande> ldc;
 	
 	@ManyToOne
@@ -111,6 +112,14 @@ public class Produit implements Serializable{
 
 	public void setSelectionne(boolean selectionne) {
 		this.selectionne = selectionne;
+	}
+
+	public double getReduc() {
+		return reduc;
+	}
+
+	public void setReduc(double reduc) {
+		this.reduc = reduc;
 	}
 
 	public LigneDeCommande getLigne() {

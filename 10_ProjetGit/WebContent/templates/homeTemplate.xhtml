@@ -40,10 +40,10 @@
 		</p:layoutUnit>
 
 		<p:layoutUnit position="east" size="500" collapsible="true">
-			<h:form>
-				<p:dataTable var="panier" value="#{panierMB.panier.listeLignes}">
+			<h:form id="formPanier">
+				<p:dataTable id="panierId" var="panier" value="#{panierMB.panier.listeLignes}">
 					<p:column headerText="Produit">
-						<h:outputText value="#{panier.produit.designation}" />
+						<h:outputText value="#{panierMB.produit.designation}" />
 					</p:column>
 
 					<p:column headerText="Quantité">
@@ -65,7 +65,23 @@
 						<p:menuitem value="Accueil" url="accueil.xhtml" />
 						<p:menuitem value="login agent" url="login.xhtml" />
 					</p:breadCrumb>
-
+					
+					<p:commandButton id="loginAgentButton" value="Compte agent" type="button" style="position:right"/>
+					<p:overlayPanel id="loginAgentPanel" for="loginAgentButton" hideEffect="fade">
+						<p:panelGrid columns="2">
+							<h:outputLabel value="E-Mail" />
+							<h:inputText value="#{aMB.agent.mail}" />
+							<h:outputLabel value="Mot de Passe" />
+							<h:inputSecret value="#{aMB.agent.password}" />
+							<h:commandButton value="Login" action="#{aMB.seConnecter}" />
+						</p:panelGrid>
+						<p:panelGrid columns="1">
+							<h:commandButton value="Gestion du Compte" action="homeAgent" />
+							<h:commandButton value="Déconnecter"
+								action="#{aMB.seDeconnecter}" />
+						</p:panelGrid>
+					</p:overlayPanel>
+					
 					<p:commandButton id="loginButton" value="Compte" type="button" />
 					<p:overlayPanel id="loginPanel" for="loginButton" hideEffect="fade">
 						<p:panelGrid columns="2" rendered="#{!cMB.connected}">
@@ -97,7 +113,7 @@
 
 	</p:layout>
 
-	
+
 
 </h:body>
 

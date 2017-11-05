@@ -44,8 +44,12 @@
 			<h:outputText value="#{produit.prix}" />
 		</p:column>
 
-		<p:column headerText="Quantité du lot">
-			<h:outputText value="#{produit.quantite}" />
+		<p:column headerText="Stock">
+			<h:outputText value="#{produit.stock}" />
+		</p:column>
+		
+		<p:column headerText="Catégorie">
+			<h:outputText value="#{produit.categorie.nomCategorie}" />
 		</p:column>
 
 	</p:dataTable>
