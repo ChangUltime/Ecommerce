@@ -40,20 +40,22 @@ public class ProduitManagedBean {
 		this.produit = new Produit();
 	}
 
-	@PostConstruct // Cette annotation sert a excecute la méthode juste après
+	@PostConstruct // Cette annotation sert a excecute la mï¿½thode juste aprï¿½s
 	// l'instanciation du managedBean
 	public void init() {
-		// Récuparation du context
+		// Rï¿½cuparation du context
 		FacesContext context = FacesContext.getCurrentInstance();
 
-		// Récuperation de la session
+		// Rï¿½cuperation de la session
 		this.session = (HttpSession) context.getExternalContext().getSession(false);
 
-		// Recuperation de l'agent à partir de la session
+		// Recuperation de l'agent ï¿½ partir de la session
 		this.agent = (Agent) session.getAttribute("agentSession");
 
 		listeProduits = prodService.getAllProduit();
 		session.setAttribute("produitsListe", listeProduits);
+		
+		produit = new Produit();
 	}
 
 	public IProduitService getProdService() {
@@ -112,7 +114,7 @@ public class ProduitManagedBean {
 		this.listeProduits = listeProduits;
 	}
 
-	// Méthode metiers
+	// Mï¿½thode metiers
 	public String addProduit() {
 		Produit prod_out = prodService.addProduit(produit, categorie);
 
@@ -125,11 +127,11 @@ public class ProduitManagedBean {
 
 			System.out.println("----------------------------------------" + listeProduits);
 
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit ajouté : " + produit));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit ajoutï¿½ : " + produit));
 
 			return "homeAgent";
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit ajouté"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit ajoutï¿½"));
 
 			return "addProduit";
 		}
@@ -143,11 +145,11 @@ public class ProduitManagedBean {
 
 			session.setAttribute("produitsListe", listeProduits);
 
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit modifié : " + produit));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit modifiï¿½ : " + produit));
 
 			return "homeAgent";
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit modifié"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit modifiï¿½"));
 
 			return "updateProduit";
 		}
@@ -161,11 +163,11 @@ public class ProduitManagedBean {
 
 			session.setAttribute("produitsListe", listeProduits);
 
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit supprimé : " + produit));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit supprimï¿½ : " + produit));
 
 			return "homeAgent";
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit supprimé"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit supprimï¿½"));
 
 			return "deleteProduit";
 		}
@@ -177,7 +179,7 @@ public class ProduitManagedBean {
 		if (listeProdByCat != null) {
 			listeProduits = listeProdByCat;
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit trouvé"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit trouvï¿½"));
 
 		}
 	}
@@ -188,14 +190,17 @@ public class ProduitManagedBean {
 		if (prod_out != null) {
 			produit = prod_out;
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit trouvé"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit trouvï¿½"));
 
 		}
 	}
 
 	public void promoProduit(){
 		Produit prod_out = prodService.getProduit(produit);
-		double prixPromo = (produit.getPrix()*produit.getReduc())/100;
+		System.out.println("Le prix du produit: "+produit.getPrix());
+		System.out.println("La promotion Ã  appliquer: "+produit.getReduc()+"%");
+		double prixPromo = (produit.getPrix()*(1-produit.getReduc()/100));
+		System.out.println("Le prix final: "+prixPromo);
 		System.out.println(produit.getPrix());
 		produit.setPrix(prixPromo);
 		System.out.println(produit.getPrix());
@@ -207,9 +212,9 @@ public class ProduitManagedBean {
 
 			session.setAttribute("produitsListe", listeProduits);
 
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit modifié : " + produit));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit modifiï¿½ : " + produit));
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit modifié"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit modifiï¿½"));
 		}
 	}
 
