@@ -100,25 +100,20 @@ public class PanierManagedBean implements Serializable {
 
 	public void ajouterProduit(){
 		// ajoute le produit donné dans un form, et vérifie si le produit est déjà dans le panier
-		System.out.println("-------------------------------------10" +produit.getLdc());
 		Produit reqProduit = produitServ.getProduit(produit);
-		System.out.println("-------------------------------------0" +produit.getLdc());
 		if (reqProduit!=null){
 			//on verifie si le produit est déjà présent, on part du principe que non(false)
 			boolean produitPresent = false;
 			//on cherche si une ligne contient le produit a rajouter, le nom ("designation") ET l'id ("idproduit") doivent correspondre.
 			//normalement c'est le cas vu qu'on est passé par produitServ...
 			LigneDeCommande ligneCommande = panier.getLigneByProduit(reqProduit);
-			System.out.println("-------------------------------------1" +produit.getLdc());
 			//si on trouve une ligne qui correspond, on incremente la quantite et on met a jour le total
 			if(ligneCommande!=null){
 				ligneCommande.incrementerQuantite();
 				ligneCommande.getTotal(); // Note: Commande.getTotal() existe: une méthode qui calcule le total des totaux, sans stocker le résultat.
-				System.out.println("-------------------------------------2" +produit.getLdc());
 			}else{
 				//sinon, on rajoute une nouvelle ligne
 				panier.getListeLignes().add(new LigneDeCommande(1, reqProduit.getPrix(), reqProduit, panier));
-				System.out.println("-------------------------------------2" +produit.getLdc());
 			}
 		//on renvoie le panier dans la session
 		session.setAttribute("panier", panier);

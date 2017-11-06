@@ -28,7 +28,7 @@ public class ProduitManagedBean {
 
 	private Produit produit;
 	private double reduc;
-	
+
 	private Categorie categorie;
 	private Agent agent;
 
@@ -36,11 +36,14 @@ public class ProduitManagedBean {
 
 	private List<Produit> listeProduits;
 
+	private List<Produit> listeProduitsSelected;
+
 	public ProduitManagedBean() {
 		this.produit = new Produit();
 	}
 
-	@PostConstruct // Cette annotation sert a excecute la m�thode juste apr�s
+	@PostConstruct // Cette annotation sert a excecute la m�thode juste
+					// apr�s
 	// l'instanciation du managedBean
 	public void init() {
 		// R�cuparation du context
@@ -55,6 +58,9 @@ public class ProduitManagedBean {
 		listeProduits = prodService.getAllProduit();
 		session.setAttribute("produitsListe", listeProduits);
 		
+		listeProduitsSelected = prodService.getProduitSelected();
+		session.setAttribute("produitsSelectedListe", listeProduitsSelected);
+
 		produit = new Produit();
 	}
 
@@ -112,6 +118,14 @@ public class ProduitManagedBean {
 
 	public void setListeProduits(List<Produit> listeProduits) {
 		this.listeProduits = listeProduits;
+	}
+
+	public List<Produit> getListeProduitsSelected() {
+		return listeProduitsSelected;
+	}
+
+	public void setListeProduitsSelected(List<Produit> listeProduitsSelected) {
+		this.listeProduitsSelected = listeProduitsSelected;
 	}
 
 	// M�thode metiers
@@ -183,7 +197,7 @@ public class ProduitManagedBean {
 
 		}
 	}
-	
+
 	public void getProductById(ActionEvent event) {
 		Produit prod_out = prodService.getProduit(produit);
 
@@ -195,17 +209,24 @@ public class ProduitManagedBean {
 		}
 	}
 
-	public void promoProduit(){
-		Produit prod_out = prodService.getProduit(produit);
-		System.out.println("Le prix du produit: "+produit.getPrix());
-		System.out.println("La promotion à appliquer: "+produit.getReduc()+"%");
-		double prixPromo = (produit.getPrix()*(1-produit.getReduc()/100));
-		System.out.println("Le prix final: "+prixPromo);
-		System.out.println(produit.getPrix());
-		produit.setPrix(prixPromo);
-		System.out.println(produit.getPrix());
-		
-		prod_out = prodService.updateProduit(produit, categorie);
+	public void getProductSelected() {
+		listeProduitsSelected = prodService.getProduitSelected();
+
+		if (listeProduitsSelected != null) {
+			listeProduits = listeProduitsSelected;
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit trouv�"));
+
+		}
+	}
+
+	public void promoProduit() {
+		System.out.println("Le prix du produit: " + produit.getPrix());
+		System.out.println("La promotion à appliquer: " + produit.getReduc() + "%");
+
+		produit.setPrixPromo(produit.getPrix() * (1 - (produit.getReduc() / 100)));
+
+		Produit prod_out = prodService.updateProduit(produit, categorie);
 
 		if (prod_out != null) {
 			listeProduits = prodService.getAllProduit();

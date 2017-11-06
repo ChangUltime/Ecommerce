@@ -33,15 +33,17 @@
 								target="#{catMB.afficheProduitByCat}" />
 							<f:setPropertyActionListener value="#{categorie}"
 								target="#{catMB.categorie}" />
+
 						</p:commandLink>
 					</p:column>
 				</p:dataTable>
 			</h:form>
 		</p:layoutUnit>
 
-		<p:layoutUnit position="east" size="500" collapsible="true">
+		<p:layoutUnit position="east" size="410" collapsible="true">
 			<h:form id="formPanier">
-				<p:dataTable id="panierId" var="panier" value="#{panierMB.panier.listeLignes}">
+				<p:dataTable id="panierId" var="panier"
+					value="#{panierMB.panier.listeLignes}">
 					<p:column headerText="Produit">
 						<h:outputText value="#{panierMB.produit.designation}" />
 					</p:column>
@@ -65,9 +67,11 @@
 						<p:menuitem value="Accueil" url="accueil.xhtml" />
 						<p:menuitem value="login agent" url="login.xhtml" />
 					</p:breadCrumb>
-					
-					<p:commandButton id="loginAgentButton" value="Compte agent" type="button" style="position:right"/>
-					<p:overlayPanel id="loginAgentPanel" for="loginAgentButton" hideEffect="fade">
+
+					<p:commandButton id="loginAgentButton" value="Compte agent"
+						type="button" style="position:right" />
+					<p:overlayPanel id="loginAgentPanel" for="loginAgentButton"
+						hideEffect="fade">
 						<p:panelGrid columns="2">
 							<h:outputLabel value="E-Mail" />
 							<h:inputText value="#{aMB.agent.mail}" />
@@ -81,7 +85,7 @@
 								action="#{aMB.seDeconnecter}" />
 						</p:panelGrid>
 					</p:overlayPanel>
-					
+
 					<p:commandButton id="loginButton" value="Compte" type="button" />
 					<p:overlayPanel id="loginPanel" for="loginButton" hideEffect="fade">
 						<p:panelGrid columns="2" rendered="#{!cMB.connected}">
@@ -113,7 +117,39 @@
 
 	</p:layout>
 
+	<p:dialog header="#{catMB.produit.designation}" widgetVar="dlg1"
+		height="400px" width="600px" closeOnEscape="true" position="center"
+		resizable="false">
+		<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
+			columnClasses="label,value" layout="grid"
+			styleClass="ui-panelgrid-blank">
+			<f:facet name="header">
+				<p:graphicImage name="#" />
+			</f:facet>
 
+			<h:outputText value="Id:" />
+			<h:outputText value="#{prodMB.produit.idProduit}" />
+
+			<h:outputText value="Designation" />
+			<h:outputText value="#{catMB.produit.designation}" />
+
+			<h:outputText value="Quantité" />
+			<h:outputText value="#{catMB.categorie.listeProduits}" />
+
+			<h:outputText value="Prix" />
+			<h:outputText value="#{catMB.produit.prix}" />
+		</p:panelGrid>
+	</p:dialog>
+	<p:dialog header="Ajouter au panier" widgetVar="dlg" showEffect="fade"
+		hideEffect="fade" resizable="false" closeOnEscape="true"
+		position="center" width="500px">
+    Confirmation : <p:commandButton update="@all"
+			oncomplete="PF('dlg1').hide()" value="Ajouter"
+			action="#{panierMB.ajouterProduit}">
+			<f:setPropertyActionListener value="#{prod}"
+				target="#{panierMB.produit}" />
+		</p:commandButton>
+	</p:dialog>
 
 </h:body>
 

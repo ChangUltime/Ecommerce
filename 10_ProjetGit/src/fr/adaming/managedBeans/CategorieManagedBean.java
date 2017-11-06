@@ -6,11 +6,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
@@ -40,6 +37,8 @@ public class CategorieManagedBean implements Serializable {
 
 	private boolean afficheProduitByCat;
 	
+	
+	
 	private HttpSession session;
 
 	private List<Categorie> listeCategories;
@@ -66,6 +65,8 @@ public class CategorieManagedBean implements Serializable {
 		session.setAttribute("categoriesListe", listeCategories);
 		
 		categorie.setListeProduits(prodService.getProductByCategorie(categorie));
+		
+		categorie = new Categorie();
 		
 	}
 
@@ -160,7 +161,7 @@ public class CategorieManagedBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("la modification n'a pas été effectuée"));
 
-			return "updateCategorie";
+			return "homeAgent";
 		}
 	}
 

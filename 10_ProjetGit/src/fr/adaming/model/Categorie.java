@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="categories")
@@ -22,6 +23,9 @@ public class Categorie implements Serializable{
 	private Long idCategorie;
 	private String nomCategorie;
 	private String description;
+	
+	@Transient
+	private boolean modifCat;
 	
 	@OneToMany(mappedBy="categorie", fetch=FetchType.EAGER)
 	private List<Produit> listeProduits;
@@ -67,6 +71,14 @@ public class Categorie implements Serializable{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public boolean isModifCat() {
+		return modifCat;
+	}
+
+	public void setModifCat(boolean modifCat) {
+		this.modifCat = modifCat;
 	}
 
 	public List<Produit> getListeProduits() {

@@ -17,8 +17,7 @@
 				headerText="#{produit.designation}" var="prod"
 				itemStyle="text-align:center" responsive="true">
 				<p:commandLink type="button" onclick="PF('dlg1').show();">
-					<f:setPropertyActionListener value="#{prod}"
-						target="#{catMB.produit}" />
+					
 
 					<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
 						columnClasses="label,value" layout="grid"
@@ -34,17 +33,15 @@
 						<h:outputText value="#{prod.stock}" />
 
 						<h:outputText value="Prix" />
-						<h:outputText value="#{prod.prix}" />
+						<h:outputText value="#{prod.prix}" rendered="#{!prod.selectionne}"/>
+						<h:outputText value="Promo ! #{prod.prixPromo}$ au lieu de #{prod.prix}$ !" rendered="#{prod.selectionne}"/>
 					</p:panelGrid>
 				</p:commandLink>
-				<h:outputText value="#{prod}" />
-				<h:outputText value="aa#{panierMB.panier.listeLignes}" />
-				<h:inputText value="#{panierMB.ligneCommande.quantite}" />
-				<p:commandButton title="Ajouter au panier"
-					action="#{panierMB.ajouterProduit}" update="@all">
+				<h:commandButton value="Ajouter au panier"
+					action="accueil">
 					<f:setPropertyActionListener value="#{prod}"
-						target="#{panierMB.panier.listProduits}" />
-				</p:commandButton>
+						target="#{panierMB.produit}" />
+				</h:commandButton>
 
 			</p:carousel>
 		</h:form>
@@ -52,7 +49,7 @@
 		<h:form rendered="#{!catMB.afficheProduitByCat}">
 			<h1 style="color: black; text-align: center">Promotion</h1>
 
-			<p:carousel value="#{prodMB.listeProduits}"
+			<p:carousel value="#{prodMB.listeProduitsSelected}"
 				headerText="#{produit.designation}" var="prod"
 				itemStyle="text-align:center" responsive="true">
 				<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
@@ -69,7 +66,8 @@
 					<h:outputText value="#{prod.stock}" />
 
 					<h:outputText value="Prix" />
-					<h:outputText value="#{prod.prix}" />
+					<h:outputText value="#{prod.prix}" rendered="#{!prod.selectionne}"/>
+						<h:outputText value="Promo ! #{prod.prixPromo}$ au lieu de #{prod.prix}$ !" rendered="#{prod.selectionne}"/>
 				</p:panelGrid>
 			</p:carousel>
 		</h:form>

@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="produits")
@@ -27,8 +28,14 @@ public class Produit implements Serializable{
 	private double prix;
 	private int stock;
 	private boolean selectionne;
-	private double reduc;
 	
+	@Transient
+	private boolean modifProduit;
+	
+	private double reduc;
+	private double prixPromo;
+	
+	@Transient
 	private LigneDeCommande ligne;
 	
 	// Association UML en JAVA
@@ -114,12 +121,28 @@ public class Produit implements Serializable{
 		this.selectionne = selectionne;
 	}
 
+	public boolean isModifProduit() {
+		return modifProduit;
+	}
+
+	public void setModifProduit(boolean modifProduit) {
+		this.modifProduit = modifProduit;
+	}
+
 	public double getReduc() {
 		return reduc;
 	}
 
 	public void setReduc(double reduc) {
 		this.reduc = reduc;
+	}
+
+	public double getPrixPromo(){
+		return prixPromo;
+	}
+	
+	public void setPrixPromo(double prixPromo) {
+		this.prixPromo = prixPromo;
 	}
 
 	public LigneDeCommande getLigne() {
@@ -152,6 +175,8 @@ public class Produit implements Serializable{
 		return "Produit [idProduit=" + idProduit + ", designation=" + designation + ", description=" + description
 				+ ", prix=" + prix + ", stock=" + stock + ", selectionne=" + selectionne + "]";
 	}
+	
+	// Autre méthode
 	
 	
 	

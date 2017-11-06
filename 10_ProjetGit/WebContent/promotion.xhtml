@@ -25,7 +25,9 @@
 				</p:column>
 
 				<p:column headerText="Prix">
-					<h:outputText value="#{produit.prix}" />
+					<h:outputText value="#{produit.prix}" rendered="#{!produit.selectionne}"/>
+					<h:outputText value="Promotion !" style="color:red;" rendered="#{produit.selectionne}"/>
+					<h:outputText value="#{produit.prixPromo}" style="color:red;" rendered="#{produit.selectionne}"/>
 				</p:column>
 
 				<p:column headerText="Stock">
@@ -42,6 +44,18 @@
 					<p:commandButton type="submit" title="Appliquer" action="#{prodMB.promoProduit}" update="@all">
 						<f:setPropertyActionListener value="#{produit}"
 							target="#{prodMB.produit}" />
+						<f:setPropertyActionListener value="true"
+							target="#{prodMB.produit.selectionne}" />
+					</p:commandButton>
+				</p:column>
+				<p:column>
+					<p:commandButton type="submit" title="Reset" action="#{prodMB.promoProduit}" update="@all">
+						<f:setPropertyActionListener value="#{produit}"
+							target="#{prodMB.produit}" />
+						<f:setPropertyActionListener value="0"
+							target="#{prodMB.produit.reduc}" />
+						<f:setPropertyActionListener value="false"
+							target="#{prodMB.produit.selectionne}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
