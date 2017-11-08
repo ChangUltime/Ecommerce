@@ -10,11 +10,9 @@ public interface ICommandeDAO extends Serializable {
 
 	public Commande createCommande(Commande commande);
 
-	public Commande commandeExists(Commande commande);
-
 	public Commande getCommande(Commande commande);
 
-	public List<Commande> getCommandeByClient(Client client);
+	public List<Commande> getCommandesByClient(Client client);
 
 	public Commande updateCommande(Commande commande);
 

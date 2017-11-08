@@ -2,11 +2,9 @@ package fr.adaming.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import fr.adaming.model.Client;
@@ -15,58 +13,51 @@ import fr.adaming.model.Commande;
 @Repository
 public class CommandeDAOImpl implements ICommandeDAO {
 
-	@PersistenceContext(unitName = "PU")
-	private EntityManager em;
+	@Autowired
+	private SessionFactory sf;
 
-	@Override
-	public Commande createCommande(Commande commande) {
-
-		if (commandeExists(commande) != null) {
-			em.persist(commande);
-			return commande;
-		} else {
-			return null;
-		}
+	public void setSf(SessionFactory sf) {
+		this.sf = sf;
 	}
 
 	@Override
-	public Commande commandeExists(Commande commande) {
-		// a revoir eventuellement, peut etre pas tres utile en plus de
-		// getcommande
-		String req = "SELECT c FROM Commande c WHERE c.idCommande=:pIdCommande";
-
-		Query query = em.createQuery(req);
-		query.setParameter("pIdCommande", commande.getIdCommande());
-		try {
-			return (Commande) query.getSingleResult();
-		} catch (NoResultException nrex) {
-			return null;
-		}
-
+	public Commande createCommande(Commande commande) {
+		sf.openSession();
+		sf.getCurrentSession().getTransaction().begin();
+		
+		sf.getCurrentSession().save(commande);
+		
+		sf.getCurrentSession().getTransaction().commit();
+		sf.getCurrentSession().close();
+		return commande;
 	}
 
 	@Override
 	public Commande getCommande(Commande commande) {
-		// System.out.println("Commande recherchée: "+commande);
-		Commande foundCommande = em.find(Commande.class, commande.getIdCommande());
-
-		if (foundCommande != null) {
-			return foundCommande;
-		} else {
-			return null;
-		}
+		sf.openSession();
+		sf.getCurrentSession().getTransaction().begin();
+		
+		Commande outCommande = (Commande) sf.getCurrentSession().get(Commande.class, commande);
+		
+		sf.getCurrentSession().getTransaction().commit();
+		sf.getCurrentSession().close();
+		return outCommande;
 	}
 
 	@Override
-	public List<Commande> getCommandeByClient(Client client) {
+	public List<Commande> getCommandesByClient(Client client) {
+		sf.openSession();
+		sf.getCurrentSession().getTransaction().begin();
 
-		String req = "SELECT c from Commande c WHERE c.client.idClient=:pIdClient";
+		String req = "FROM Commande c WHERE c.client.idClient=:pIdClient";
 
-		Query query = em.createQuery(req);
+		Query query = sf.getCurrentSession().createQuery(req);
 		query.setParameter("pIdClient", client.getIdClient());
 
-		List<Commande> results = (List<Commande>) query.getResultList();
+		List<Commande> results = (List<Commande>) query.list();
 
+		sf.getCurrentSession().getTransaction().commit();
+		sf.getCurrentSession().close();
 		if (results.size() > 0 && results.get(0) != null) {
 			return results;
 		} else
@@ -76,7 +67,13 @@ public class CommandeDAOImpl implements ICommandeDAO {
 	@Override
 	public Commande updateCommande(Commande commande) {
 		if (getCommande(commande) != null) {
-			em.merge(commande);
+			sf.openSession();
+			sf.getCurrentSession().getTransaction().begin();
+			
+			sf.getCurrentSession().update(commande);
+			
+			sf.getCurrentSession().getTransaction().commit();
+			sf.getCurrentSession().close();
 			return commande;
 		} else {
 			return null;
@@ -86,8 +83,13 @@ public class CommandeDAOImpl implements ICommandeDAO {
 	@Override
 	public boolean deleteCommande(Commande commande) {
 		if (getCommande(commande) != null) {
-			// System.out.println("Commande à supprimer:"+commande);
-			em.remove(getCommande(commande));
+			sf.openSession();
+			sf.getCurrentSession().getTransaction().begin();
+			
+			sf.getCurrentSession().delete(commande);
+			
+			sf.getCurrentSession().getTransaction().commit();
+			sf.getCurrentSession().close();
 			return true;
 		} else {
 			return false;

@@ -1,10 +1,10 @@
 package fr.adaming.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
+import org.hibernate.NonUniqueResultException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import fr.adaming.model.Client;
@@ -12,63 +12,84 @@ import fr.adaming.model.Client;
 @Repository
 public class ClientDAOImpl implements IClientDAO {
 
-	@PersistenceContext(unitName = "PU")
-	EntityManager em;
+	@Autowired
+	private SessionFactory sf;
+
+	public void setSf(SessionFactory sf) {
+		this.sf = sf;
+	}
 
 	@Override
 	public Client createClient(Client client) {
 		Client outClient = clientExists(client);
 		if (outClient == null) {
-			em.persist(client);
-			System.out.println("Client créé: " + client);
+			sf.openSession();
+			sf.getCurrentSession().getTransaction().begin();
+			
+			sf.getCurrentSession().save(client);
+			
+			sf.getCurrentSession().getTransaction().commit();
+			sf.getCurrentSession().close();
 			return client;
 		} else {
-			return outClient;
+			return null;
 		}
 	}
 
 	@Override
 	public Client clientExists(Client client) {
 		// Cette fonction "récupère" le client par son mail et password
-		String req = "SELECT c FROM Client c WHERE c.password=:pPassword AND c.email=:pEmail";
-
-		//
-		System.out.println(client + " le client obtenu");
-
-		Query query = em.createQuery(req);
+		
+		//on ouvre une session
+		Session session = sf.openSession();
+		
+		String req = "FROM Client c WHERE c.email=:pEmail AND c.password=:pPassword";
+		
+		//on crée une requete
+		Query query = session.createQuery(req);
+		
 		query.setParameter("pEmail", client.getEmail());
-		query.setParameter("pPassword", client.getPassword());
-		System.out.println("managed to set the parameters, trying to get the result");
-		try {
-			Client outClient = (Client) query.getSingleResult();
-			System.out.println(outClient + " le client retourné");
+		query.setParameter("pPassword",client.getPassword());
+		
+		session.getTransaction().begin();
+		try{
+			Client outClient = (Client)query.uniqueResult();
 			return outClient;
-		} catch (NoResultException ex) {
-			return null;
+			
+		} catch (NonUniqueResultException ex) {
+			// si il y a plus d'une entité dans le résultat (ne doit pas arriver...) on renvoie la première
+			return (Client) query.list().get(0);
+		} finally {
+			//on ferme la session, pas besoin de fermer sf a priori
+			session.getTransaction().commit();
+			session.close();
 		}
 	}
 
 	@Override
 	public Client getClient(Client client) {
 		// Cette fonction ne récupère le client que par son ID
-
-		Client foundClient = em.find(Client.class, client.getIdClient());
-
-		if (foundClient != null) {
-			System.out.println("Client obtenu: " + foundClient);
-			return foundClient;
-		} else {
-			return null;
-		}
-
+		sf.openSession();
+		sf.getCurrentSession().getTransaction().begin();
+		
+		Client outClient = (Client) sf.getCurrentSession().get(Client.class, client);
+		
+		sf.getCurrentSession().getTransaction().commit();
+		sf.getCurrentSession().close();
+		return outClient;
 	}
 
 	@Override
 	public Client updateClient(Client client) {
-		// Cette fonction ne recupere le client que par son ID
+		// Cette fonction ne recupere le client que par son ID		
 		if (getClient(client) != null) {
-			em.merge(client);
-			System.out.println("Client modifié: " + client);
+			sf.openSession();
+			sf.getCurrentSession().getTransaction().begin();
+			
+			sf.getCurrentSession().update(client);
+			
+			sf.getCurrentSession().getTransaction().commit();
+			sf.getCurrentSession().close();
 			return client;
 		} else {
 			return null;
@@ -79,8 +100,13 @@ public class ClientDAOImpl implements IClientDAO {
 	public boolean deleteClient(Client client) {
 		// Cette méthode récupère encore le client par son ID
 		if (getClient(client) != null) {
-			em.remove(getClient(client));
-			System.out.println("Client supprimé: " + client);
+			sf.openSession();
+			sf.getCurrentSession().getTransaction().begin();
+			
+			sf.getCurrentSession().delete(client);
+			
+			sf.getCurrentSession().getTransaction().commit();
+			sf.getCurrentSession().close();
 			return true;
 		} else {
 			return false;
