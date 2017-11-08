@@ -2,19 +2,21 @@ package fr.adaming.service;
 
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateful;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.adaming.dao.ICommandeDAO;
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
 
-@Stateful
+@Service("commService")
+@Transactional
 public class CommandeServiceImpl implements ICommandeService {
 
-	@EJB
-	ICommandeDAO commDAO;
-	
+	@Autowired
+	private ICommandeDAO commDAO;
+
 	@Override
 	public Commande createCommande(Commande commande) {
 		return commDAO.createCommande(commande);

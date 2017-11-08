@@ -1,17 +1,19 @@
 package fr.adaming.service;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateful;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.adaming.dao.IClientDAO;
 import fr.adaming.model.Client;
 
-@Stateful
+@Service("cService")
+@Transactional
 public class ClientServiceImpl implements IClientService {
 
-	@EJB
-	IClientDAO clientDAO;
-	
+	@Autowired
+	private IClientDAO clientDAO;
+
 	@Override
 	public Client clientExists(Client client) {
 		return clientDAO.clientExists(client);

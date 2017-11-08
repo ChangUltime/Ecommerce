@@ -5,14 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
-import fr.adaming.dao.ICommandeDAO;
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
 import fr.adaming.model.LigneDeCommande;
@@ -24,10 +23,10 @@ import fr.adaming.service.IProduitService;
 @SessionScoped
 public class PanierManagedBean implements Serializable {
 
-	@EJB
+	@ManagedProperty(value="#{commService}")
 	private ICommandeService commandeServ;
 	
-	@EJB
+	@ManagedProperty(value="#{prodService}")
 	private IProduitService produitServ;
 	
 	private Produit produit;

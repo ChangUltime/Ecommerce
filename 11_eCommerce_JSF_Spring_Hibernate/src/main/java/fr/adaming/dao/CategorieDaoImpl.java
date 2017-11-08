@@ -2,14 +2,15 @@ package fr.adaming.dao;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Repository;
+
 import fr.adaming.model.Categorie;
 
-@Stateless
+@Repository
 public class CategorieDaoImpl implements ICategorieDao {
 
 	@PersistenceContext(unitName = "PU")

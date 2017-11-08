@@ -4,12 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.persistence.OneToMany;
 import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Client;
@@ -21,7 +20,7 @@ import fr.adaming.service.ICommandeService;
 @ViewScoped
 public class CommandesManagedBean implements Serializable {
 
-	@EJB
+	@ManagedProperty(value="#{commService}")
 	private ICommandeService commandeServ;
 
 	private HttpSession session;
@@ -29,8 +28,6 @@ public class CommandesManagedBean implements Serializable {
 	private Client client;
 
 	private Commande commande;
-
-	private LigneDeCommande ligneCommande;
 
 	private List<Commande> listeCommandes;
 

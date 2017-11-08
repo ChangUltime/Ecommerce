@@ -2,25 +2,26 @@ package fr.adaming.dao;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Repository;
+
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
 
-@Stateless
+@Repository
 public class CommandeDAOImpl implements ICommandeDAO {
 
-	@PersistenceContext(unitName="PU")
+	@PersistenceContext(unitName = "PU")
 	private EntityManager em;
-	
+
 	@Override
 	public Commande createCommande(Commande commande) {
-		
-		if(commandeExists(commande)!=null){
+
+		if (commandeExists(commande) != null) {
 			em.persist(commande);
 			return commande;
 		} else {
@@ -30,25 +31,26 @@ public class CommandeDAOImpl implements ICommandeDAO {
 
 	@Override
 	public Commande commandeExists(Commande commande) {
-		// a revoir eventuellement, peut etre pas tres utile en plus de getcommande
+		// a revoir eventuellement, peut etre pas tres utile en plus de
+		// getcommande
 		String req = "SELECT c FROM Commande c WHERE c.idCommande=:pIdCommande";
-		
+
 		Query query = em.createQuery(req);
 		query.setParameter("pIdCommande", commande.getIdCommande());
-		try{
-			return (Commande)query.getSingleResult();
+		try {
+			return (Commande) query.getSingleResult();
 		} catch (NoResultException nrex) {
 			return null;
 		}
-		
+
 	}
 
 	@Override
 	public Commande getCommande(Commande commande) {
-		//System.out.println("Commande recherchée: "+commande);
+		// System.out.println("Commande recherchée: "+commande);
 		Commande foundCommande = em.find(Commande.class, commande.getIdCommande());
-		
-		if (foundCommande!=null){
+
+		if (foundCommande != null) {
 			return foundCommande;
 		} else {
 			return null;
@@ -59,20 +61,21 @@ public class CommandeDAOImpl implements ICommandeDAO {
 	public List<Commande> getCommandeByClient(Client client) {
 
 		String req = "SELECT c from Commande c WHERE c.client.idClient=:pIdClient";
-		
+
 		Query query = em.createQuery(req);
 		query.setParameter("pIdClient", client.getIdClient());
-		
-		List<Commande> results = (List<Commande>)query.getResultList();
-		
-		if(results.size()>0 && results.get(0)!=null){
+
+		List<Commande> results = (List<Commande>) query.getResultList();
+
+		if (results.size() > 0 && results.get(0) != null) {
 			return results;
-		} else return null;
+		} else
+			return null;
 	}
 
 	@Override
 	public Commande updateCommande(Commande commande) {
-		if(getCommande(commande)!=null){
+		if (getCommande(commande) != null) {
 			em.merge(commande);
 			return commande;
 		} else {
@@ -82,8 +85,8 @@ public class CommandeDAOImpl implements ICommandeDAO {
 
 	@Override
 	public boolean deleteCommande(Commande commande) {
-		if(getCommande(commande)!=null){
-			//System.out.println("Commande à supprimer:"+commande);
+		if (getCommande(commande) != null) {
+			// System.out.println("Commande à supprimer:"+commande);
 			em.remove(getCommande(commande));
 			return true;
 		} else {

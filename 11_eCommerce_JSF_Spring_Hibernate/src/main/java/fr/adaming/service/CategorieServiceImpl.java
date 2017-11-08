@@ -2,16 +2,18 @@ package fr.adaming.service;
 
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateful;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.adaming.dao.ICategorieDao;
 import fr.adaming.model.Categorie;
 
-@Stateful
+@Service("CatService")
+@Transactional
 public class CategorieServiceImpl implements ICategorieService {
 
-	@EJB
+	@Autowired
 	private ICategorieDao cateDao;
 
 	@Override

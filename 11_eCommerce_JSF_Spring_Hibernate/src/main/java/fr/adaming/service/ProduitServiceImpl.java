@@ -2,17 +2,19 @@ package fr.adaming.service;
 
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateful;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.adaming.dao.IProduitDao;
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 
-@Stateful
+@Service("prodService")
+@Transactional
 public class ProduitServiceImpl implements IProduitService {
 
-	@EJB
+	@Autowired
 	private IProduitDao prodDao;
 
 	@Override

@@ -3,14 +3,13 @@ package fr.adaming.managedBeans;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Agent;
@@ -19,11 +18,10 @@ import fr.adaming.model.Produit;
 import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "prodMB")
-@Table(name = "produits")
 @RequestScoped
 public class ProduitManagedBean {
 
-	@EJB
+	@ManagedProperty(value="#{prodService}")
 	IProduitService prodService;
 
 	private Produit produit;

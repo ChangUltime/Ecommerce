@@ -4,12 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Agent;
@@ -19,14 +18,13 @@ import fr.adaming.service.ICategorieService;
 import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "catMB")
-@Table(name = "categories")
 @RequestScoped
 public class CategorieManagedBean implements Serializable {
 
-	@EJB
+	@ManagedProperty(value="#{catService}")
 	ICategorieService catService;
 	
-	@EJB
+	@ManagedProperty(value="#{prodService}")
 	IProduitService prodService;
 
 	private Categorie categorie;

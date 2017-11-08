@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -21,10 +21,10 @@ import fr.adaming.service.ICommandeService;
 @SessionScoped
 public class ClientManagedBean implements Serializable {
 
-	@EJB
+	@ManagedProperty(value="#{cService}")
 	IClientService clientServ;
 	
-	@EJB
+	@ManagedProperty(value="#{commService}")
 	ICommandeService commandeServ;
 	
 	private Client client;

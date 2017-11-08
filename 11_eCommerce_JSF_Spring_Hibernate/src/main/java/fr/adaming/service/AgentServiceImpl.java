@@ -1,15 +1,17 @@
 package fr.adaming.service;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateful;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.adaming.dao.IAgentDAO;
 import fr.adaming.model.Agent;
 
-@Stateful
+@Service("aService")
+@Transactional
 public class AgentServiceImpl implements IAgentService{
 
-	@EJB
+	@Autowired
 	private IAgentDAO agentDAO;
 	
 	@Override
