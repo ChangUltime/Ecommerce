@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Supprimer Etudiant</title>
+	<title>Rechercher Etudiant</title>
 </h:head>
 
 <h:body>
@@ -15,7 +15,7 @@
 		<p:outputLabel for="idId" value="ID : " />
 		<p:inputText id="idId" value="#{eMB.etudiant.id}" />
         
-		<p:commandButton value="Supprimer" action="#{eMB.getEtudiantById}"/>
+		<p:commandButton value="Supprimer" action="#{eMB.getEtudiantById}" update="@all"/>
 		
 	</h:form>
 	

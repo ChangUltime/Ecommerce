@@ -79,7 +79,7 @@ public class EtudiantDaoImpl implements IEtudiantDao {
 	}
 
 	@Override
-	public Etudiant deleteEtudiant(Etudiant e) {
+	public int deleteEtudiant(Etudiant e) {
 		Session s = sf.getCurrentSession();
 
 		// s.delete(e);
@@ -90,9 +90,9 @@ public class EtudiantDaoImpl implements IEtudiantDao {
 		query.setParameter("pId", e.getId());
 		query.setParameter("pIdf", e.getFormateur().getId());
 
-		Etudiant eOut = (Etudiant) query.uniqueResult();
+		int verif = query.executeUpdate();
 
-		return eOut;
+		return verif;
 	}
 
 }

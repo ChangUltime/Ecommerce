@@ -95,14 +95,12 @@ public class EtudiantManagedBean implements Serializable {
 		// Relier le formateur à l'étudiant
 		etudiant.setFormateur(formateur);
 
-		Etudiant eOut = etudiantService.deleteEtudiant(etudiant);
-		System.out.println("______________" + eOut);
-		if (eOut == null) {
+		int verif = etudiantService.deleteEtudiant(etudiant);
+		
+		if (verif == 1) {
 			List<Etudiant> listeEtudiants = etudiantService.getAllEtudiants(formateur);
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("etudiantsListe",
 					listeEtudiants);
-
-			System.out.println("______________" + eOut);
 
 			return "accueil";
 		} else {
@@ -117,7 +115,7 @@ public class EtudiantManagedBean implements Serializable {
 
 		Etudiant eOut = etudiantService.getEtudiant(etudiant);
 
-		if (eOut != null) {
+		if (eOut.getId() != 0) {
 			this.etudiant = eOut;
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'étudiant trouvé !"));
 			

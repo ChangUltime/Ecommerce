@@ -47,7 +47,7 @@ public class EtudiantServiceImpl implements IEtudiantService{
 	}
 
 	@Override
-	public Etudiant deleteEtudiant(Etudiant e) {
+	public int deleteEtudiant(Etudiant e) {
 		
 		return etudiantDao.deleteEtudiant(e);
 	}

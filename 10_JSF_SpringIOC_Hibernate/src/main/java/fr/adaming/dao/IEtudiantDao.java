@@ -11,6 +11,6 @@ public interface IEtudiantDao {
 	public Etudiant getEtudiant(Etudiant e);
 	public Etudiant addEtudiant(Etudiant e);
 	public Etudiant updateEtudiant(Etudiant e);
-	public Etudiant deleteEtudiant(Etudiant e);
+	public int deleteEtudiant(Etudiant e);
 
 }
