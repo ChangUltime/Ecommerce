@@ -23,13 +23,7 @@ public class ClientDAOImpl implements IClientDAO {
 	public Client createClient(Client client) {
 		Client outClient = clientExists(client);
 		if (outClient == null) {
-			sf.openSession();
-			sf.getCurrentSession().getTransaction().begin();
-			
 			sf.getCurrentSession().save(client);
-			
-			sf.getCurrentSession().getTransaction().commit();
-			sf.getCurrentSession().close();
 			return client;
 		} else {
 			return null;
@@ -41,7 +35,7 @@ public class ClientDAOImpl implements IClientDAO {
 		// Cette fonction "récupère" le client par son mail et password
 		
 		//on ouvre une session
-		Session session = sf.openSession();
+		Session session = sf.getCurrentSession();
 		
 		String req = "FROM Client c WHERE c.email=:pEmail AND c.password=:pPassword";
 		
@@ -50,32 +44,22 @@ public class ClientDAOImpl implements IClientDAO {
 		
 		query.setParameter("pEmail", client.getEmail());
 		query.setParameter("pPassword",client.getPassword());
-		
-		session.getTransaction().begin();
+		Client outClient;
 		try{
-			Client outClient = (Client)query.uniqueResult();
-			return outClient;
-			
+			outClient = (Client)query.uniqueResult();
 		} catch (NonUniqueResultException ex) {
 			// si il y a plus d'une entité dans le résultat (ne doit pas arriver...) on renvoie la première
-			return (Client) query.list().get(0);
-		} finally {
-			//on ferme la session, pas besoin de fermer sf a priori
-			session.getTransaction().commit();
-			session.close();
+			outClient = (Client) query.list().get(0);
 		}
+		return outClient;
 	}
 
 	@Override
 	public Client getClient(Client client) {
 		// Cette fonction ne récupère le client que par son ID
-		sf.openSession();
-		sf.getCurrentSession().getTransaction().begin();
 		
 		Client outClient = (Client) sf.getCurrentSession().get(Client.class, client);
 		
-		sf.getCurrentSession().getTransaction().commit();
-		sf.getCurrentSession().close();
 		return outClient;
 	}
 
@@ -83,13 +67,9 @@ public class ClientDAOImpl implements IClientDAO {
 	public Client updateClient(Client client) {
 		// Cette fonction ne recupere le client que par son ID		
 		if (getClient(client) != null) {
-			sf.openSession();
-			sf.getCurrentSession().getTransaction().begin();
 			
 			sf.getCurrentSession().update(client);
 			
-			sf.getCurrentSession().getTransaction().commit();
-			sf.getCurrentSession().close();
 			return client;
 		} else {
 			return null;
@@ -100,13 +80,9 @@ public class ClientDAOImpl implements IClientDAO {
 	public boolean deleteClient(Client client) {
 		// Cette méthode récupère encore le client par son ID
 		if (getClient(client) != null) {
-			sf.openSession();
-			sf.getCurrentSession().getTransaction().begin();
 			
 			sf.getCurrentSession().delete(client);
 			
-			sf.getCurrentSession().getTransaction().commit();
-			sf.getCurrentSession().close();
 			return true;
 		} else {
 			return false;

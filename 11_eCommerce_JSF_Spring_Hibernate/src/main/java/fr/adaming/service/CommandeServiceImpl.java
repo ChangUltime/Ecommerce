@@ -23,18 +23,13 @@ public class CommandeServiceImpl implements ICommandeService {
 	}
 
 	@Override
-	public Commande commandeExists(Commande commande) {
-		return commDAO.commandeExists(commande);
-	}
-
-	@Override
 	public Commande getCommande(Commande commande) {
 		return commDAO.getCommande(commande);
 	}
 
 	@Override
-	public List<Commande> getCommandeByClient(Client client) {
-		return commDAO.getCommandeByClient(client);
+	public List<Commande> getCommandesByClient(Client client) {
+		return commDAO.getCommandesByClient(client);
 	}
 
 	@Override

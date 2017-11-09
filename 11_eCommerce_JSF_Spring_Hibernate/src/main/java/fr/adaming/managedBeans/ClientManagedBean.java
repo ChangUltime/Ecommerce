@@ -86,7 +86,7 @@ public class ClientManagedBean implements Serializable {
 			session.setAttribute("sessionClient", this.client);
 			connected = true;
 			
-			listeCommandes = commandeServ.getCommandeByClient(client);
+			listeCommandes = commandeServ.getCommandesByClient(client);
 			client.setListeCommandes(listeCommandes);
 			session.setAttribute("sessionClient", client);
 			

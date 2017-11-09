@@ -2,7 +2,6 @@ package fr.adaming.managedBeans;
 
 import java.io.Serializable;
 
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -19,7 +18,6 @@ public class LigneDeCommandeManagedBean implements Serializable{
 	private Produit produit;
 	
 	private Commande panier;
-	
 	
 	private Commande commande;
 }

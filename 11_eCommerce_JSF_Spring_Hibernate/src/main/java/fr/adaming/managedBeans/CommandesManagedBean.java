@@ -37,7 +37,7 @@ public class CommandesManagedBean implements Serializable {
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		if (session != null) {
 			this.client = (Client) session.getAttribute("sessionClient");
-			listeCommandes = commandeServ.getCommandeByClient(client);
+			listeCommandes = commandeServ.getCommandesByClient(client);
 		}
 	}
 
@@ -93,7 +93,7 @@ public class CommandesManagedBean implements Serializable {
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Commande annulée"));
 					// on re-get la liste des commandes pour le client (après la
 					// supression, donc)
-					listeCommandes = commandeServ.getCommandeByClient(client);
+					listeCommandes = commandeServ.getCommandesByClient(client);
 					// on affecte la nouvelle liste au client
 					client.setListeCommandes(listeCommandes);
 					// on renvoie le client dans la session

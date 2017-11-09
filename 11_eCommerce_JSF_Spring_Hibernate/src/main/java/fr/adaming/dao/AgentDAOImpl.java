@@ -1,10 +1,10 @@
 package fr.adaming.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.NonUniqueResultException;
 
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import fr.adaming.model.Agent;
@@ -12,15 +12,18 @@ import fr.adaming.model.Agent;
 @Repository
 public class AgentDAOImpl implements IAgentDAO {
 
-	@PersistenceContext(unitName = "PU")
-	EntityManager em;
+	@Autowired
+	private SessionFactory sf;
+	
+	public SessionFactory getSf() {
+		return sf;
+	}
 
 	@Override
 	public Agent createAgent(Agent agent) {
-
-		if (agentExists(agent) != null) {
-			em.persist(agent);
-			System.out.println("Agent créé: " + agent);
+		Agent agentOut = agentExists(agent);
+		if (agentOut == null) {
+			sf.getCurrentSession().save(agent);
 			return agent;
 		} else {
 			return null;
@@ -30,59 +33,41 @@ public class AgentDAOImpl implements IAgentDAO {
 	@Override
 	public Agent agentExists(Agent agent) {
 		// Cette fonction "récupère" l'agent par son mail et password
-		String req = "SELECT a FROM Agent a WHERE a.mail=:pMail AND a.password=:pPassword";
+		
+		String req = "FROM Agent a WHERE a.mail=:pMail AND a.password=:pPassword";
 
-		Query query = em.createQuery(req);
+		Query query = sf.getCurrentSession().createQuery(req);
 		query.setParameter("pMail", agent.getMail());
 		query.setParameter("pPassword", agent.getPassword());
-
+		
+		Agent outAgent;
 		try {
-			Agent outAgent = (Agent) query.getSingleResult();
-			System.out.println("Agent existant: " + outAgent + "Envoyé depuis AgentDAOImpl.agentExists()");
-			return outAgent;
-		} catch (NoResultException nrex) {
-			System.out.println(nrex);
-			return null;
+			outAgent = (Agent) query.uniqueResult();
+		} catch (NonUniqueResultException ex) {
+			outAgent = (Agent) query.list().get(0);
 		}
+		return outAgent;
 	}
 
 	@Override
 	public Agent getAgent(Agent agent) {
 		// Cette fonction ne récupère l'agent que par son ID
+		
+		Agent outAgent = (Agent) sf.getCurrentSession().get(Agent.class, agent);
 
-		Agent foundAgent = em.find(Agent.class, agent.getId());
-
-		if (foundAgent != null) {
-			System.out.println("Agent obtenu: " + agent);
-			return foundAgent;
-		} else {
-			return null;
-		}
-
+		return outAgent;
 	}
 
 	@Override
 	public Agent updateAgent(Agent agent) {
 		// Cette fonction ne recupere l'agent que par son ID
-		if (getAgent(agent) != null) {
-			em.merge(agent);
-			System.out.println("Agent modifié: " + agent);
+		if(getAgent(agent)!=null){
+			sf.getCurrentSession().update(agent);
 			return agent;
 		} else {
 			return null;
 		}
+		
+		
 	}
-
-	@Override
-	public boolean deleteClient(Agent agent) {
-		// Cette méthode récupère encore l'agent par son ID
-		if (getAgent(agent) != null) {
-			em.remove(agent);
-			System.out.println("Agent supprimé: " + agent);
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 }

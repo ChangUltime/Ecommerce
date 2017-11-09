@@ -22,33 +22,23 @@ public class CommandeDAOImpl implements ICommandeDAO {
 
 	@Override
 	public Commande createCommande(Commande commande) {
-		sf.openSession();
-		sf.getCurrentSession().getTransaction().begin();
 		
 		sf.getCurrentSession().save(commande);
 		
-		sf.getCurrentSession().getTransaction().commit();
-		sf.getCurrentSession().close();
 		return commande;
 	}
 
 	@Override
 	public Commande getCommande(Commande commande) {
-		sf.openSession();
-		sf.getCurrentSession().getTransaction().begin();
 		
 		Commande outCommande = (Commande) sf.getCurrentSession().get(Commande.class, commande);
 		
-		sf.getCurrentSession().getTransaction().commit();
-		sf.getCurrentSession().close();
 		return outCommande;
 	}
 
 	@Override
 	public List<Commande> getCommandesByClient(Client client) {
-		sf.openSession();
-		sf.getCurrentSession().getTransaction().begin();
-
+		
 		String req = "FROM Commande c WHERE c.client.idClient=:pIdClient";
 
 		Query query = sf.getCurrentSession().createQuery(req);
@@ -56,8 +46,6 @@ public class CommandeDAOImpl implements ICommandeDAO {
 
 		List<Commande> results = (List<Commande>) query.list();
 
-		sf.getCurrentSession().getTransaction().commit();
-		sf.getCurrentSession().close();
 		if (results.size() > 0 && results.get(0) != null) {
 			return results;
 		} else
@@ -67,13 +55,9 @@ public class CommandeDAOImpl implements ICommandeDAO {
 	@Override
 	public Commande updateCommande(Commande commande) {
 		if (getCommande(commande) != null) {
-			sf.openSession();
-			sf.getCurrentSession().getTransaction().begin();
 			
 			sf.getCurrentSession().update(commande);
 			
-			sf.getCurrentSession().getTransaction().commit();
-			sf.getCurrentSession().close();
 			return commande;
 		} else {
 			return null;
@@ -83,13 +67,9 @@ public class CommandeDAOImpl implements ICommandeDAO {
 	@Override
 	public boolean deleteCommande(Commande commande) {
 		if (getCommande(commande) != null) {
-			sf.openSession();
-			sf.getCurrentSession().getTransaction().begin();
 			
 			sf.getCurrentSession().delete(commande);
 			
-			sf.getCurrentSession().getTransaction().commit();
-			sf.getCurrentSession().close();
 			return true;
 		} else {
 			return false;
