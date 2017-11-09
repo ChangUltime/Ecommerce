@@ -14,7 +14,7 @@
 	<!-- Specifier le fichier de configuration du context Spring -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/application-context.xml</param-value>
+		<param-value>/11_eCommerce_JSF_Spring_Hibernate/src/main/webapp/WEB-INF/application-context.xml</param-value>
 	</context-param>
 
 	<welcome-file-list>
