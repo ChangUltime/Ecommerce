@@ -15,8 +15,8 @@ public class AgentDAOImpl implements IAgentDAO {
 	@Autowired
 	private SessionFactory sf;
 	
-	public SessionFactory getSf() {
-		return sf;
+	public void setSf(SessionFactory sf) {
+		this.sf=sf ;
 	}
 
 	@Override
