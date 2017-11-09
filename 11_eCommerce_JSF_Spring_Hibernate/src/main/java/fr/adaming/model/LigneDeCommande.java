@@ -23,11 +23,11 @@ public class LigneDeCommande implements Serializable {
 	private int quantite;
 	private double prix;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne//(fetch=FetchType.EAGER)
 	@JoinColumn(name="produit_id", referencedColumnName="id_produit")
 	private Produit produit;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne//(fetch=FetchType.EAGER)
 	@JoinColumn(name="commande_id",referencedColumnName="id_commande")
 	private Commande commande;
 

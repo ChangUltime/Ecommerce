@@ -9,12 +9,20 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.adaming.dao.ICategorieDao;
 import fr.adaming.model.Categorie;
 
-@Service("CatService")
+@Service("catService")
 @Transactional
 public class CategorieServiceImpl implements ICategorieService {
 
 	@Autowired
 	private ICategorieDao cateDao;
+
+	public ICategorieDao getCateDao() {
+		return cateDao;
+	}
+
+	public void setCateDao(ICategorieDao cateDao) {
+		this.cateDao = cateDao;
+	}
 
 	@Override
 	public Categorie addCategorie(Categorie categorie) {

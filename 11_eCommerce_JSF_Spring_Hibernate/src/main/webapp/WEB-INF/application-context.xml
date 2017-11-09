@@ -53,5 +53,5 @@
 	</bean>
 	
 	<!-- Activation de la detection des annotations de transaction : @Transactionnal -->
-	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<tx:annotation-driven transaction-manager="transactionManagerBean"/>
 </beans>

@@ -18,7 +18,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name="produits")
 public class Produit implements Serializable{
-	// Déclaration des attributs
+	// Dï¿½claration des attributs
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_produit")
@@ -39,14 +39,14 @@ public class Produit implements Serializable{
 	private LigneDeCommande ligne;
 	
 	// Association UML en JAVA
-	@OneToMany(mappedBy="produit", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="produit", fetch=FetchType.LAZY)//
 	private List<LigneDeCommande> ldc;
 	
 	@ManyToOne
 	@JoinColumn(name="categorie_id", referencedColumnName="id_categorie")
 	private Categorie categorie;
 	
-	// Déclaration des constructeurs
+	// Dï¿½claration des constructeurs
 	public Produit() {
 		super();
 	}
@@ -72,7 +72,7 @@ public class Produit implements Serializable{
 	}
 
 	
-	// Déclaration des getters setters
+	// Dï¿½claration des getters setters
 	public Long getIdProduit() {
 		return idProduit;
 	}
@@ -169,14 +169,14 @@ public class Produit implements Serializable{
 		this.categorie = categorie;
 	}
 
-	// Redefinition de la méthode toString
+	// Redefinition de la mï¿½thode toString
 	@Override
 	public String toString() {
 		return "Produit [idProduit=" + idProduit + ", designation=" + designation + ", description=" + description
 				+ ", prix=" + prix + ", stock=" + stock + ", selectionne=" + selectionne + "]";
 	}
 	
-	// Autre méthode
+	// Autre mï¿½thode
 	
 	
 	

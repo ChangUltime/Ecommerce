@@ -32,7 +32,7 @@ public class Commande implements Serializable {
 	private Client client;
 	
 	
-	@OneToMany(mappedBy="commande", fetch=FetchType.EAGER , cascade=CascadeType.ALL)//
+	@OneToMany(mappedBy="commande", cascade=CascadeType.ALL)//, fetch=FetchType.EAGER 
 	private List<LigneDeCommande> listeLignes;
 
 	public Commande() {

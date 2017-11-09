@@ -22,10 +22,10 @@ import fr.adaming.service.IProduitService;
 public class CategorieManagedBean implements Serializable {
 
 	@ManagedProperty(value="#{catService}")
-	ICategorieService catService;
+	private ICategorieService catService;
 	
 	@ManagedProperty(value="#{prodService}")
-	IProduitService prodService;
+	private IProduitService prodService;
 
 	private Categorie categorie;
 	

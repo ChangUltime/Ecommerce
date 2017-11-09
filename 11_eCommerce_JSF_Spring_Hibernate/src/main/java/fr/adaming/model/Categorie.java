@@ -16,7 +16,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name="categories")
 public class Categorie implements Serializable{
-	// déclaration des attributs
+	// dï¿½claration des attributs
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_categorie")
@@ -27,10 +27,10 @@ public class Categorie implements Serializable{
 	@Transient
 	private boolean modifCat;
 	
-	@OneToMany(mappedBy="categorie", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="categorie", fetch=FetchType.LAZY)
 	private List<Produit> listeProduits;
 
-	// Déclaration des constructeurs
+	// Dï¿½claration des constructeurs
 	public Categorie() {
 		super();
 	}
@@ -48,7 +48,7 @@ public class Categorie implements Serializable{
 		this.description = description;
 	}
 
-	// Déclaration des getters setters
+	// Dï¿½claration des getters setters
 	public Long getIdCategorie() {
 		return idCategorie;
 	}
@@ -89,7 +89,7 @@ public class Categorie implements Serializable{
 		this.listeProduits = listeProduits;
 	}
 
-	// Redefinition de la méthode toString
+	// Redefinition de la mï¿½thode toString
 	@Override
 	public String toString() {
 		return "Categorie [idCategorie=" + idCategorie + ", nomCategorie=" + nomCategorie + ", description="

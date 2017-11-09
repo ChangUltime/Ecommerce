@@ -18,15 +18,15 @@ import fr.adaming.service.IAgentService;
 public class AgentManagedBean implements Serializable {
 
 	@ManagedProperty(value="#{aService}")
-	IAgentService agentServ;
+	private IAgentService agentServ;
 	
-	Agent agent;
+	private Agent agent;
 	
-	HttpSession session;
+	private HttpSession session;
 	
 	@PostConstruct
 	private void init(){
-		agent=new Agent();
+		this.agent=new Agent();
 	}
 	
 	public IAgentService getAgentServ() {

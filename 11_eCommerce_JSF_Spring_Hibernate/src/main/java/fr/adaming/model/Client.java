@@ -31,7 +31,7 @@ public class Client implements Serializable {
 	private String password;
 	private String telephone;
 	
-	@OneToMany(mappedBy="client", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="client")//, fetch=FetchType.EAGER
 	private List<Commande> listeCommandes;
 
 	public Client() {
