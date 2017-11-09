@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/agentAccountTemplate.xhtml">
+
+	<ui:define name="title">Accueil agent</ui:define>
+
+	<ui:define name="contenuAgent">
+
+		<h:form>
+
+			<h:panelGrid columns="2">
+				<p:outputLabel for="idProd" value="ID : " />
+				<p:inputText id="idProd" value="#{prodMB.produit.idProduit}"
+					required="true" />
+
+				<p:outputLabel for="designProd" value="Designation : " />
+				<p:inputText id="designProd" value="#{prodMB.produit.designation}"
+					required="true" />
+
+				<p:outputLabel for="descriProd" value="Description : " />
+				<p:inputText id="descriProd" value="#{prodMB.produit.description}"
+					required="true" />
+
+				<p:outputLabel for="prixProd" value="Prix : " />
+				<p:inputText id="prixProd" value="#{prodMB.produit.prix}"
+					required="true" />
+
+				<p:outputLabel for="qteProd" value="Quantité du lot : " />
+				<p:inputText id="qteProd" value="#{prodMB.produit.stock}"
+					required="true" />
+
+				<p:commandButton value="Modifier" action="#{prodMB.updateProduit}"
+					update="@all" />
+			</h:panelGrid>
+			<h:messages></h:messages>
+
+		</h:form>
+		<p:messages></p:messages>
+	</ui:define>
+</ui:composition>
