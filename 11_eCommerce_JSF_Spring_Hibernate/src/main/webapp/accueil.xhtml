@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<title>La sublime page d'accueil</title>
+</h:head>
+<h:body>
+
+<h:form>
+    <p:commandButton id="loginButton" value="Compte" type="button" />
+    <p:overlayPanel id="loginPanel" for="loginButton" hideEffect="fade">
+		<p:panelGrid columns="2" rendered="#{!cMB.connected}">
+			<h:outputLabel value="E-Mail"/><h:inputText value="#{cMB.client.email}"/>
+			<h:outputLabel value="Mot de Passe"/><h:inputSecret value="#{cMB.client.password}"/>
+			<h:commandButton value="Créer un compte" action="#{cMB.creerCompte}"/><h:commandButton value="Login" action="#{cMB.seConnecter}"/>
+		</p:panelGrid>
+		<p:panelGrid columns="1" rendered="#{cMB.connected}">
+		<h:commandButton value="Gestion du Compte" action="homeClient"/>
+		<h:commandButton value="Déconnecter" action="#{cMB.seDeconnecter}"/>
+		</p:panelGrid>
+    </p:overlayPanel>
+
+	<h:outputText value="#{panierMB.produit}"/>
+
+	<p:growl id="growl" showDetail="true" sticky="true"/>
+</h:form>
+
+</h:body>
+</html>

@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/agentAccountTemplate.xhtml">
+
+	<ui:define name="title">Accueil agent</ui:define>
+
+	<ui:define name="contenuAgent">
+		<h:form>
+
+			<h1 style="color: red; text-align: center">Liste des produits</h1>
+			<p:dataTable var="produit" value="#{sessionScope.produitsListe}">
+				<p:column headerText="ID">
+					<h:outputText value="#{produit.idProduit}" />
+				</p:column>
+
+				<p:column headerText="Designation">
+					<h:outputText value="#{produit.designation}" />
+				</p:column>
+
+				<p:column headerText="Description">
+					<h:outputText value="#{produit.description}" />
+				</p:column>
+
+				<p:column headerText="Prix">
+					<h:outputText value="#{produit.prix}" rendered="#{!produit.selectionne}"/>
+					<h:outputText value="Promotion !" style="color:red;" rendered="#{produit.selectionne}"/>
+					<h:outputText value="#{produit.prixPromo}" style="color:red;" rendered="#{produit.selectionne}"/>
+				</p:column>
+
+				<p:column headerText="Stock">
+					<h:outputText value="#{produit.stock}" />
+				</p:column>
+
+				<p:column headerText="Catégorie">
+					<h:outputText value="#{produit.categorie.nomCategorie}" />
+				</p:column>
+
+				<p:column>
+					<h:inputText value="#{produit.reduc}" />
+
+					<p:commandButton type="submit" title="Appliquer" action="#{prodMB.promoProduit}" update="@all">
+						<f:setPropertyActionListener value="#{produit}"
+							target="#{prodMB.produit}" />
+						<f:setPropertyActionListener value="true"
+							target="#{prodMB.produit.selectionne}" />
+					</p:commandButton>
+				</p:column>
+				<p:column>
+					<p:commandButton type="submit" title="Reset" action="#{prodMB.promoProduit}" update="@all">
+						<f:setPropertyActionListener value="#{produit}"
+							target="#{prodMB.produit}" />
+						<f:setPropertyActionListener value="0"
+							target="#{prodMB.produit.reduc}" />
+						<f:setPropertyActionListener value="false"
+							target="#{prodMB.produit.selectionne}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+		<p:messages></p:messages>
+	</ui:define>
+</ui:composition>

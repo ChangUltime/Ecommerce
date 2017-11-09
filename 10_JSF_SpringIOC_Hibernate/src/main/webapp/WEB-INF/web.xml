@@ -5,15 +5,16 @@
 	version="2.5">
 	<display-name>10_JSF_SpringIOC_Hibernate</display-name>
 
-	<!-- Déclaration du listener pour le chargement du context spring IoC (Instanciation et injection de dépendance) -->
+	<!-- Déclaration du listener pour le chargement du context spring IoC (Instanciation 
+		et injection de dépendance) -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+
 	<!-- Specifier le fichier de configuration du context Spring -->
 	<context-param>
-	<param-name>contextConfigLocation</param-name>
-	<param-value>/WEB-INF/application-context.xml</param-value>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/application-context.xml</param-value>
 	</context-param>
 
 	<!-- Déclaration de la servlet JSF -->
@@ -22,14 +23,14 @@
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	
+
 	<!-- Mapping de la servlet -->
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>/faces/*</url-pattern>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- Parametre pour afficher les erreurs sur la page -->
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>

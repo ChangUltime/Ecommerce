@@ -18,7 +18,7 @@
 	</context-param>
 
 	<welcome-file-list>
-		<welcome-file>login.xhtml</welcome-file>
+		<welcome-file>home.xhtml</welcome-file>
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
@@ -30,4 +30,9 @@
 		<url-pattern>/faces/*</url-pattern>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
+		<!-- Parametre pour afficher les erreurs sur la page -->
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
 </web-app>

@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/clientAccountTemplate.xhtml" >
+
+<ui:define name="title">Historique des Commandes</ui:define>
+
+<ui:define name="contenuClient">
+<h:form>
+<p:accordionPanel>
+        <p:tab title="Adresse mail: #{cMB.client.email}">
+            <h:panelGrid id="mailPanel" columns="2" cellpadding="10">
+                <p:outputLabel value="Actuelle: "/><h:outputText value="#{cMB.client.email}"/>
+                <p:outputLabel value="Nouvelle: "/><p:inputText id="newmail" value="#{cMB.client.email}" required="true"/>
+            	<p:commandButton value="Changer" process="@parent" update="@parent" actionListener="#{cMB.updateClient}"/>
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Nom">
+            <h:panelGrid columns="2" cellpadding="10">
+            	<p:outputLabel value="Nom: "/><h:outputText value="#{cMB.client.nom}"/>
+                <p:outputLabel value="Nouveau: "/><p:inputText id="newNom" value="#{cMB.client.nom}" required="true"/>
+                <p:outputLabel value="Prénom: "/><h:outputText value="#{cMB.client.prenom}"/>
+                <p:outputLabel value="Nouveau: "/><p:inputText id="newPrenom" value="#{cMB.client.prenom}" required="true"/>
+                
+            	<p:commandButton value="Changer" process="@parent" update="@parent" actionListener="#{cMB.updateClient}"/>
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Mot de Passe">
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputLabel for="pwd1" value="Nouveau mot de passe: *" />
+        		<p:password id="pwd1" value="#{cMB.client.password}" match="pwd2" label="Password 1" required="true" />
+ 
+        		<h:outputLabel for="pwd2" value="Vérification: *" />
+        		<p:password id="pwd2" value="#{cMB.client.password}" label="Password 2" required="true" />
+        		<p:commandButton value="Changer" process="@parent" update="@parent" actionListener="#{cMB.updateClient}"/>
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Adresse postale">
+            <h:panelGrid columns="2" cellpadding="10">
+            	<p:outputLabel value="Adresse: "/><h:outputText value="#{cMB.client.adresse}"/>
+                <p:outputLabel value="Nouvelle: "/><p:inputText id="newAdresse" value="#{cMB.client.adresse}" required="true"/>
+                
+                <p:outputLabel value="Ville: "/><h:outputText value="#{cMB.client.ville}"/>
+                <p:outputLabel value="Nouvelle: "/><p:inputText id="newVille" value="#{cMB.client.ville}" required="true"/>
+                
+                <p:outputLabel value="Code Postal: "/><h:outputText value="#{cMB.client.codePostal}"/>
+                <p:outputLabel value="Nouveau: "/><p:inputText id="newZip" value="#{cMB.client.codePostal}" required="true"/>
+                
+            	<p:commandButton value="Changer" process="@parent" update="@parent" actionListener="#{cMB.updateClient}"/>
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Téléphone">
+            <h:panelGrid columns="2" cellpadding="10">
+            	<p:outputLabel value="Téléphone: "/><h:outputText value="#{cMB.client.telephone}"/>
+                <p:outputLabel value="Nouveau: "/><p:inputText id="newTelephone" value="#{cMB.client.telephone}" required="true"/>
+                
+            	<p:commandButton value="Changer" process="@parent" update="@parent" actionListener="#{cMB.updateClient}"/>
+            </h:panelGrid>
+        </p:tab>
+</p:accordionPanel>
+</h:form>
+<p:messages></p:messages>
+</ui:define>
+</ui:composition>

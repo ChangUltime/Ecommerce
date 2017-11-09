@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/agentAccountTemplate.xhtml">
+
+	<ui:define name="title">Accueil agent</ui:define>
+
+	<ui:define name="contenuAgent">
+
+		<h:form>
+
+			<h:panelGrid columns="2">
+				<p:outputLabel for="idProd" value="ID : " />
+				<p:inputText id="idProd" value="#{prodMB.produit.idProduit}"
+					required="true" />
+
+				<p:commandButton value="Supprimer" action="#{prodMB.deleteProduit}"
+					update="@all" />
+			</h:panelGrid>
+			<h:messages></h:messages>
+
+		</h:form>
+		<p:messages></p:messages>
+	</ui:define>
+</ui:composition>
+

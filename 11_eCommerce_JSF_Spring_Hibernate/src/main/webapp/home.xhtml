@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/homeTemplate.xhtml">
+
+	<ui:define name="title">Home</ui:define>
+
+	<ui:define name="contenuHome">
+		<h:form id="formProduit" rendered="#{catMB.afficheProduitByCat}">
+			<h1 style="color: red; text-align: center">
+				Catégorie :
+				<h:outputText value="#{catMB.categorie.nomCategorie}" />
+			</h1>
+			<p:carousel value="#{catMB.categorie.listeProduits}"
+				headerText="#{produit.designation}" var="prod"
+				itemStyle="text-align:center" responsive="true">
+				<p:commandLink type="button" onclick="PF('dlg1').show();">
+					
+
+					<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
+						columnClasses="label,value" layout="grid"
+						styleClass="ui-panelgrid-blank">
+
+						<h:outputText value="ID" />
+						<h:outputText value="#{prod.idProduit}" />
+
+						<h:outputText value="Designation" />
+						<h:outputText value="#{prod.designation}" />
+
+						<h:outputText value="Stock" />
+						<h:outputText value="#{prod.stock}" />
+
+						<h:outputText value="Prix" />
+						<h:outputText value="#{prod.prix}" rendered="#{!prod.selectionne}"/>
+						<h:outputText value="Promo ! #{prod.prixPromo}$ au lieu de #{prod.prix}$ !" rendered="#{prod.selectionne}"/>
+					</p:panelGrid>
+				</p:commandLink>
+				<h:commandButton value="Ajouter au panier"
+					action="accueil">
+					<f:setPropertyActionListener value="#{prod}"
+						target="#{panierMB.produit}" />
+				</h:commandButton>
+
+			</p:carousel>
+		</h:form>
+
+		<h:form rendered="#{!catMB.afficheProduitByCat}">
+			<h1 style="color: black; text-align: center">Promotion</h1>
+
+			<p:carousel value="#{prodMB.listeProduitsSelected}"
+				headerText="#{produit.designation}" var="prod"
+				itemStyle="text-align:center" responsive="true">
+				<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
+					columnClasses="label,value" layout="grid"
+					styleClass="ui-panelgrid-blank">
+
+					<h:outputText value="Id:" />
+					<h:outputText value="#{prod.idProduit}" />
+
+					<h:outputText value="Designation" />
+					<h:outputText value="#{prod.designation}" />
+
+					<h:outputText value="Stock" />
+					<h:outputText value="#{prod.stock}" />
+
+					<h:outputText value="Prix" />
+					<h:outputText value="#{prod.prix}" rendered="#{!prod.selectionne}"/>
+						<h:outputText value="Promo ! #{prod.prixPromo}$ au lieu de #{prod.prix}$ !" rendered="#{prod.selectionne}"/>
+				</p:panelGrid>
+			</p:carousel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

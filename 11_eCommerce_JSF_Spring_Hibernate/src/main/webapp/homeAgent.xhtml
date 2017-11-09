@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/agentAccountTemplate.xhtml">
+
+	<ui:define name="title">Accueil agent</ui:define>
+
+	<ui:define name="contenuAgent">
+		<h:form>
+
+			<h1 style="color: red; text-align: center">Liste des categories</h1>
+			<p:dataTable var="categorie" value="#{sessionScope.categoriesListe}">
+				<p:column headerText="ID">
+					<h:outputLabel for="idCate" value="#{categorie.idCategorie}"
+						rendered="#{!categorie.modifCat}" />
+					<p:inputText id="idCate" value="#{catMB.categorie.idCategorie}"
+						placeholder="#{categorie.idCategorie}"
+						rendered="#{categorie.modifCat}" />
+				</p:column>
+
+				<p:column headerText="Nom">
+					<p:outputLabel for="nameCate" value="#{categorie.nomCategorie}"
+						rendered="#{!categorie.modifCat}" />
+					<p:inputText id="nameCate" value="#{catMB.categorie.nomCategorie}"
+						placeholder="#{categorie.nomCategorie}"
+						rendered="#{categorie.modifCat}" />
+				</p:column>
+
+				<p:column headerText="Description">
+					<p:outputLabel for="DescriptionCate"
+						value="#{categorie.description}" rendered="#{!categorie.modifCat}" />
+					<p:inputText id="DescriptionCate"
+						value="#{catMB.categorie.description}"
+						placeholder="#{categorie.description}"
+						rendered="#{categorie.modifCat}" />
+				</p:column>
+
+				<p:column rendered="#{!categorie.modifCat}">
+					<p:commandButton type="submit" title="Modifier"
+						rendered="#{!catMB.categorie.modifCat}" update="@all">
+						<f:setPropertyActionListener value="true"
+							target="#{categorie.modifCat}" />
+					</p:commandButton>
+				</p:column>
+
+				<p:column rendered="#{categorie.modifCat}">
+					<p:commandButton type="submit" title="Appliquer"
+						action="#{catMB.updateCategorie}" update="@all"
+						rendered="#{categorie.modifCat}">
+						<f:setPropertyActionListener value="#{categorie}"
+							target="#{catMB.categorie}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+		<h:form>
+
+			<h1 style="color: red; text-align: center">Liste des produits</h1>
+			<p:dataTable var="produit" value="#{sessionScope.produitsListe}">
+				<p:column headerText="ID">
+					<h:outputText value="#{produit.idProduit}" />
+				</p:column>
+
+				<p:column headerText="Designation">
+					<h:outputText value="#{produit.designation}" />
+				</p:column>
+
+				<p:column headerText="Description">
+					<h:outputText value="#{produit.description}" />
+				</p:column>
+
+				<p:column headerText="Prix">
+					<h:outputText value="#{produit.prix}"
+						rendered="#{!produit.selectionne}" />
+					<h:outputText value="Promotion !" style="color:red;"
+						rendered="#{produit.selectionne}" />
+					<h:outputText value="#{produit.prixPromo}" style="color:red;"
+						rendered="#{produit.selectionne}" />
+				</p:column>
+
+				<p:column headerText="Stock">
+					<h:outputText value="#{produit.stock}" />
+				</p:column>
+
+				<p:column headerText="Catégorie">
+					<h:outputText value="#{produit.categorie.nomCategorie}" />
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+		<p:messages></p:messages>
+	</ui:define>
+</ui:composition>
+
