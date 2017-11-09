@@ -40,6 +40,22 @@ public class ClientManagedBean implements Serializable {
 		connected=false;
 	}
 
+	public IClientService getClientServ() {
+		return clientServ;
+	}
+
+	public void setClientServ(IClientService clientServ) {
+		this.clientServ = clientServ;
+	}
+
+	public ICommandeService getCommandeServ() {
+		return commandeServ;
+	}
+
+	public void setCommandeServ(ICommandeService commandeServ) {
+		this.commandeServ = commandeServ;
+	}
+
 	public ClientManagedBean() {
 		super();
 	}

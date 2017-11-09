@@ -57,6 +57,22 @@ public class PanierManagedBean implements Serializable {
 		session.setAttribute("panier", panier);
 	}
 	
+	public ICommandeService getCommandeServ() {
+		return commandeServ;
+	}
+
+	public void setCommandeServ(ICommandeService commandeServ) {
+		this.commandeServ = commandeServ;
+	}
+
+	public IProduitService getProduitServ() {
+		return produitServ;
+	}
+
+	public void setProduitServ(IProduitService produitServ) {
+		this.produitServ = produitServ;
+	}
+
 	public Produit getProduit() {
 		return produit;
 	}

@@ -41,6 +41,14 @@ public class CommandesManagedBean implements Serializable {
 		}
 	}
 
+	public ICommandeService getCommandeServ() {
+		return commandeServ;
+	}
+
+	public void setCommandeServ(ICommandeService commandeServ) {
+		this.commandeServ = commandeServ;
+	}
+
 	public Client getClient() {
 		return client;
 	}

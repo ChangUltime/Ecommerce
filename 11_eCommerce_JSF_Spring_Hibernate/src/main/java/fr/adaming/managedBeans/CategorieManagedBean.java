@@ -45,18 +45,18 @@ public class CategorieManagedBean implements Serializable {
 		this.categorie = new Categorie();
 	}
 
-	@PostConstruct // Cette annotation sert a excecute la méthode juste après
+	@PostConstruct // Cette annotation sert a excecute la mï¿½thode juste aprï¿½s
 	// l'instanciation du managedBean
 	public void init() {
 		afficheProduitByCat = false;
 		
-		// Récuparation du context
+		// Rï¿½cuparation du context
 		FacesContext context = FacesContext.getCurrentInstance();
 
-		// Récuperation de la session
+		// Rï¿½cuperation de la session
 		this.session = (HttpSession) context.getExternalContext().getSession(false);
 
-		// Recuperation de l'agent à partir de la session
+		// Recuperation de l'agent ï¿½ partir de la session
 		this.agent = (Agent) session.getAttribute("agentSession");
 		
 		listeCategories = catService.getAllCategorie();
@@ -66,6 +66,14 @@ public class CategorieManagedBean implements Serializable {
 		
 		categorie = new Categorie();
 		
+	}
+
+	public IProduitService getProdService() {
+		return prodService;
+	}
+
+	public void setProdService(IProduitService prodService) {
+		this.prodService = prodService;
 	}
 
 	public ICategorieService getCatService() {
@@ -125,7 +133,7 @@ public class CategorieManagedBean implements Serializable {
 		this.afficheProduitByCat = afficheProduitByCat;
 	}
 
-	// Méthode metiers
+	// Mï¿½thode metiers
 	public String addCategorie() {
 		Categorie cat_out = catService.addCategorie(this.categorie);
 
@@ -134,11 +142,11 @@ public class CategorieManagedBean implements Serializable {
 
 			session.setAttribute("categoriesListe", listeCategories);
 
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Categorie ajoutée: " + categorie));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Categorie ajoutï¿½e: " + categorie));
 
 			return "homeAgent";
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun categorie ajoutée"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun categorie ajoutï¿½e"));
 
 			return "addCategorie";
 		}
@@ -152,12 +160,12 @@ public class CategorieManagedBean implements Serializable {
 
 			session.setAttribute("categoriesListe", listeCategories);
 
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Categorie modifiée : " + categorie));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Categorie modifiï¿½e : " + categorie));
 
 			return "homeAgent";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("la modification n'a pas été effectuée"));
+					new FacesMessage("la modification n'a pas ï¿½tï¿½ effectuï¿½e"));
 
 			return "homeAgent";
 		}
@@ -172,7 +180,7 @@ public class CategorieManagedBean implements Serializable {
 
 			session.setAttribute("categoriesListe", listeCategories);
 
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Catégorie supprimée"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Catï¿½gorie supprimï¿½e"));
 			return "homeAgent";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun client supprimÃ©"));
@@ -191,10 +199,10 @@ public class CategorieManagedBean implements Serializable {
 
 			categorie = cat_out;
 
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Catégorie trouvée !"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Catï¿½gorie trouvï¿½e !"));
 			return "getCategorie";
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucune catégorie trouvée !"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucune catï¿½gorie trouvï¿½e !"));
 			return "getCategorie";
 		}
 

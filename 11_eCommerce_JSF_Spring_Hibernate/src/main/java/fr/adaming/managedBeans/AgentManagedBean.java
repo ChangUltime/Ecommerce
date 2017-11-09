@@ -29,6 +29,14 @@ public class AgentManagedBean implements Serializable {
 		agent=new Agent();
 	}
 	
+	public IAgentService getAgentServ() {
+		return agentServ;
+	}
+
+	public void setAgentServ(IAgentService agentServ) {
+		this.agentServ = agentServ;
+	}
+
 	public AgentManagedBean() {
 		super();
 	}
