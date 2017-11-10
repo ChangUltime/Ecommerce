@@ -27,7 +27,7 @@ public class Categorie implements Serializable{
 	@Transient
 	private boolean modifCat;
 	
-	@OneToMany(mappedBy="categorie", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="categorie", fetch=FetchType.EAGER)
 	private List<Produit> listeProduits;
 
 	// D�claration des constructeurs

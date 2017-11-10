@@ -56,7 +56,7 @@ public class CommandeDAOImpl implements ICommandeDAO {
 	public Commande updateCommande(Commande commande) {
 		if (getCommande(commande) != null) {
 			
-			sf.getCurrentSession().update(commande);
+			sf.getCurrentSession().merge(commande);
 			
 			return commande;
 		} else {

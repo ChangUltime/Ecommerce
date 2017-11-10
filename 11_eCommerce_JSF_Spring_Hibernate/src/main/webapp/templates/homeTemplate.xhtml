@@ -42,18 +42,18 @@
 
 		<p:layoutUnit position="east" size="410" collapsible="true">
 			<h:form id="formPanier">
-				<p:dataTable id="panierId" var="panier"
+				<p:dataTable id="panierId" var="ligne"
 					value="#{panierMB.panier.listeLignes}">
 					<p:column headerText="Produit">
-						<h:outputText value="#{panierMB.produit.designation}" />
+						<h:outputText value="#{ligne.produit.designation}" />
 					</p:column>
 
 					<p:column headerText="Quantité">
-						<h:outputText value="#{panier.quantité}" />
+						<h:outputText value="#{ligne.quantité}" />
 					</p:column>
 
 					<p:column headerText="Description">
-						<h:outputText value="#{panier.prix}" />
+						<h:outputText value="#{ligne.description}" />
 					</p:column>
 
 				</p:dataTable>

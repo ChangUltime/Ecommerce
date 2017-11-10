@@ -31,9 +31,9 @@ public class PanierManagedBean implements Serializable {
 	
 	private Produit produit;
 	
-	private Commande panier;
+	private LigneDeCommande ligne;
 	
-	private Commande commande;
+	private Commande panier;
 	
 	private Client client;
 	
@@ -97,12 +97,12 @@ public class PanierManagedBean implements Serializable {
 		this.client = client;
 	}
 
-	public Commande getCommande() {
-		return commande;
+	public LigneDeCommande getLigne() {
+		return ligne;
 	}
 
-	public void setCommande(Commande commande) {
-		this.commande = commande;
+	public void setLigne(LigneDeCommande ligne) {
+		this.ligne = ligne;
 	}
 
 	public HttpSession getSession() {
@@ -137,7 +137,47 @@ public class PanierManagedBean implements Serializable {
 		}	
 	}
 	
-	public void enleverProduit(){
+	public void incremeterLigne(){
+		//Fonction qui incrémente le nombre de produits dans une ligne (à utiliser dans le panneau panier directement)
+		//nécessite que le bouton renvoie la ligne vers ce MB (target : panierMB.ligne)
+		
+		//on vérifie que la ligne renvoyée n'est pas nulle, et go
+		if(ligne!=null){
+			panier.getLigneByProduit(ligne.getProduit()).incrementerQuantite();
+			panier.getLigneByProduit(ligne.getProduit()).getTotal();
+			
+			session.setAttribute("panier", panier);
+		}
+		
+	}
+	
+	public void decrementerLigne(){
+		//Fonction qui réduit d'un le nombre de produits dans une ligne, avec supression si on arrive à 0
+		//on vérifie que la ligne renvoyée n'est pas nulle, et go
+		if(ligne!=null){
+			System.out.println("Le panier avant "+panier);
+			if(ligne.getQuantite()>1){
+				panier.getLigneByProduit(ligne.getProduit()).decrementerQuantite();
+				panier.getLigneByProduit(ligne.getProduit()).getTotal();
+				
+			} else {
+				panier.getListeLignes().remove(ligne);
+			}
+			session.setAttribute("panier", panier);
+			System.out.println("Le panier après "+panier);
+		}
+		
+	}
+	
+	public void changerQuantiteLigne(){
+		//Fonction au cas ou on voudrait changer directement le nombre de produits avec un field
+	}
+	
+	public void supprimerLigne(){
+		//Fonction pour supprimer carrément une ligne
+	}
+	
+	public void enleverProduit(){ // A PRIORI PAS UTILISEE (remplacer par decrementer ligne ou supprimer ligne, plus logique)
 		//meme chose que ajouter, mais à l'envers, avec différence si la ligne devient vide
 		Produit reqProduit = produitServ.getProduit(produit);
 		if (reqProduit!=null){
