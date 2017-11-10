@@ -68,9 +68,7 @@ public class ClientDAOImpl implements IClientDAO {
 		// Cette fonction ne recupere le client que par son ID		
 		if (getClient(client) != null) {
 			
-			sf.getCurrentSession().update(client);
-			
-			return client;
+			return (Client)sf.getCurrentSession().merge(client);
 		} else {
 			return null;
 		}
