@@ -151,7 +151,7 @@ public class ClientManagedBean implements Serializable {
 		// au cas ou la session ne comporterait pas d'agent?
 		if (currentClient!=null){
 			//on update par clientServ
-			currentClient = clientServ.updateClient(currentClient);
+			currentClient = clientServ.updateClient(client);
 			// si ça réussit, on renvoie vers sessionClient
 			if (currentClient!=null){
 				session.setAttribute("sessionClient", currentClient);

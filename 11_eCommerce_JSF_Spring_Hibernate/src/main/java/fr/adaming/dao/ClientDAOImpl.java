@@ -58,7 +58,7 @@ public class ClientDAOImpl implements IClientDAO {
 	public Client getClient(Client client) {
 		// Cette fonction ne récupère le client que par son ID
 		
-		Client outClient = (Client) sf.getCurrentSession().get(Client.class, client);
+		Client outClient = (Client) sf.getCurrentSession().get(Client.class, client.getIdClient());
 		
 		return outClient;
 	}
