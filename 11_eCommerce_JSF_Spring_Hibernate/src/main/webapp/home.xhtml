@@ -10,44 +10,50 @@
 	<ui:define name="contenuHome">
 		<h:form id="formProduit" rendered="#{catMB.afficheProduitByCat}">
 			<h1 style="color: red; text-align: center">
-				Catégorie :
-				<h:outputText value="#{catMB.categorie.nomCategorie}" />
+				Catégorie :<h:outputText value="#{catMB.categorie.nomCategorie}" />
 			</h1>
 			<p:carousel value="#{catMB.categorie.listeProduits}"
-				headerText="#{produit.designation}" var="prod"
+				headerText="#{catMB.categorie.nomCategorie}" var="prod"
 				itemStyle="text-align:center" responsive="true">
-				<p:commandLink type="button" onclick="PF('dlg1').show();">
-					
-
-					<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
-						columnClasses="label,value" layout="grid"
-						styleClass="ui-panelgrid-blank">
-
-						<h:outputText value="ID" />
-						<h:outputText value="#{prod.idProduit}" />
-
-						<h:outputText value="Designation" />
-						<h:outputText value="#{prod.designation}" />
-
-						<h:outputText value="Stock" />
-						<h:outputText value="#{prod.stock}" />
-
-						<h:outputText value="Prix" />
-						<h:outputText value="#{prod.prix}" rendered="#{!prod.selectionne}"/>
-						<h:outputText value="Promo ! #{prod.prixPromo}$ au lieu de #{prod.prix}$ !" rendered="#{prod.selectionne}"/>
-					</p:panelGrid>
+				<p:commandLink type="button" value="#{prod.designation}" onclick="PF('montrerProduit').show();">
+					<f:setPropertyActionListener value="#{prod}" target="#{prodMB.produit}"/>
 				</p:commandLink>
-				<h:commandButton value="Ajouter au panier"
-					action="accueil">
+				
+				<p:commandButton value="Ajouter au panier"
+					actionListener="#{panierMB.ajouterProduit}" update="@all"> 
 					<f:setPropertyActionListener value="#{prod}"
 						target="#{panierMB.produit}" />
-				</h:commandButton>
+				</p:commandButton>
 
 			</p:carousel>
+			<p:dialog header="#{prodMB.produit.designation}" widgetVar="montrerProduit"
+				height="400px" width="600px" closeOnEscape="true" position="center"
+				resizable="false">
+				<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
+					columnClasses="label,value" layout="grid"
+					styleClass="ui-panelgrid-blank">
+<!-- 					<f:facet name="header"> -->
+<!-- 						<p:graphicImage name="" /> -->
+<!-- 					</f:facet> -->
+		
+					<h:outputText value="Id:" />
+					<h:outputText value="#{prodMB.produit.idProduit}" />
+		
+					<h:outputText value="Designation" />
+					<h:outputText value="#{prodMB.produit.designation}" />
+		
+					<h:outputText value="Quantité" />
+					<h:outputText value="#{prodMB.produit.stock}" />
+		
+					<h:outputText value="Prix" />
+					<h:outputText value="#{prodMB.produit.prix}"  rendered="#{!prodMB.produit.selectionne}"/>
+					<h:outputText value="Promo ! #{prodMB.produit.prixPromo}$ au lieu de #{prodMB.produit.prix}$ !" rendered="#{prodMB.produit.selectionne}"/>
+				</p:panelGrid>
+			</p:dialog>
 		</h:form>
 
 		<h:form rendered="#{!catMB.afficheProduitByCat}">
-			<h1 style="color: black; text-align: center">Promotion</h1>
+			<h1 style="color: black; text-align: center">Promotions</h1>
 
 			<p:carousel value="#{prodMB.listeProduitsSelected}"
 				headerText="#{produit.designation}" var="prod"

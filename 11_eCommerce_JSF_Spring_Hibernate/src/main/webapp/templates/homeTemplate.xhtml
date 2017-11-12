@@ -22,40 +22,17 @@
 					value="#{sessionScope.categoriesListe}"
 					style="width:400px;height:1000px;">
 					<f:facet name="header">
-            			Catégorie
+            			Catégories
         			</f:facet>
 
-					<p:column style="width:320px;">
+					<p:column style="width:320px">
 						<p:commandLink id="ajax" update="@all"
-							oncomplete="PF('catWidget').show()" icon="ui-icon-search"
-							title="View" value="#{categorie.nomCategorie}">
-							<f:setPropertyActionListener value="true"
-								target="#{catMB.afficheProduitByCat}" />
+							title="View" actionListener="#{catMB.afficherCategorie}">
+							<h:outputText value="#{categorie.nomCategorie}"/>
 							<f:setPropertyActionListener value="#{categorie}"
-								target="#{catMB.categorie}" />
-
+								target="#{catMB.categorie}"/>
 						</p:commandLink>
 					</p:column>
-				</p:dataTable>
-			</h:form>
-		</p:layoutUnit>
-
-		<p:layoutUnit position="east" size="410" collapsible="true">
-			<h:form id="formPanier">
-				<p:dataTable id="panierId" var="ligne"
-					value="#{panierMB.panier.listeLignes}">
-					<p:column headerText="Produit">
-						<h:outputText value="#{ligne.produit.designation}" />
-					</p:column>
-
-					<p:column headerText="Quantité">
-						<h:outputText value="#{ligne.quantité}" />
-					</p:column>
-
-					<p:column headerText="Description">
-						<h:outputText value="#{ligne.description}" />
-					</p:column>
-
 				</p:dataTable>
 			</h:form>
 		</p:layoutUnit>
@@ -112,31 +89,31 @@
 
 		</p:layoutUnit>
 
+
+		<p:layoutUnit position="east" size="410" collapsible="true">
+			<h:form id="formPanier">
+				<p:dataTable id="panierId" var="ligne"
+					value="#{panierMB.panier.listeLignes}">
+					<p:column headerText="Produit">
+						<h:outputText value="#{ligne.produit.designation}" />
+					</p:column>
+
+					<p:column headerText="Quantité">
+						<h:outputText value="#{ligne.quantite}" />
+					</p:column>
+
+					<p:column headerText="Description">
+						<h:outputText value="#{ligne.description}" />
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+		</p:layoutUnit>
+		
+		
 	</p:layout>
 	<h:form>
-	<p:dialog header="#{catMB.produit.designation}" widgetVar="dlg1"
-		height="400px" width="600px" closeOnEscape="true" position="center"
-		resizable="false">
-		<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
-			columnClasses="label,value" layout="grid"
-			styleClass="ui-panelgrid-blank">
-			<f:facet name="header">
-				<p:graphicImage name="#" />
-			</f:facet>
 
-			<h:outputText value="Id:" />
-			<h:outputText value="#{prodMB.produit.idProduit}" />
-
-			<h:outputText value="Designation" />
-			<h:outputText value="#{catMB.produit.designation}" />
-
-			<h:outputText value="Quantité" />
-			<h:outputText value="#{catMB.categorie.listeProduits}" />
-
-			<h:outputText value="Prix" />
-			<h:outputText value="#{catMB.produit.prix}" />
-		</p:panelGrid>
-	</p:dialog>
 	<p:dialog header="Ajouter au panier" widgetVar="dlg" showEffect="fade"
 		hideEffect="fade" resizable="false" closeOnEscape="true"
 		position="center" width="500px">

@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 
 import com.lowagie.text.BadElementException;
@@ -189,6 +190,11 @@ public class CategorieManagedBean implements Serializable {
 	}
 
 	// M�thode metiers
+	
+	public void afficherCategorie(ActionEvent event){
+		this.afficheProduitByCat = true;
+	}
+	
 	public String addCategorie() {
 		Categorie cat_out = catService.addCategorie(this.categorie);
 

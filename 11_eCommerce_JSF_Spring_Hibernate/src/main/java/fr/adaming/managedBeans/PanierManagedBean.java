@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Client;
@@ -113,22 +114,26 @@ public class PanierManagedBean implements Serializable {
 		this.session = session;
 	}
 
-	public void ajouterProduit(){
+	public void ajouterProduit(ActionEvent event){
 		// ajoute le produit donné dans un form, et vérifie si le produit est déjà dans le panier
 		Produit reqProduit = produitServ.getProduit(produit);
+		System.out.println("Apres recuperation du produit "+reqProduit);
 		if (reqProduit!=null){
 			//on verifie si le produit est déjà présent, on part du principe que non(false)
 			boolean produitPresent = false;
 			//on cherche si une ligne contient le produit a rajouter, le nom ("designation") ET l'id ("idproduit") doivent correspondre.
 			//normalement c'est le cas vu qu'on est passé par produitServ...
 			LigneDeCommande ligneCommande = panier.getLigneByProduit(reqProduit);
+			System.out.println("Apres recuperation de la ligne "+panier);
 			//si on trouve une ligne qui correspond, on incremente la quantite et on met a jour le total
 			if(ligneCommande!=null){
 				ligneCommande.incrementerQuantite();
 				ligneCommande.getTotal(); // Note: Commande.getTotal() existe: une méthode qui calcule le total des totaux, sans stocker le résultat.
+				System.out.println("Apres incrementation de la ligne "+panier);
 			}else{
 				//sinon, on rajoute une nouvelle ligne
 				panier.getListeLignes().add(new LigneDeCommande(1, reqProduit.getPrix(), reqProduit, panier));
+				System.out.println("Apres création de la ligne "+panier);
 			}
 		//on renvoie le panier dans la session
 		session.setAttribute("panier", panier);
