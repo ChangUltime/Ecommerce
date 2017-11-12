@@ -46,6 +46,7 @@ public class PanierManagedBean implements Serializable {
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		// On cherche à obtenir le client actuel depuis la session, si il existe (ie session déjà créée par clientMB)
 		client = (Client)session.getAttribute("sessionClient");
+		
 		// Si le client existe, le panier (Commande) lui est attribué
 		if(client!=null){
 			//la création de panier, qui est une Commande, ne passe pas par serv afin de ne pas l'enregistrer (pour le moment)
@@ -116,6 +117,8 @@ public class PanierManagedBean implements Serializable {
 
 	public void ajouterProduit(ActionEvent event){
 		// ajoute le produit donné dans un form, et vérifie si le produit est déjà dans le panier
+		
+		System.out.println("blablabla"+produit);
 		Produit reqProduit = produitServ.getProduit(produit);
 		System.out.println("Apres recuperation du produit "+reqProduit);
 		if (reqProduit!=null){

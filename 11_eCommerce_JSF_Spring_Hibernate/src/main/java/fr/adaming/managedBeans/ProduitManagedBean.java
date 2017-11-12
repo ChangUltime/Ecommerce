@@ -20,7 +20,7 @@ import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 import fr.adaming.service.IProduitService;
 
-@ManagedBean(name = "prodMB")
+@ManagedBean(name="prodMB")
 @RequestScoped
 public class ProduitManagedBean {
 
@@ -62,7 +62,7 @@ public class ProduitManagedBean {
 		listeProduitsSelected = prodService.getProduitSelected();
 		session.setAttribute("produitsSelectedListe", listeProduitsSelected);
 
-		produit = new Produit();
+		//produit = new Produit();
 	}
 
 	public IProduitService getProdService() {

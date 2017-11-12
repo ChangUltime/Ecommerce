@@ -15,17 +15,32 @@
 			<p:carousel value="#{catMB.categorie.listeProduits}"
 				headerText="#{catMB.categorie.nomCategorie}" var="prod"
 				itemStyle="text-align:center" responsive="true">
-				<p:commandLink type="button" value="#{prod.designation}" onclick="PF('montrerProduit').show();">
+				<p:commandLink type="button" value="#{prod.designation}" onclick="PF('montrerProduit').show();" update="@widgetVar(montrerProduit)">
 					<f:setPropertyActionListener value="#{prod}" target="#{prodMB.produit}"/>
 				</p:commandLink>
-				
-				<p:commandButton value="Ajouter au panier"
-					actionListener="#{panierMB.ajouterProduit}" update="@all"> 
-					<f:setPropertyActionListener value="#{prod}"
-						target="#{panierMB.produit}" />
+				<p:commandButton value="Ajouter au panier" process="@parent" actionListener="#{panierMB.ajouterProduit}" update=":formPanier"> 
+					<f:setPropertyActionListener value="#{prod}" target="#{panierMB.produit}" />
 				</p:commandButton>
 
 			</p:carousel>
+			
+			
+			<p:dataTable value="#{catMB.categorie.listeProduits}" var="choixProduit">
+				<p:column headerText="Produit">
+					<h:outputText value="#{choixProduit.designation}"/>
+				</p:column>
+				<p:column headerText="Prix">
+					<h:outputText value="#{choixProduit.prix}"/>
+				</p:column>				
+				<p:column headerText="">
+					<p:commandButton value="Ajouter" process="@parent" actionListener="#{panierMB.ajouterProduit}" update=":formPanier"> 
+						<f:setPropertyActionListener value="#{choixProduit}" target="#{panierMB.produit}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			
+			
+			
 			<p:dialog header="#{prodMB.produit.designation}" widgetVar="montrerProduit"
 				height="400px" width="600px" closeOnEscape="true" position="center"
 				resizable="false">
