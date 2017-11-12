@@ -63,23 +63,19 @@
 		<p:layoutUnit position="center">
 			<h:form>
 				<h:panelGrid columns="2" width="100%">
-					<p:breadCrumb>
-						<p:menuitem value="Accueil" url="accueil.xhtml" />
-						<p:menuitem value="login agent" url="login.xhtml" />
-					</p:breadCrumb>
 
 					<p:commandButton id="loginAgentButton" value="Compte agent"
 						type="button" style="position:right" />
 					<p:overlayPanel id="loginAgentPanel" for="loginAgentButton"
 						hideEffect="fade">
-						<p:panelGrid columns="2">
+						<p:panelGrid columns="2" rendered="#{!aMB.connected}">
 							<h:outputLabel value="E-Mail" />
 							<h:inputText value="#{aMB.agent.mail}" />
 							<h:outputLabel value="Mot de Passe" />
 							<h:inputSecret value="#{aMB.agent.password}" />
 							<h:commandButton value="Login" action="#{aMB.seConnecter}" />
 						</p:panelGrid>
-						<p:panelGrid columns="1">
+						<p:panelGrid columns="1" rendered="#{aMB.connected}">
 							<h:commandButton value="Gestion du Compte" action="homeAgent" />
 							<h:commandButton value="Déconnecter"
 								action="#{aMB.seDeconnecter}" />
@@ -108,15 +104,16 @@
 
 				</h:panelGrid>
 
-				<ui:insert name="contenuHome">Il devrait y avoir quelque chose ici...</ui:insert>
-
-
 			</h:form>
+
+
+			<ui:insert name="contenuHome">Il devrait y avoir quelque chose ici...</ui:insert>
+
 
 		</p:layoutUnit>
 
 	</p:layout>
-
+	<h:form>
 	<p:dialog header="#{catMB.produit.designation}" widgetVar="dlg1"
 		height="400px" width="600px" closeOnEscape="true" position="center"
 		resizable="false">
@@ -150,7 +147,7 @@
 				target="#{panierMB.produit}" />
 		</p:commandButton>
 	</p:dialog>
-
+	</h:form>
 </h:body>
 
 </html>

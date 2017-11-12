@@ -24,9 +24,12 @@ public class AgentManagedBean implements Serializable {
 	
 	private HttpSession session;
 	
+	private boolean connected;
+	
 	@PostConstruct
 	private void init(){
 		this.agent=new Agent();
+		this.connected = false;
 	}
 	
 	public IAgentService getAgentServ() {
@@ -49,6 +52,14 @@ public class AgentManagedBean implements Serializable {
 		this.agent = agent;
 	}
 
+	public boolean isConnected() {
+		return connected;
+	}
+
+	public void setConnected(boolean connected) {
+		this.connected = connected;
+	}
+
 	public String seConnecter(){
 		// fonction de login de l'agent, qui donne acces a la gestion produits et categories
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -60,7 +71,8 @@ public class AgentManagedBean implements Serializable {
 		if(loginAgent!=null){
 			this.agent = loginAgent;
 			session.setAttribute("sessionAgent", this.agent);
-			context.addMessage(null, new FacesMessage("Session de "+agent.getMail()));			
+			context.addMessage(null, new FacesMessage("Session de "+agent.getMail()));
+			setConnected(true);
 			return "homeAgent";
 		}else {
 			context.addMessage(null, new FacesMessage("Cet agent n'existe pas, verifiez les identifiants"));
@@ -72,6 +84,7 @@ public class AgentManagedBean implements Serializable {
 		session.invalidate();
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage("Vous avez été déconnecté avec succès"));
+		setConnected(false);
 		return "home?faces-redirect=true";
 	}
 }
