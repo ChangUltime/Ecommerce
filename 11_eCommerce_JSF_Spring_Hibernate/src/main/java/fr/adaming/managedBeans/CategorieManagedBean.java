@@ -1,5 +1,7 @@
 package fr.adaming.managedBeans;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,8 +10,26 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Image;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.primefaces.component.export.ExcelOptions;
+import org.primefaces.component.export.PDFExporter;
+import org.primefaces.component.export.PDFOptions;
 
 import fr.adaming.model.Agent;
 import fr.adaming.model.Categorie;
@@ -40,9 +60,28 @@ public class CategorieManagedBean implements Serializable {
 	private HttpSession session;
 
 	private List<Categorie> listeCategories;
+	
+	
+	private ExcelOptions excelOpt;
+	
+	private PDFOptions pdfOpt;
 
 	public CategorieManagedBean() {
 		this.categorie = new Categorie();
+		
+		excelOpt = new ExcelOptions();
+        excelOpt.setFacetBgColor("#F88017");
+        excelOpt.setFacetFontSize("10");
+        excelOpt.setFacetFontColor("#0000ff");
+        excelOpt.setFacetFontStyle("BOLD");
+        excelOpt.setCellFontColor("#00ff00");
+        excelOpt.setCellFontSize("8");
+		
+		pdfOpt = new PDFOptions();
+        pdfOpt.setFacetBgColor("#F88017");
+        pdfOpt.setFacetFontColor("#0000ff");
+        pdfOpt.setFacetFontStyle("BOLD");
+        pdfOpt.setCellFontSize("12");
 	}
 
 	@PostConstruct // Cette annotation sert a excecute la m�thode juste apr�s
@@ -132,6 +171,22 @@ public class CategorieManagedBean implements Serializable {
 	public void setAfficheProduitByCat(boolean afficheProduitByCat) {
 		this.afficheProduitByCat = afficheProduitByCat;
 	}
+	
+	public ExcelOptions getExcelOpt() {
+		return excelOpt;
+	}
+
+	public void setExcelOpt(ExcelOptions excelOpt) {
+		this.excelOpt = excelOpt;
+	}
+	
+	public PDFOptions getPdfOpt() {
+		return pdfOpt;
+	}
+
+	public void setPdfOpt(PDFOptions pdfOpt) {
+		this.pdfOpt = pdfOpt;
+	}
 
 	// M�thode metiers
 	public String addCategorie() {
@@ -207,4 +262,44 @@ public class CategorieManagedBean implements Serializable {
 		}
 
 	}
+	
+	public Categorie getBeer(Integer id) {
+        if (id == null){
+            throw new IllegalArgumentException("no id provided");
+        }
+        for (Categorie beer : listeCategories){
+            if (id.equals(beer.getIdCategorie())){
+                return beer;
+            }
+        }
+        return null;
+    }
+	
+	public void postProcessXLS(Object document) {
+        HSSFWorkbook wb = (HSSFWorkbook) document;
+        HSSFSheet sheet = wb.getSheetAt(0);
+        HSSFRow header = sheet.getRow(0);
+         
+        HSSFCellStyle cellStyle = wb.createCellStyle();  
+        cellStyle.setFillForegroundColor(HSSFColor.GREEN.index);
+        cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+         
+        for(int i=0; i < header.getPhysicalNumberOfCells();i++) {
+            HSSFCell cell = header.getCell(i);
+             
+            cell.setCellStyle(cellStyle);
+        }
+    }
+	
+	public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException {
+        Document pdf = (Document) document;
+        pdf.open();
+        pdf.setPageSize(PageSize.A4);
+ 
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        String logo = externalContext.getRealPath("") + File.separator + "images" + File.separator + "Logo.jpg";
+         
+        pdf.add(Image.getInstance(logo));
+        pdf.add(new Paragraph("Liste des categories"));
+    }
 }

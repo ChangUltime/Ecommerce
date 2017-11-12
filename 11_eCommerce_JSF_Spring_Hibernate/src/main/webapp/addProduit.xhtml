@@ -28,6 +28,14 @@
 				<p:inputText id="qteProd" value="#{prodMB.produit.stock}"
 					required="true" />
 
+				<p:outputLabel for="catProd" value="Catégorie" />
+				<p:selectOneMenu id="catProd" value="#{prodMB.produit.categorie}" converter="#{converterMB}">
+					<f:selectItem itemLabel="Selectionner une categorie" itemValue="" />
+					<f:selectItems value="#{catMB.listeCategories}" var="categorie"
+						itemLabel="#{categorie.nomCategorie}" itemValue="#{categorie}" />
+				</p:selectOneMenu>
+
+
 				<p:commandButton value="Ajouter" action="#{prodMB.addProduit}"
 					update="@all" />
 			</h:panelGrid>

@@ -11,7 +11,7 @@
 		<h:form>
 
 			<h1 style="color: red; text-align: center">Liste des categories</h1>
-			<p:dataTable var="categorie" value="#{sessionScope.categoriesListe}">
+			<p:dataTable id="tblCat" var="categorie" value="#{sessionScope.categoriesListe}">
 				<p:column headerText="ID">
 					<h:outputLabel for="idCate" value="#{categorie.idCategorie}"
 						rendered="#{!categorie.modifCat}" />
@@ -23,7 +23,7 @@
 				<p:column headerText="Nom">
 					<p:outputLabel for="nameCate" value="#{categorie.nomCategorie}"
 						rendered="#{!categorie.modifCat}" />
-					<p:inputText id="nameCate" value="#{catMB.categorie.nomCategorie}"
+					<p:inputText id="nameCate" value="#{categorie.nomCategorie}"
 						placeholder="#{categorie.nomCategorie}"
 						rendered="#{categorie.modifCat}" />
 				</p:column>
@@ -46,7 +46,7 @@
 				</p:column>
 
 				<p:column rendered="#{categorie.modifCat}">
-					<p:commandButton type="submit" title="Appliquer"
+					<p:commandButton type="submit" value="Appliquer"
 						action="#{catMB.updateCategorie}" update="@all"
 						rendered="#{categorie.modifCat}">
 						<f:setPropertyActionListener value="#{categorie}"
@@ -55,18 +55,43 @@
 				</p:column>
 
 			</p:dataTable>
+
+			<h:commandLink value="Yohoo">
+				<p:dataExporter type="pdf" target="tblCat" fileName="Categorie" preProcessor="#{catMB.preProcessPDF}" />
+			</h:commandLink>
+
 		</h:form>
 
 		<h:form>
 
 			<h1 style="color: red; text-align: center">Liste des produits</h1>
-			<p:dataTable var="produit" value="#{sessionScope.produitsListe}">
+			<p:dataTable var="produit" value="#{proMB.produit.produitsListe}"
+				editable="true" editMode="cell" widgetVar="cellProduit">
+
+				<p:ajax event="cellEdit" listener="#{prodMB.onCellEdit}"
+					update="@all" />
+
 				<p:column headerText="ID">
-					<h:outputText value="#{produit.idProduit}" />
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{produit.idProduit}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{produit.idProduit}" />
+						</f:facet>
+					</p:cellEditor>
 				</p:column>
 
 				<p:column headerText="Designation">
-					<h:outputText value="#{produit.designation}" />
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{produit.designation}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInput" value="#{produit.designation}" />
+						</f:facet>
+					</p:cellEditor>
+
 				</p:column>
 
 				<p:column headerText="Description">

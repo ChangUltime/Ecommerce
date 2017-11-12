@@ -175,6 +175,84 @@ public class Produit implements Serializable{
 		return "Produit [idProduit=" + idProduit + ", designation=" + designation + ", description=" + description
 				+ ", prix=" + prix + ", stock=" + stock + ", selectionne=" + selectionne + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((categorie == null) ? 0 : categorie.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((designation == null) ? 0 : designation.hashCode());
+		result = prime * result + ((idProduit == null) ? 0 : idProduit.hashCode());
+		result = prime * result + ((ldc == null) ? 0 : ldc.hashCode());
+		result = prime * result + ((ligne == null) ? 0 : ligne.hashCode());
+		result = prime * result + (modifProduit ? 1231 : 1237);
+		long temp;
+		temp = Double.doubleToLongBits(prix);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(prixPromo);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(reduc);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + (selectionne ? 1231 : 1237);
+		result = prime * result + stock;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produit other = (Produit) obj;
+		if (categorie == null) {
+			if (other.categorie != null)
+				return false;
+		} else if (!categorie.equals(other.categorie))
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (designation == null) {
+			if (other.designation != null)
+				return false;
+		} else if (!designation.equals(other.designation))
+			return false;
+		if (idProduit == null) {
+			if (other.idProduit != null)
+				return false;
+		} else if (!idProduit.equals(other.idProduit))
+			return false;
+		if (ldc == null) {
+			if (other.ldc != null)
+				return false;
+		} else if (!ldc.equals(other.ldc))
+			return false;
+		if (ligne == null) {
+			if (other.ligne != null)
+				return false;
+		} else if (!ligne.equals(other.ligne))
+			return false;
+		if (modifProduit != other.modifProduit)
+			return false;
+		if (Double.doubleToLongBits(prix) != Double.doubleToLongBits(other.prix))
+			return false;
+		if (Double.doubleToLongBits(prixPromo) != Double.doubleToLongBits(other.prixPromo))
+			return false;
+		if (Double.doubleToLongBits(reduc) != Double.doubleToLongBits(other.reduc))
+			return false;
+		if (selectionne != other.selectionne)
+			return false;
+		if (stock != other.stock)
+			return false;
+		return true;
+	}
+	
 	
 	// Autre m�thode
 	

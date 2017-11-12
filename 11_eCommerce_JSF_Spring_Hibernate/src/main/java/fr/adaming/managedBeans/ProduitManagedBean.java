@@ -12,6 +12,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
+
 import fr.adaming.model.Agent;
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
@@ -237,4 +240,23 @@ public class ProduitManagedBean {
 		}
 	}
 
+//	public void onRowEdit(RowEditEvent event) {
+//        FacesMessage msg = new FacesMessage("Car Edited", ((Produit) event.getObject()).getIdProduit());
+//        FacesContext.getCurrentInstance().addMessage(null, msg);
+//    }
+//     
+//    public void onRowCancel(RowEditEvent event) {
+//        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Produit) event.getObject()).getIdProduit());
+//        FacesContext.getCurrentInstance().addMessage(null, msg);
+//    }
+	
+	public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+         
+        if(newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
 }
