@@ -47,6 +47,8 @@ public class PanierManagedBean implements Serializable {
 		// On cherche à obtenir le client actuel depuis la session, si il existe (ie session déjà créée par clientMB)
 		client = (Client)session.getAttribute("sessionClient");
 		
+		this.produit = new Produit();
+		
 		// Si le client existe, le panier (Commande) lui est attribué
 		if(client!=null){
 			//la création de panier, qui est une Commande, ne passe pas par serv afin de ne pas l'enregistrer (pour le moment)
