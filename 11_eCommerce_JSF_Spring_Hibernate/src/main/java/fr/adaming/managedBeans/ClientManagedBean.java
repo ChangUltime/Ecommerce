@@ -38,6 +38,8 @@ public class ClientManagedBean implements Serializable {
 	public void init() {
 		client = new Client();
 		connected=false;
+		FacesContext context = FacesContext.getCurrentInstance();
+		session = (HttpSession) context.getExternalContext().getSession(true);
 	}
 
 	public IClientService getClientServ() {
@@ -89,7 +91,7 @@ public class ClientManagedBean implements Serializable {
 		// personnel et des commandes
 
 		FacesContext context = FacesContext.getCurrentInstance();
-		session = (HttpSession) context.getExternalContext().getSession(true);
+		session = (HttpSession) context.getExternalContext().getSession(false);
 
 		// On verifie que le client existe, et on recupere sa description
 		// complete (avec id)

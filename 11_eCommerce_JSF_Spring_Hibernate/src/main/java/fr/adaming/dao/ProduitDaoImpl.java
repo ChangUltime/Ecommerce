@@ -17,7 +17,7 @@ public class ProduitDaoImpl implements IProduitDao {
 	@Autowired
 	private SessionFactory sf;
 
-	// Setter pour l'injection de dépendance
+	// Setter pour l'injection de dependance
 	public void setSf(SessionFactory sf) {
 		this.sf = sf;
 	}
