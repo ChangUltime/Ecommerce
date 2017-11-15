@@ -20,8 +20,8 @@
 					<h:outputText value="#{choixProduit.prix}"/>
 				</p:column>				
 				<p:column headerText="">
-					<p:commandButton value="Ajouter" process="@form" actionListener="#{panierMB.ajouterProduit}" update="@all"> 
-						<f:setPropertyActionListener value="#{choixProduit}" target="#{panierMB.produit}" />
+					<p:commandButton value="Ajouter" actionListener="#{panierMB.ajouterProduit}"> 
+						<f:setPropertyActionListener value="#{choixProduit.idProduit}" target="#{panierMB.produit.idProduit}" />
 					</p:commandButton>
 				</p:column>
 		</p:dataTable>
