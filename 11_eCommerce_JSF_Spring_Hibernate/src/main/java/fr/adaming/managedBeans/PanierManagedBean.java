@@ -78,10 +78,12 @@ public class PanierManagedBean implements Serializable {
 	}
 
 	public Produit getProduit() {
+		System.out.println("Le produit au getter" +produit);
 		return produit;
 	}
 
 	public void setProduit(Produit produit) {
+		System.out.println("Le produit au setter" +produit);
 		this.produit = produit;
 	}
 

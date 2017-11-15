@@ -58,6 +58,7 @@ public class ProduitManagedBean {
 		this.agent = (Agent) session.getAttribute("agentSession");
 
 		listeProduits = prodService.getAllProduit();
+		System.out.println("La liste des produits à l'initialisation" +listeProduits);
 		session.setAttribute("produitsListe", listeProduits);
 		
 		listeProduitsSelected = prodService.getProduitSelected();
@@ -115,10 +116,12 @@ public class ProduitManagedBean {
 	}
 
 	public List<Produit> getListeProduits() {
+		System.out.println("La liste des produits au getter" +listeProduits);
 		return listeProduits;
 	}
 
 	public void setListeProduits(List<Produit> listeProduits) {
+		System.out.println("La liste des produits au setter" +listeProduits);
 		this.listeProduits = listeProduits;
 	}
 
